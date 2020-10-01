@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,9 +20,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         checkPermission();
+
+
+    }
+
+    public void onClickCCA(View view) {
         Intent ccaIntent = new Intent(this, CameraCaptureActivity.class);
         startActivity(ccaIntent);
-
     }
 
     public void checkPermission() {

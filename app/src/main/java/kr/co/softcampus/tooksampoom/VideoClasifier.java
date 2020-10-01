@@ -2,13 +2,15 @@ package kr.co.softcampus.tooksampoom;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
+
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -20,15 +22,12 @@ import com.google.mlkit.vision.pose.PoseDetector;
 import com.google.mlkit.vision.pose.PoseDetectorOptions;
 import com.google.mlkit.vision.pose.PoseLandmark;
 
-import org.bytedeco.javacv.AndroidFrameConverter;
-import org.bytedeco.javacv.FFmpegFrameGrabber;
-import org.bytedeco.javacv.Frame;
-import org.bytedeco.javacv.FrameGrabber;
 
 import java.io.Console;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.List;
 
 
@@ -36,40 +35,56 @@ public class VideoClasifier {
 
     Uri filePath;
     Context context;
-    private FFmpegFrameGrabber grabber;
-    private AndroidFrameConverter converterToBitmap;
+    int currentTimer = 0;
+    MediaMetadataRetriever retriever;
 
     public VideoClasifier (Uri path, Context context) {
         filePath = path;
         this.context = context;
+        currentTimer = 0;
 
+        retriever = new MediaMetadataRetriever();
+        retriever.setDataSource(filePath.getPath().split(":")[1]);
+    }
+
+    public  String getPath(Context context, Uri uri)  {
+        Cursor cursor = null;
         try {
-            InputStream inputStream = context.getContentResolver().openInputStream(filePath);
-            grabber = new FFmpegFrameGrabber(inputStream);
-            converterToBitmap = new AndroidFrameConverter();
-            grabber.setFormat(grabber.getFormat());
-            grabber.start();
-
-
-        } catch (FileNotFoundException | FrameGrabber.Exception e) {
-            Log.e("VideoClasifier", e.toString());
-            e.printStackTrace();
+            String[] proj = { MediaStore.Images.Media.DATA };
+            cursor = context.getContentResolver().query(uri,  proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
     }
 
     public Bitmap getNextBitmap() {
         try {
-            Frame nthFrame = grabber.grabImage();
-            return converterToBitmap.convert((nthFrame));
-        } catch (FrameGrabber.Exception e) {
-            Log.e("VideoClasifier", e.toString());
-            e.printStackTrace();
+            retriever = new MediaMetadataRetriever();
+            retriever.setDataSource(filePath.getPath().split(":")[1]);
+            Bitmap bt = retriever.getFrameAtTime(currentTimer, MediaMetadataRetriever.OPTION_CLOSEST);
+            currentTimer += 1000000;
+            return bt;
+
+        } catch (IllegalArgumentException ex) {
+            ex.printStackTrace();
+        } catch (RuntimeException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                retriever.release();
+            } catch (RuntimeException ex) {
+            }
         }
         return null;
     }
 
 
-    public static List<PoseLandmark> AnalizeImage(Bitmap bp){
+    public static Task<Pose> AnalizeImage(Bitmap bp){
         PoseDetectorOptions options =
                 new PoseDetectorOptions.Builder()
                         .setDetectorMode(PoseDetectorOptions.SINGLE_IMAGE_MODE)
@@ -77,10 +92,7 @@ public class VideoClasifier {
                         .build();
         PoseDetector poseDetector = PoseDetection.getClient(options);
         InputImage image = InputImage.fromBitmap(bp, 0);
-        Task<Pose> result =
-                poseDetector.process(image);
-        if (result.isSuccessful())
-            return result.getResult().getAllPoseLandmarks();
-        return null;
+        Task<Pose> result = poseDetector.process(image);
+        return result;
     }
 }
