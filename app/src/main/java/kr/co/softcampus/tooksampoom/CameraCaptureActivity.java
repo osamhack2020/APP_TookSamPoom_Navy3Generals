@@ -1,11 +1,16 @@
 package kr.co.softcampus.tooksampoom;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -21,37 +26,37 @@ import java.util.List;
 
 public class CameraCaptureActivity extends AppCompatActivity {
 
+    ImageView ccImageview;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_capture);
+        ccImageview = findViewById(R.id.camera_cap_image);
 
-        PoseDetectorOptions options =
-                new PoseDetectorOptions.Builder()
-                        .setDetectorMode(PoseDetectorOptions.SINGLE_IMAGE_MODE)
-                        .setPerformanceMode(PoseDetectorOptions.PERFORMANCE_MODE_ACCURATE)
-                        .build();
-        PoseDetector poseDetector = PoseDetection.getClient(options);
-        Bitmap bp = BitmapFactory.decodeResource(this.getResources(),R.mipmap.ic_launcher);
-        InputImage image = InputImage.fromBitmap(bp, 0);
-        Task<Pose> result =
-                poseDetector.process(image)
-                        .addOnSuccessListener(
-                                new OnSuccessListener<Pose>() {
-                                    @Override
-                                    public void onSuccess(Pose pose) {
-
-                                        List<PoseLandmark> allPoseLandmarks = pose.getAllPoseLandmarks();
+        Intent pickIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        pickIntent.setType("*/*");
+        startActivityForResult(pickIntent, 0);
 
 
-                                    }
-                                })
-                        .addOnFailureListener(
-                                new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
+    }
 
-                                    }
-                                });
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            Uri selectedMediaUri = data.getData();
+            if (selectedMediaUri.toString().contains("image")) {
+                //handle image
+            } else  {
+                VideoClasifier vc = new VideoClasifier(selectedMediaUri, this);
+                Bitmap bt = vc.getNextBitmap();
+                while(bt != null) {
+                    ccImageview.setImageBitmap(bt);
+                    List<PoseLandmark> pose = VideoClasifier.AnalizeImage(bt);
+                    bt = vc.getNextBitmap();
+                }
+            }
+        }
     }
 }
