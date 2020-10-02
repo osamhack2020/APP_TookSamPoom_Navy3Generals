@@ -10,6 +10,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -21,22 +23,24 @@ import android.widget.SimpleAdapter;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.pose.Pose;
-import com.google.mlkit.vision.pose.PoseDetection;
-import com.google.mlkit.vision.pose.PoseDetector;
-import com.google.mlkit.vision.pose.PoseDetectorOptions;
 import com.google.mlkit.vision.pose.PoseLandmark;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CameraCaptureActivity extends AppCompatActivity {
 
+    private static final int CREATE_FILE = 1;
+    private static final int PICK_VIDEO = 2;
+
     ImageView ccImageview;
     VideoClasifier vc;
     ListView ccaListView;
+    OutputStream tspOutputStream;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,30 +48,48 @@ public class CameraCaptureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera_capture);
         ccImageview = findViewById(R.id.camera_cap_image);
         ccaListView = findViewById(R.id.ccm_list);
+        ccaListView.setAdapter(new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1));
 
         Intent pickIntent = new Intent(Intent.ACTION_GET_CONTENT);
         pickIntent.setType("*/*");
-        startActivityForResult(pickIntent, 10);
+        createFile();
+        startActivityForResult(pickIntent, PICK_VIDEO);
+    }
 
+    private void createFile() {
+        Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("application/cvs");
+        intent.putExtra(Intent.EXTRA_TITLE, "TSPclassify");
 
+        startActivityForResult(intent, CREATE_FILE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            Uri selectedMediaUri = data.getData();
-            if (selectedMediaUri.toString().contains("image")) {
-                //handle image
-            } else  {
+        if (requestCode == PICK_VIDEO) {
+            if (resultCode == RESULT_OK) {
+                Uri selectedMediaUri = data.getData();
                 vc = new VideoClasifier(selectedMediaUri, this);
                 Bitmap bt = vc.getNextBitmap();
                 ccImageview.setImageBitmap(bt);
             }
+        } else if(requestCode == CREATE_FILE) {
+            Uri uri = null;
+            if (data != null) {
+                uri = data.getData();
+                try {
+                    tspOutputStream = getContentResolver().openOutputStream(uri, "rw");
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
-    public void OnClickStand(View view) {
+    public void ProcessButton(final String imageResult) {
         final Bitmap bt = vc.getNextBitmap();
         final Context cont = this;
         if (bt == null)
@@ -78,35 +100,37 @@ public class CameraCaptureActivity extends AppCompatActivity {
                 ccImageview.setImageBitmap(bt);
             }
         });
-
         Thread tread = new Thread(new Runnable() {
             @Override
             public void run() {
                 VideoClasifier.AnalizeImage(bt)
                         .addOnSuccessListener(
-                        new OnSuccessListener<Pose>() {
-                            @Override
-                            public void onSuccess(Pose pose) {
-                                if(pose != null) {
-                                    List<PoseLandmark> lm = pose.getAllPoseLandmarks();
-                                    Log.d("CCA", lm.get(0).toString());
-                                    final List<String> list = new ArrayList<>();
-                                    for (PoseLandmark pl : lm) {
-                                        list.add(pl.getLandmarkType().name() + " = "
-                                                + pl.getPosition().x
-                                         + ", " + pl.getPosition().y);
-                                    }
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            ArrayAdapter<String> ad = new ArrayAdapter<String>(cont, android.R.layout.simple_list_item_1, list);
-                                            ccaListView.setAdapter(ad);
+                                new OnSuccessListener<Pose>() {
+                                    @Override
+                                    public void onSuccess(Pose pose) {
+                                        if(pose != null) {
+                                            List<PoseLandmark> lm = pose.getAllPoseLandmarks();
+                                            final List<String> list = new ArrayList<>();
+                                            DataWriter.WriteData(tspOutputStream, lm, imageResult);
+                                            for (PoseLandmark pl : lm) {
+                                                list.add(pl.getLandmarkType().name() + " = "
+                                                        + pl.getPosition().x
+                                                        + ", " + pl.getPosition().y
+                                                        + "--" + pl.getInFrameLikelihood());
+                                            }
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    ArrayAdapter<String> ad = ((ArrayAdapter<String>)ccaListView.getAdapter());
+                                                    if(!ad.isEmpty())
+                                                        ad.clear();
+                                                    ad.addAll(list);
+                                                    ad.notifyDataSetChanged();
+                                                }
+                                            });
                                         }
-                                    });
-
-                                }
-                            }
-                        })
+                                    }
+                                })
                         .addOnFailureListener(
                                 new OnFailureListener() {
                                     @Override
@@ -125,7 +149,22 @@ public class CameraCaptureActivity extends AppCompatActivity {
             }
         });
         tread.run();
+    }
 
+    public void OnClickStand(View view) {
+        ProcessButton("stand");
+    }
+
+    public void OnClickDown(View view) {
+        ProcessButton("down");
+    }
+
+    public void OnClickMove(View view) {
+        ProcessButton("move");
+    }
+
+    public void OnClickFail(View view) {
+        ProcessButton("fail");
     }
 
 }

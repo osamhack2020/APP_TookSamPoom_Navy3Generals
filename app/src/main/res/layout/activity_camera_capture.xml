@@ -13,27 +13,36 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/cca_bt_stand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="OnClickStand"
-            android:text="Button" />
+            android:text="Stand" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/cca_bt_down"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="OnClickStand"
-            android:text="Button" />
+            android:onClick="OnClickDown"
+            android:text="Down" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/cca_bt_move"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:onClick="OnClickMove"
+            android:text="Move" />
+
+        <Button
+            android:id="@+id/cca_bt_fail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="OnClickFail"
+            android:text="Fail" />
     </LinearLayout>
 
     <ImageView

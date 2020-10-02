@@ -1,42 +1,32 @@
 package kr.co.softcampus.tooksampoom;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
-import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.util.Log;
-
-
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.pose.Pose;
 import com.google.mlkit.vision.pose.PoseDetection;
 import com.google.mlkit.vision.pose.PoseDetector;
 import com.google.mlkit.vision.pose.PoseDetectorOptions;
-import com.google.mlkit.vision.pose.PoseLandmark;
-
-
-import java.io.Console;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.util.List;
-
 
 public class VideoClasifier {
 
     Uri filePath;
     Context context;
     int currentTimer = 0;
+    int timeIncrement = 100000;
     MediaMetadataRetriever retriever;
+
+    static PoseDetector poseDetector = PoseDetection.getClient(
+            new PoseDetectorOptions.Builder()
+                    .setDetectorMode(PoseDetectorOptions.STREAM_MODE)
+                    .setPerformanceMode(PoseDetectorOptions.PERFORMANCE_MODE_ACCURATE)
+                    .build()
+    );
 
     public VideoClasifier (Uri path, Context context) {
         filePath = path;
@@ -44,10 +34,13 @@ public class VideoClasifier {
         currentTimer = 0;
 
         retriever = new MediaMetadataRetriever();
-        retriever.setDataSource(filePath.getPath().split(":")[1]);
+        retriever.setDataSource(getPath(context, filePath));
     }
 
     public  String getPath(Context context, Uri uri)  {
+        String a = filePath.getPath();
+        if (uri.toString().contains("content"))
+            return filePath.getPath().split(":")[1];
         Cursor cursor = null;
         try {
             String[] proj = { MediaStore.Images.Media.DATA };
@@ -67,17 +60,17 @@ public class VideoClasifier {
             retriever = new MediaMetadataRetriever();
             retriever.setDataSource(filePath.getPath().split(":")[1]);
             Bitmap bt = retriever.getFrameAtTime(currentTimer, MediaMetadataRetriever.OPTION_CLOSEST);
-            currentTimer += 1000000;
-            return bt;
+            currentTimer += timeIncrement;
+            return bt.copy(Bitmap.Config.ARGB_8888,true);
 
-        } catch (IllegalArgumentException ex) {
-            ex.printStackTrace();
         } catch (RuntimeException ex) {
             ex.printStackTrace();
         } finally {
             try {
                 retriever.release();
             } catch (RuntimeException ex) {
+                ex.printStackTrace();
+
             }
         }
         return null;
@@ -85,14 +78,7 @@ public class VideoClasifier {
 
 
     public static Task<Pose> AnalizeImage(Bitmap bp){
-        PoseDetectorOptions options =
-                new PoseDetectorOptions.Builder()
-                        .setDetectorMode(PoseDetectorOptions.SINGLE_IMAGE_MODE)
-                        .setPerformanceMode(PoseDetectorOptions.PERFORMANCE_MODE_ACCURATE)
-                        .build();
-        PoseDetector poseDetector = PoseDetection.getClient(options);
         InputImage image = InputImage.fromBitmap(bp, 0);
-        Task<Pose> result = poseDetector.process(image);
-        return result;
+        return poseDetector.process(image);
     }
 }
