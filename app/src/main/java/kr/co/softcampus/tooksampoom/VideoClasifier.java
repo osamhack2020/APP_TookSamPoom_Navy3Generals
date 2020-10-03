@@ -1,24 +1,37 @@
 package kr.co.softcampus.tooksampoom;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Size;
+
+import androidx.annotation.NonNull;
+import androidx.camera.core.ImageAnalysis;
+import androidx.camera.core.ImageProxy;
+
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.pose.Pose;
 import com.google.mlkit.vision.pose.PoseDetection;
 import com.google.mlkit.vision.pose.PoseDetector;
 import com.google.mlkit.vision.pose.PoseDetectorOptions;
+import com.google.mlkit.vision.pose.PoseLandmark;
+
+import java.util.List;
+import java.util.concurrent.Executor;
 
 public class VideoClasifier {
 
     Uri filePath;
     Context context;
     int currentTimer = 0;
-    int timeIncrement = 100000;
+    int timeIncrement = 50000;
     MediaMetadataRetriever retriever;
 
     static PoseDetector poseDetector = PoseDetection.getClient(
@@ -80,5 +93,35 @@ public class VideoClasifier {
     public static Task<Pose> AnalizeImage(Bitmap bp){
         InputImage image = InputImage.fromBitmap(bp, 0);
         return poseDetector.process(image);
+    }
+
+    public static Task<Pose> AnalizeImage(ImageProxy imageProxy) {
+        @SuppressLint("UnsafeExperimentalUsageError")
+        Image mediaImage = imageProxy.getImage();
+        if (mediaImage != null) {
+            InputImage image =
+                    InputImage.fromMediaImage(mediaImage, imageProxy.getImageInfo().getRotationDegrees());
+            return poseDetector.process(image);
+        }
+        return null;
+    }
+
+    public static ImageAnalysis getImageAnalysis(Executor executor) {
+        ImageAnalysis imageAnalysis =
+                new ImageAnalysis.Builder()
+                        .setTargetResolution(new Size(1280, 720))
+                        .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                        .build();
+
+        imageAnalysis.setAnalyzer(executor, image -> {
+            Task<Pose> pose = AnalizeImage(image)
+                    .addOnSuccessListener(new OnSuccessListener<Pose>() {
+                        @Override
+                        public void onSuccess(Pose pose) {
+                            List<PoseLandmark> pl = pose.getAllPoseLandmarks();
+                        }
+                    });
+        });
+        return imageAnalysis;
     }
 }

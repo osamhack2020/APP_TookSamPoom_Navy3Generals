@@ -23,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
     String[] permissions_list = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onClickCCA(View view) {
-        Intent ccaIntent = new Intent(this, CameraCaptureActivity.class);
-        startActivity(ccaIntent);
-    }
-
     public void checkPermission() {
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return;
@@ -66,5 +62,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
         }
+    }
+
+    public void onClickCCA(View view) {
+        Intent ccaIntent = new Intent(this, CameraCaptureActivity.class);
+        startActivity(ccaIntent);
+    }
+
+    public void onClickPushUpBt(View view) {
+        Intent puIntent = new Intent(this, PushUpMeasureActivity.class);
+        startActivity(puIntent);
     }
 }
