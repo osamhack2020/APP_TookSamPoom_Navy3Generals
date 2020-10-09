@@ -24,7 +24,9 @@ public class MainActivity extends AppCompatActivity {
     String[] permissions_list = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.CAMERA};
+            Manifest.permission.CAMERA,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,5 +74,10 @@ public class MainActivity extends AppCompatActivity {
     public void onClickPushUpBt(View view) {
         Intent puIntent = new Intent(this, PushUpMeasureActivity.class);
         startActivity(puIntent);
+    }
+
+    public void onClickRunning(View view) {
+        Intent runningIntent = new Intent(this, RunningActivity.class);
+        startActivity(runningIntent);
     }
 }
