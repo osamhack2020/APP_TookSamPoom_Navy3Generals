@@ -17,15 +17,9 @@ public class FragFirst extends Fragment {
                 startbutton1.setOnClickListener(new OnClickListener(){
                   @Override
                 public void onClick(View rootView){
-                  
+                  TspUserData.userName = getUserNameEdittext();
                 }  
               });
         return rootView;
-    }
-    public class TSPUserData {
-      private static class UserNameEdittext{
-        public UserNameEdittext(){
-        }                  
-      }
     }
   }
