@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import java.lang.Math;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -32,7 +33,9 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.util.ArrayList;
 
 public class RunningActivity extends AppCompatActivity {
-
+    String[] permissions_list = {
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION};
     LocationManager locationManager;
     GoogleMap map;
     ArrayList<Location> location_storage = new ArrayList<Location>();
@@ -56,6 +59,7 @@ public class RunningActivity extends AppCompatActivity {
         chronometer = (Chronometer) findViewById(R.id.chronometer);
         init();
     }
+
     public void onClickbtn(View view) {
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
@@ -65,10 +69,6 @@ public class RunningActivity extends AppCompatActivity {
         distance_text.setVisibility(View.VISIBLE);
         isButtonClicked = 1;
     }
-
-
-
-
 
     public void init() {
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -96,6 +96,7 @@ public class RunningActivity extends AppCompatActivity {
         GetMyLocationListener listener = new GetMyLocationListener();
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, listener);
+            Log.d("eror", "success");
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("실행 오류");
@@ -123,8 +124,6 @@ public class RunningActivity extends AppCompatActivity {
     }
 
     public void setMyLocation(Location location) {
-
-
         LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
         CameraUpdate update = CameraUpdateFactory.newLatLngZoom(position, 15f);
         map.moveCamera(update);
@@ -135,27 +134,27 @@ public class RunningActivity extends AppCompatActivity {
 
         if(isButtonClicked == 1){
             location_storage.add(location);
+            long elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
             if(idx!=0){
                 float[] distance_piece = new float[1];
                 Location.distanceBetween(location_storage.get(idx-1).getLatitude(),location_storage.get(idx-1).getLongitude(), location_storage.get(idx).getLatitude(), location_storage.get(idx).getLongitude(),distance_piece);
                 distance+=distance_piece[0];
+                positions.add(new LatLng(location.getLatitude(),location.getLongitude()));
+
+                Log.d("test", Long.toString(elapsedMillis));
+                distance_text.setText(Double.toString(Math.round((distance/1000)*100)/100.0)+" km");
+                speed_text.setText(Double.toString(Math.round((elapsedMillis/(distance*60))*100)/100.0)+" 분/km");
+
+                if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED){
+                    return;
+                }
+
+                Polyline polyline = map.addPolyline((new PolylineOptions())
+                        .clickable(false)
+                        .addAll(positions));
+                Log.d("test","success");
             }
 
-
-            positions.add(new LatLng(location.getLatitude(),location.getLongitude()));
-            long elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
-            Log.d("test", Long.toString(elapsedMillis));
-            distance_text.setText(Float.toString(distance)+" m");
-            speed_text.setText(Float.toString((elapsedMillis/(distance*60)))+" minuete/km");
-
-            if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED){
-                return;
-            }
-
-            Polyline polyline = map.addPolyline((new PolylineOptions())
-            .clickable(false)
-            .addAll(positions));
-            Log.d("test","success");
             idx++;
         }
     }
