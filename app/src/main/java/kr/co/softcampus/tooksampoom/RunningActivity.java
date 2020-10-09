@@ -10,11 +10,13 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -38,27 +40,35 @@ public class RunningActivity extends AppCompatActivity {
     float distance = 0;
     int isButtonClicked = -1;
 
-    Button startBtn = (Button) findViewById(R.id.startbtn);
-    TextView distance_text = (TextView) findViewById(R.id.distance_text);
-    TextView speed_text = (TextView) findViewById(R.id.speed_text);
+    Button startBtn;
+    TextView distance_text;
+    TextView speed_text;
 
-    Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
+    Chronometer chronometer;
+    ArrayList<LatLng> positions = new ArrayList<LatLng>();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_running);
+        startBtn = (Button) findViewById(R.id.startbtn);
+        distance_text = (TextView) findViewById(R.id.distance_text);
+        speed_text = (TextView) findViewById(R.id.speed_text);
+        chronometer = (Chronometer) findViewById(R.id.chronometer);
+        init();
     }
-
     public void onClickbtn(View view) {
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
         startBtn.setVisibility(View.GONE);
         chronometer.setVisibility(View.VISIBLE);
         speed_text.setVisibility(View.VISIBLE);
+        distance_text.setVisibility(View.VISIBLE);
         isButtonClicked = 1;
     }
 
-    ;
+
+
+
 
     public void init() {
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -77,13 +87,15 @@ public class RunningActivity extends AppCompatActivity {
 
     public void getMyLocation() {
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
-            return;
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+            if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED){
+                return;
+            }
         }
         //새롭게 측정하기
         GetMyLocationListener listener = new GetMyLocationListener();
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, listener);
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, listener);
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("실행 오류");
@@ -97,20 +109,22 @@ public class RunningActivity extends AppCompatActivity {
     }
 
     class DialogListener implements DialogInterface.OnClickListener {
-        public void onClick(DialogInterface dialog, int which) {
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
             finish();
         }
     }
 
     class GetMyLocationListener implements LocationListener {
-        public void onLocationChanged(Location location) {
+        @Override
+        public void onLocationChanged(@NonNull Location location) {
             setMyLocation(location);
         }
     }
 
     public void setMyLocation(Location location) {
 
-        location_storage.add(location);
+
         LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
         CameraUpdate update = CameraUpdateFactory.newLatLngZoom(position, 15f);
         map.moveCamera(update);
@@ -120,23 +134,28 @@ public class RunningActivity extends AppCompatActivity {
         map.setMyLocationEnabled(true);
 
         if(isButtonClicked == 1){
+            location_storage.add(location);
             if(idx!=0){
                 float[] distance_piece = new float[1];
                 Location.distanceBetween(location_storage.get(idx-1).getLatitude(),location_storage.get(idx-1).getLongitude(), location_storage.get(idx).getLatitude(), location_storage.get(idx).getLongitude(),distance_piece);
                 distance+=distance_piece[0];
             }
 
+
+            positions.add(new LatLng(location.getLatitude(),location.getLongitude()));
             long elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
-            distance_text.setText(Float.toString(distance));
-            speed_text.setText(Float.toString((distance*60/elapsedMillis))+" km/minute");
+            Log.d("test", Long.toString(elapsedMillis));
+            distance_text.setText(Float.toString(distance)+" m");
+            speed_text.setText(Float.toString((elapsedMillis/(distance*60)))+" minuete/km");
 
             if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED){
                 return;
             }
 
-            Polyline polyline = map.addPolyline(new PolylineOptions()
+            Polyline polyline = map.addPolyline((new PolylineOptions())
             .clickable(false)
-            .add(position));
+            .addAll(positions));
+            Log.d("test","success");
             idx++;
         }
     }
