@@ -139,22 +139,18 @@ public class RunningActivity extends AppCompatActivity {
                 float[] distance_piece = new float[1];
                 Location.distanceBetween(location_storage.get(idx-1).getLatitude(),location_storage.get(idx-1).getLongitude(), location_storage.get(idx).getLatitude(), location_storage.get(idx).getLongitude(),distance_piece);
                 distance+=distance_piece[0];
-                positions.add(new LatLng(location.getLatitude(),location.getLongitude()));
-
-                Log.d("test", Long.toString(elapsedMillis));
+            }
+            if(distance!=0){
                 distance_text.setText(Double.toString(Math.round((distance/1000)*100)/100.0)+" km");
                 speed_text.setText(Double.toString(Math.round((elapsedMillis/(distance*60))*100)/100.0)+" 분/km");
-
-                if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED){
-                    return;
-                }
-
-                Polyline polyline = map.addPolyline((new PolylineOptions())
-                        .clickable(false)
-                        .addAll(positions));
-                Log.d("test","success");
             }
-
+            if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED){
+                return;
+            }
+            positions.add(new LatLng(location.getLatitude(),location.getLongitude()));
+            Polyline polyline = map.addPolyline((new PolylineOptions())
+                    .clickable(false)
+                    .addAll(positions));
             idx++;
         }
     }
