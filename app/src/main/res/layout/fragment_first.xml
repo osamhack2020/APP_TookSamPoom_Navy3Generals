@@ -11,12 +11,6 @@
         android:layout_height="@dimen/frameSize"
         android:orientation="vertical">
  
-        <ImageView
-            android:id="@+id/imgBanner1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#ffcccc"
-            android:contentDescription="@string/app_name"/>
  
         <TextView
             android:id="@+id/tvName1"
@@ -28,7 +22,7 @@
             android:textColor="@android:color/white"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:text="first page."/>
+            android:text="이름 : "/>
             
         <EditText
 
