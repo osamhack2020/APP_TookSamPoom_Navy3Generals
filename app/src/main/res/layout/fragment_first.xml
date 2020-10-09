@@ -11,7 +11,7 @@
         android:layout_height="@dimen/frameSize"
         android:orientation="vertical">
  
- 
+
         <TextView
             android:id="@+id/tvName1"
             android:layout_width="match_parent"
@@ -29,12 +29,22 @@
 	        android:id="@+id/usernameText1"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
+            android:drawableRight="@drawable/icon"
 	        android:inputType="text"
 	        android:maxLength="5"
 	        android:hint="이름을 입력해주세요."
 	        android:layout_marginStart="20dp"
 	        android:layout_marginEnd="20dp"
 	        android:saveEnabled="true"/>  
+
+        <Button
+            android:id="@+id/startbutton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/linearLayout1"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="56dp"
+            android:text="입력" />    
  
     </RelativeLayout>
  

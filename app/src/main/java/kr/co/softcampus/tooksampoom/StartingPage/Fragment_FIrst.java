@@ -1,16 +1,31 @@
 public class FragFirst extends Fragment {
 
-  private EditText UserName;
+  private EditText UserNameEdittext;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Button startbutton1 = (Button)findViewById(R.id.startbutton1);
+
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_first, container, false);
-                UserName = (EditText) rootView.findViewById(R.id.usernameText1);
+
+                UserNameEdittext = (EditText) rootView.findViewById(R.id.usernameText1);
                 SharedPreferences settings = this.getActivity().getSharedPreferences("PREFS", 0);
-                UserName.setText(settings.getString("value", ""));
-   
+                UserNameEdittext.setText(settings.getString("value", ""));
+
+                startbutton1.setOnClickListener(new OnClickListener(){
+                  @Override
+                public void onClick(View rootView){
+                  
+                }  
+              });
         return rootView;
+    }
+    public class TSPUserData {
+      private static class UserNameEdittext{
+        public UserNameEdittext(){
+        }                  
+      }
     }
   }
