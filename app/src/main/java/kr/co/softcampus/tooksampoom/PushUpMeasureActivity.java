@@ -3,6 +3,7 @@ package kr.co.softcampus.tooksampoom;
 import android.content.Context;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,12 +29,14 @@ public class PushUpMeasureActivity extends AppCompatActivity {
 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     PreviewView previewView;
+    ImageView pushUpBodyImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_push_up_measure);
         previewView = findViewById(R.id.previewView);
+        pushUpBodyImageView = findViewById(R.id.push_up_body);
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
         cameraProviderFuture.addListener(() -> {
             try {
@@ -55,7 +58,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
                 .build();
 
         preview.setSurfaceProvider(previewView.createSurfaceProvider());
-        ImageAnalysis analysis = VideoClasifier.getImageAnalysis(Executors.newSingleThreadExecutor());
+        ImageAnalysis analysis = LiveVideoAnalyzer.getImageAnalysis(Executors.newSingleThreadExecutor(), pushUpBodyImageView);
         Camera camera = cameraProvider.bindToLifecycle(this, cameraSelector, analysis, preview);
     }
 
