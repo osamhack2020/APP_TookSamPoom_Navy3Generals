@@ -5,7 +5,7 @@
     tools:context=".Fragment_Second">
  
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="match_parent" 
         android:layout_marginLeft="@dimen/pageMarginAndOffset"
         android:layout_marginRight="@dimen/pageMarginAndOffset"
         android:layout_height="@dimen/frameSize"
@@ -23,12 +23,13 @@
             android:textStyle="bold"
             android:text="성별을 선택해주세요."/>
 
-        <ImageButton
+        <ImageButton 
             android:id="@+id/MaleBtn"
             android:scaleType="fitCenter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:cropToPadding="true"
+            android:text="남성"
             android:paddingLeft="20dp"
             android:background="@drawable/button_normal"/>
 
@@ -38,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:cropToPadding="true"
+            android:text="여성"
             android:paddingLeft="20dp"
             android:background="@drawable/button_normal"/>       
 

@@ -2,7 +2,7 @@ public class StartViewPager extends FragmentActivity {
  
     private ViewPager2 mPager;
     private FragmentStateAdapter pagerAdapter;
-    private int num_page = 2;
+    private int num_page = 5;
  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
