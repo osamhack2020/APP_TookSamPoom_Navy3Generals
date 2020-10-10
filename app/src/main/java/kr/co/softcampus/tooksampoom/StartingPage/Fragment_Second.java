@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import kr.co.softcampus.tooksampoom.StartingPage.TspUserData;
 
-public class FragSecond extends Fragment {
+public class Fragment_Second extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

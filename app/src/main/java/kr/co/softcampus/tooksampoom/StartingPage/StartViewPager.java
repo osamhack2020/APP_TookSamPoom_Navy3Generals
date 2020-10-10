@@ -11,9 +11,9 @@ import androidx.viewpager2.widget.ViewPager2;
 
 public class StartViewPager extends FragmentActivity {
 
-    private ViewPager2 mPager;
-    private FragmentStateAdapter pagerAdapter;
-    private int num_page = 5;
+    public static ViewPager2 mPager;
+    public static FragmentStateAdapter pagerAdapter;
+    public static int num_page = 5;
  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class StartViewPager extends FragmentActivity {
         setContentView(R.layout.activity_viewpager);
  
         //ViewPager2
-        mPager = findViewById(R.id.viewpager);
+        mPager =(ViewPager)findViewById(R.id.pager);
         //Adapter
         pagerAdapter = new FragmentAdapter(this, num_page);
         mPager.setAdapter(pagerAdapter);
@@ -29,23 +29,23 @@ public class StartViewPager extends FragmentActivity {
         mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         mPager.setCurrentItem(50);
         mPager.setOffscreenPageLimit(3);
- 
-        mPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                if (positionOffsetPixels == 0) {
-                    mPager.setCurrentItem(position);
-                }
-            }
- 
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
 
-            }
+        layoutInflater inflater = getLayoutInflater();
+        View nameview = inflater.inflate(R.layout.fragment_first, null);
+        View genderview = inflater.inflate(R.layout.fragment_second, null);
+        View heightview = inflater.inflate(R.layout.fragment_third, null);
+
+        viewList.add(nameview);
+        viewList.add(genderview);
+        viewList.add(heightview);
  
-        });
+        class cumtumAdapter extends PagerAdapter{
+            @Override
+            public int getCount() {
+                return 0;
+            }
+
+        }
  
  
         final float pageMargin= getResources().getDimensionPixelOffset(R.dimen.pageMargin);

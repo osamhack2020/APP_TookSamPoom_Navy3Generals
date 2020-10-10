@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 
-public class FragFirst extends Fragment {
+public class Fragment_First extends Fragment {
 
   private EditText UserNameEdittext;
 
@@ -22,14 +22,14 @@ public class FragFirst extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_first, container, false);
 
-                UserNameEdittext = (EditText) rootView.findViewById(R.id.usernameText1);
+                UserNameEdittext = (EditText) rootView.getview().findViewById(R.id.usernameText1);
                 SharedPreferences settings = this.getActivity().getSharedPreferences("PREFS", 0);
                 UserNameEdittext.setText(settings.getString("value", ""));
 
-                startbutton1.setOnClickListener(new OnClickListener(){
+                startbutton1.setOnClickListener(new view.OnClickListener(){
                   @Override
                 public void onClick(View rootView){
-                  TspUserData.userName = UserNameEdittext.gettext().toString();
+                  TspUserData.userName = UserNameEdittext.getText().toString();
                   mPager.setCurrentItem(mPager.getCurrentItem()+1);
                 }
               });
