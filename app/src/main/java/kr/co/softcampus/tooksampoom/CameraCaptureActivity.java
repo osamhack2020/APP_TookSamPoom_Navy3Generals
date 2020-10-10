@@ -32,12 +32,15 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.co.softcampus.tooksampoom.Utils.TSPdrawTools;
+
 public class CameraCaptureActivity extends AppCompatActivity {
 
     private static final int CREATE_FILE = 1;
     private static final int PICK_VIDEO = 2;
 
     ImageView ccImageview;
+    ImageView ccaBodyOverlayImageview;
     VideoClasifier vc;
     ListView ccaListView;
     OutputStream tspOutputStream;
@@ -47,6 +50,7 @@ public class CameraCaptureActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_capture);
         ccImageview = findViewById(R.id.camera_cap_image);
+        ccaBodyOverlayImageview = findViewById(R.id.cca_body_imageview);
         ccaListView = findViewById(R.id.ccm_list);
         ccaListView.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1));
@@ -118,6 +122,9 @@ public class CameraCaptureActivity extends AppCompatActivity {
                                                         + ", " + pl.getPosition().y
                                                         + "--" + pl.getInFrameLikelihood());
                                             }
+                                            Bitmap overlay = Bitmap.createBitmap(bt.getWidth(), bt.getHeight(), Bitmap.Config.ARGB_8888);
+                                            TSPdrawTools.createBodyOverlay(overlay, lm);
+                                            ccaBodyOverlayImageview.setImageBitmap(overlay);
                                             runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {

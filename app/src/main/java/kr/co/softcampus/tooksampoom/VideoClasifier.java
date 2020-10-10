@@ -96,33 +96,6 @@ public class VideoClasifier {
         return poseDetector.process(image);
     }
 
-    public static Task<Pose> AnalizeImage(ImageProxy imageProxy) {
-        @SuppressLint("UnsafeExperimentalUsageError")
-        Image mediaImage = imageProxy.getImage();
-        if (mediaImage != null) {
-            InputImage image =
-                    InputImage.fromMediaImage(mediaImage, imageProxy.getImageInfo().getRotationDegrees());
-            return poseDetector.process(image);
-        }
-        return null;
-    }
 
-    public static ImageAnalysis getImageAnalysis(Executor executor) {
-        ImageAnalysis imageAnalysis =
-                new ImageAnalysis.Builder()
-                        .setTargetResolution(new Size(1280, 720))
-                        .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                        .build();
 
-        imageAnalysis.setAnalyzer(executor, image -> {
-            Task<Pose> pose = AnalizeImage(image)
-                    .addOnSuccessListener(new OnSuccessListener<Pose>() {
-                        @Override
-                        public void onSuccess(Pose pose) {
-                            List<PoseLandmark> pl = pose.getAllPoseLandmarks();
-                        }
-                    });
-        });
-        return imageAnalysis;
-    }
 }
