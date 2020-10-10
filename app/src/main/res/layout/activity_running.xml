@@ -20,7 +20,7 @@
         android:id="@+id/distance_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0 m"
+        android:text="0 km"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,7 +30,7 @@
         android:id="@+id/speed_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0 km/분"
+        android:text="0 분/km"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/distance_text"
@@ -58,5 +58,55 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="56dp"
+        android:layout_height="36dp"
+        android:text="시간 :"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:visibility="gone"
+        app:layout_constraintVertical_bias="0.7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.341"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+    <TextView
+        android:id="@+id/speed"
+        android:layout_width="100dp"
+        android:layout_height="36dp"
+        android:text="평균 속도 :"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:visibility="gone"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintTop_toTopOf="@id/time"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/time" />
+    <TextView
+        android:id="@+id/time_result"
+        android:layout_width="100dp"
+        android:layout_height="36dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:visibility="gone"
+        app:layout_constraintVertical_bias="0.7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/time" />
+    <TextView
+        android:id="@+id/speed_result"
+        android:layout_width="130dp"
+        android:layout_height="36dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:visibility="gone"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintTop_toTopOf="@id/time"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/speed" />
+
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,8 +3,10 @@ package kr.co.softcampus.tooksampoom;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
@@ -30,6 +32,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class RunningActivity extends AppCompatActivity {
@@ -46,8 +50,12 @@ public class RunningActivity extends AppCompatActivity {
     Button startBtn;
     TextView distance_text;
     TextView speed_text;
-
+    TextView speed;
+    TextView time;
+    TextView speed_result;
+    TextView time_result;
     Chronometer chronometer;
+    long elapsedMillis;
     ArrayList<LatLng> positions = new ArrayList<LatLng>();
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +64,10 @@ public class RunningActivity extends AppCompatActivity {
         startBtn = (Button) findViewById(R.id.startbtn);
         distance_text = (TextView) findViewById(R.id.distance_text);
         speed_text = (TextView) findViewById(R.id.speed_text);
+        speed = (TextView) findViewById(R.id.speed);
+        time = (TextView) findViewById(R.id.time);
+        speed_result = (TextView) findViewById(R.id.speed_result);
+        time_result = (TextView) findViewById(R.id.time_result);
         chronometer = (Chronometer) findViewById(R.id.chronometer);
         init();
     }
@@ -96,7 +108,6 @@ public class RunningActivity extends AppCompatActivity {
         GetMyLocationListener listener = new GetMyLocationListener();
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, listener);
-            Log.d("eror", "success");
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("실행 오류");
@@ -119,13 +130,17 @@ public class RunningActivity extends AppCompatActivity {
     class GetMyLocationListener implements LocationListener {
         @Override
         public void onLocationChanged(@NonNull Location location) {
-            setMyLocation(location);
+            setMyLocation(location,this);
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
         }
     }
 
-    public void setMyLocation(Location location) {
+    public void setMyLocation(Location location,LocationListener listener) {
         LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
-        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(position, 15f);
+        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(position, 16f);
         map.moveCamera(update);
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
             return;
@@ -134,7 +149,7 @@ public class RunningActivity extends AppCompatActivity {
 
         if(isButtonClicked == 1){
             location_storage.add(location);
-            long elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
+            elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
             if(idx!=0){
                 float[] distance_piece = new float[1];
                 Location.distanceBetween(location_storage.get(idx-1).getLatitude(),location_storage.get(idx-1).getLongitude(), location_storage.get(idx).getLatitude(), location_storage.get(idx).getLongitude(),distance_piece);
@@ -152,6 +167,27 @@ public class RunningActivity extends AppCompatActivity {
                     .clickable(false)
                     .addAll(positions));
             idx++;
+            if(distance >= 100){
+                locationManager.removeUpdates(listener);
+                chronometer.stop();
+                //database로 시간(초) 보내기
+                int elapsedSec = (int)elapsedMillis/1000;
+                Intent intent =new Intent();
+                intent.putExtra("time", elapsedSec);
+                setResult(RESULT_OK, intent);
+                finish();
+                /*
+                time_result.setText(Integer.toString(elapsedSec / 60)+"분 "+Integer.toString(elapsedSec%60)+"초");
+                speed_result.setText(Double.toString(Math.round((elapsedMillis/(distance*60))*100)/100.0)+" 분/km");
+                chronometer.setVisibility(View.GONE);
+                speed_text.setVisibility(View.GONE);
+                distance_text.setVisibility(View.GONE);
+                time.setVisibility(View.VISIBLE);
+                speed.setVisibility(View.VISIBLE);
+                time_result.setVisibility(View.VISIBLE);
+                speed_result.setVisibility(View.VISIBLE);
+                */
+            }
         }
     }
 }

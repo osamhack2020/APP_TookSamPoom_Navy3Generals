@@ -20,12 +20,22 @@
         android:layout_height="wrap_content"
         android:onClick="onClickPushUpBt"
         android:text="Push Up Layer" />
-
+    <TextView
+        android:id="@+id/time_running"
+        android:layout_width="130dp"
+        android:layout_height="36dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:visibility="visible"
+        android:text="아직 없음"
+        />
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onClickRunning"
         android:text="RunningActivity" />
+
+
+
 
 </LinearLayout>
