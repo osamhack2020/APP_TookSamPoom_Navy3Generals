@@ -1,52 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Fragment_First">
- 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_marginLeft="@dimen/pageMarginAndOffset"
-        android:layout_marginRight="@dimen/pageMarginAndOffset"
-        android:layout_height="@dimen/frameSize"
-        android:orientation="vertical">
- 
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tvName1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_centerInParent="true"
-            android:textColor="@android:color/white"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:text="이름 : "/>
-            
-        <EditText
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/frameSize"
+		android:layout_marginLeft="@dimen/pageMarginAndOffset"
+		android:layout_marginRight="@dimen/pageMarginAndOffset"
+		android:orientation="vertical">
 
-	        android:id="@+id/usernameText1"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-            android:drawableRight="@drawable/icon"
-	        android:inputType="text"
-	        android:maxLength="5"
-	        android:hint="이름을 입력해주세요."
-	        android:layout_marginStart="20dp"
-	        android:layout_marginEnd="20dp"
-	        android:saveEnabled="true"/>  
 
-        <Button
-            android:id="@+id/startbutton1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/linearLayout1"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="56dp"
-            android:text="입력" />    
- 
-    </RelativeLayout>
- 
- 
+		<Button
+			android:id="@+id/startbutton1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentEnd="true"
+			android:layout_marginBottom="56dp"
+			android:text="@string/입력" />
+
+	</RelativeLayout>
+
+	<EditText
+
+		android:id="@+id/usernameText1"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="20dp"
+		android:layout_marginEnd="20dp"
+		android:drawableEnd="@drawable/common_google_signin_btn_icon_dark"
+		android:inputType="text"
+		android:maxLength="5"
+		android:saveEnabled="true"
+		android:autofillHints="이름을 입력해주세요." />
+
+	<TextView
+		android:id="@+id/tvName1"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:gravity="center"
+		android:text="이름 : "
+		android:textColor="@android:color/white"
+		android:textSize="30sp"
+		android:textStyle="bold" />
+
+
 </FrameLayout>

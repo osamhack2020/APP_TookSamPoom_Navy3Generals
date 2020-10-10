@@ -1,5 +1,16 @@
+package kr.co.softcampus.tooksampoom.StartingPage;
+
+import android.os.Bundle;
+import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
+
 public class StartViewPager extends FragmentActivity {
- 
+
     private ViewPager2 mPager;
     private FragmentStateAdapter pagerAdapter;
     private int num_page = 5;
@@ -7,12 +18,12 @@ public class StartViewPager extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_viewpager);
  
         //ViewPager2
         mPager = findViewById(R.id.viewpager);
         //Adapter
-        pagerAdapter = new MyAdapter(this, num_page);
+        pagerAdapter = new FragmentAdapter(this, num_page);
         mPager.setAdapter(pagerAdapter);
         //ViewPager Setting
         mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
@@ -31,7 +42,7 @@ public class StartViewPager extends FragmentActivity {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                mIndicator.animatePageSelected(position%num_page);
+
             }
  
         });

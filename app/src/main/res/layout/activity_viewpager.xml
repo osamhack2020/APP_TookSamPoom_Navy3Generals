@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ViewPager">
+    android:orientation="vertical">
  
     <FrameLayout
         android:layout_marginTop="20dp"
@@ -21,7 +20,6 @@
         
  
     </FrameLayout>
- 
-    
- 
+
+
 </LinearLayout>

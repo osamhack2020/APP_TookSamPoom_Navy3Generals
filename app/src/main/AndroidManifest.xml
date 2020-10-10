@@ -18,8 +18,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".PushUpMeasureActivity"></activity>
         <activity android:name=".CameraCaptureActivity" />
+        <activity android:name=".StartingPage.StartViewPager"/>
         <activity android:name=".MainActivity">
-        <activity android:name=".StartViewPager">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

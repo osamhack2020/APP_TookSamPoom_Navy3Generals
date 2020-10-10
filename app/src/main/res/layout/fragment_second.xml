@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Fragment_Second">
+    android:layout_height="match_parent">
  
     <RelativeLayout
         android:layout_width="match_parent" 
@@ -31,7 +30,7 @@
             android:cropToPadding="true"
             android:text="남성"
             android:paddingLeft="20dp"
-            android:background="@drawable/button_normal"/>
+            android:background="@drawable/common_google_signin_btn_icon_light"/>
 
         <ImageButton
             android:id="@+id/FemaleBtn"
@@ -41,7 +40,7 @@
             android:cropToPadding="true"
             android:text="여성"
             android:paddingLeft="20dp"
-            android:background="@drawable/button_normal"/>       
+            android:background="@drawable/common_google_signin_btn_icon_light"/>
 
 
  
