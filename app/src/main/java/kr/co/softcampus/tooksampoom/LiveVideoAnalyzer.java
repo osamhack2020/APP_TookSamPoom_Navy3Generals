@@ -19,6 +19,10 @@ import com.google.mlkit.vision.pose.PoseDetector;
 import com.google.mlkit.vision.pose.PoseDetectorOptions;
 import com.google.mlkit.vision.pose.PoseLandmark;
 
+import org.tensorflow.lite.Interpreter;
+
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -33,7 +37,7 @@ public class LiveVideoAnalyzer {
                     .build()
     );
 
-    public static ImageAnalysis getImageAnalysis(Executor executor, ImageView imageView) {
+    public static ImageAnalysis getImageAnalysis(Executor executor, ImageView imageView, Interpreter interpreter, String type) {
         ImageAnalysis imageAnalysis =
                 new ImageAnalysis.Builder()
                         .setTargetResolution(new Size(1280, 720))
@@ -46,6 +50,24 @@ public class LiveVideoAnalyzer {
                         List<PoseLandmark> pl = pose.getAllPoseLandmarks();
                         Bitmap overlay = Bitmap.createBitmap(image.getWidth(), image.getHeight(),Bitmap.Config.ARGB_8888);
                         TSPdrawTools.createBodyOverlay(overlay, pl);
+
+                        if (!pl.isEmpty()) {
+                            ByteBuffer input = PushUpMeasureActivity.createInput(pl);
+                            ByteBuffer output = ByteBuffer.allocateDirect(java.lang.Float.SIZE * 4 / java.lang.Byte.SIZE).order(ByteOrder.nativeOrder());
+                            interpreter.run(input, output);
+                            output.rewind();
+                            float[] result = new float[4];
+                            float max = 0;
+                            int maxInd = 0;
+                            for (int i = 0; i < 4; i++) {
+                                float cur = output.getFloat();
+                                if (cur > max) {
+                                    max = cur;
+                                    maxInd = i;
+                                }
+                            }
+                            TSPdrawTools.createCountOverlay(overlay, type, maxInd);
+                        }
                         imageView.setImageBitmap(overlay);
                         image.close();
                     });

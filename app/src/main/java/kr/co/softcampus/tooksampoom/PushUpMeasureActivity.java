@@ -1,27 +1,29 @@
 package kr.co.softcampus.tooksampoom;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.LifecycleOwner;
 
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.mlkit.vision.pose.PoseLandmark;
 
+import org.tensorflow.lite.Interpreter;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 
@@ -30,6 +32,8 @@ public class PushUpMeasureActivity extends AppCompatActivity {
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     PreviewView previewView;
     ImageView pushUpBodyImageView;
+    Interpreter pushUpInterpreter;
+    public static String[] pushUpStatus = new String[]{"stand", "move", "down", "fail"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,23 @@ public class PushUpMeasureActivity extends AppCompatActivity {
                 // This should never be reached.
             }
         }, ContextCompat.getMainExecutor(this));
+        setPushUpInterpreter();
+
+
+    }
+
+    void setPushUpInterpreter() {
+        try {
+            InputStream inputStream = getAssets().open("push_up_model.tflite");
+            byte[] model = new byte[inputStream.available()];
+            inputStream.read(model);
+            ByteBuffer buffer = ByteBuffer.allocateDirect(model.length)
+                    .order(ByteOrder.nativeOrder());
+            buffer.put(model);
+            pushUpInterpreter = new Interpreter(buffer);
+        } catch (IOException e) {
+            // File not found?
+        }
     }
 
     void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
@@ -58,8 +79,34 @@ public class PushUpMeasureActivity extends AppCompatActivity {
                 .build();
 
         preview.setSurfaceProvider(previewView.createSurfaceProvider());
-        ImageAnalysis analysis = LiveVideoAnalyzer.getImageAnalysis(Executors.newSingleThreadExecutor(), pushUpBodyImageView);
-        Camera camera = cameraProvider.bindToLifecycle(this, cameraSelector, analysis, preview);
+        ImageAnalysis analysis = LiveVideoAnalyzer.getImageAnalysis(Executors.newSingleThreadExecutor(),
+                pushUpBodyImageView, pushUpInterpreter, "pushUpCount");
+        cameraProvider.bindToLifecycle(this, cameraSelector, analysis, preview);
+    }
+
+    public static ByteBuffer createInput(List<PoseLandmark> landmarks) {
+        ByteBuffer input = ByteBuffer.allocateDirect(99 * java.lang.Float.SIZE / java.lang.Byte.SIZE).order(ByteOrder.nativeOrder());
+        float xmax = 0;
+        float ymax = 0;
+        List<Float> xList = new ArrayList();
+        List<Float> yList = new ArrayList<>();
+        List<Float> probList = new ArrayList<>();
+
+        for (PoseLandmark pl : landmarks) {
+            xmax = Math.max(xmax, pl.getPosition().x);
+            ymax = Math.max(ymax, pl.getPosition().y);
+            xList.add(pl.getPosition().x);
+            yList.add(pl.getPosition().y);
+            probList.add(pl.getInFrameLikelihood());
+        }
+        for(float x : xList) {
+            input.putFloat(x/xmax);
+        }
+        for(float y : yList)
+            input.putFloat(y / ymax);
+        for (float prob : probList)
+            input.putFloat(prob);
+        return input;
     }
 
 }
