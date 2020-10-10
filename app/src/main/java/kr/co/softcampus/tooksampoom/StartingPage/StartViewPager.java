@@ -38,16 +38,49 @@ public class StartViewPager extends FragmentActivity {
         viewList.add(nameview);
         viewList.add(genderview);
         viewList.add(heightview);
+
+        CustomAdapter adapter = new CustomAdapter();
+        mPager.setAdapter(adapter);
  
         class cumtumAdapter extends PagerAdapter{
             @Override
             public int getCount() {
-                return 0;
+                return viewList.size();
             }
-
+            @NonNull
+            @Override
+            public Object instantiatItem(@NonNull ViewGroup container, int position){
+                mPager.addView(viewList.get(position));
+                return viewList.get(position);
+            }
+            @Override
+            public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
+                return view == object;
+            }
+            @Override
+            public  void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+                mPager.removeView((View)object);
+            }
         }
  
+        
+        mPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+                if (positionOffsetPixels == 0) {
+                    mPager.setCurrentItem(position);
+                }
+            }
  
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+
+            }
+ 
+        });
+
         final float pageMargin= getResources().getDimensionPixelOffset(R.dimen.pageMargin);
         final float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset);
  

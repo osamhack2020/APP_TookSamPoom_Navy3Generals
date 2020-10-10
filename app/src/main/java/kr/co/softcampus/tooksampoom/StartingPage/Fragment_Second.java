@@ -24,14 +24,14 @@ public class Fragment_Second extends Fragment {
         MaleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TspUserData.Gender = MaleBtn.gettext().toString();
+                TspUserData.Gender = MaleBtn.getText().toString();
                 mPager.setCurrentItem(mPager.getCurrentItem()+1);
             }
         });
         FemaleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TspUserData.Gender = FemaleBtn.gettext().toString();
+                TspUserData.Gender = FemaleBtn.getText().toString();
                 mPager.setCurrentItem(mPager.getCurrentItem()+1);
             }
         });
