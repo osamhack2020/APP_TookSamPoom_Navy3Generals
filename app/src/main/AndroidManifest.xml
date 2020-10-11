@@ -16,13 +16,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PushUpMeasureActivity"></activity>
+        <activity android:name=".PushUpMeasureActivity" />
         <activity android:name=".CameraCaptureActivity" />
+        <activity android:name=".RunningActivity"/>
         <activity android:name=".MainActivity">
-        <activity android:name=".RunningActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

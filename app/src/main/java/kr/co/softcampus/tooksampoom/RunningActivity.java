@@ -48,7 +48,8 @@ public class RunningActivity extends AppCompatActivity {
     TextView time_result;
     Chronometer chronometer;
 
-    boolean isVisited = false;
+    int elapsedSec = 0;
+    int idx=0;
     int isButtonClicked = -1;
     float distance = 0;
     long elapsedMillis;
@@ -131,7 +132,7 @@ public class RunningActivity extends AppCompatActivity {
             builder.show();
         }
     }
-    
+
     class DialogListener implements DialogInterface.OnClickListener {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
@@ -158,6 +159,11 @@ public class RunningActivity extends AppCompatActivity {
         //현재위치 따라 카메라 이동
         map.moveCamera(update);
         //현재위치 표시
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+            if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_DENIED){
+                return;
+            }
+        }
         map.setMyLocationEnabled(true);
 
         //시작 버튼이 클릭됐을 때 실행되는 코드
@@ -165,7 +171,7 @@ public class RunningActivity extends AppCompatActivity {
             //동선 그릴때 필요한 location을 List에 저장하고 이전에 측정된 위치와 현재 위치 사이의 거리 계산 후 total distance에 저장
             location_storage.add(location);
             elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
-            if(isVisited){
+            if(idx!=0){
                 float[] distance_piece = new float[1];
                 Location.distanceBetween(location_storage.get(idx-1).getLatitude()
                                         ,location_storage.get(idx-1).getLongitude()
@@ -184,16 +190,16 @@ public class RunningActivity extends AppCompatActivity {
             Polyline polyline = map.addPolyline((new PolylineOptions())
                     .clickable(false)
                     .addAll(positions));
-            isVisited = true;
+            idx++;
 
             //3000m 이상 달렸을 때 위치 갱신 멈추고 걸린시간, 평균 속도 화면에 띄워주는 코드
             if(distance >= 3000){
                 locationManager.removeUpdates(listener);
                 chronometer.stop();
+                elapsedSec = (int)elapsedMillis/1000;
                 //database로 시간(초) 보내기
+                //DBhelper.setRunningRecord(this, id, 500);
 
-
-                int elapsedSec = (int)elapsedMillis/1000;
                 time_result.setText(Integer.toString(elapsedSec/60)+"분 "+Integer.toString(elapsedSec%60)+"초");
                 speed_result.setText(Double.toString(Math.round((elapsedMillis/(distance*60))*100)/100.0)+" 분/km");
                 chronometer.setVisibility(View.GONE);
