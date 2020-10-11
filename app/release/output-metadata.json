@@ -8,32 +8,13 @@
   "variantName": "release",
   "elements": [
     {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "ABI",
-          "value": "armeabi"
-        }
-      ],
+      "type": "SINGLE",
+      "filters": [],
       "properties": [],
       "versionCode": 1,
       "versionName": "1.0",
       "enabled": true,
-      "outputFile": "app-armeabi-release.apk"
-    },
-    {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "ABI",
-          "value": "x86"
-        }
-      ],
-      "properties": [],
-      "versionCode": 1,
-      "versionName": "1.0",
-      "enabled": true,
-      "outputFile": "app-x86-release.apk"
+      "outputFile": "app-release.apk"
     }
   ]
 }
