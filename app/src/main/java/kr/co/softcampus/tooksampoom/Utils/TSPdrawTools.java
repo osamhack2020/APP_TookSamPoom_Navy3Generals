@@ -91,7 +91,12 @@ public class TSPdrawTools {
         canvas.drawText(type + ": " + count + " : " + currentPose,overlay.getWidth() * 0.3f,
                 overlay.getHeight() * 0.8f, countPaint);
         Paint timerPaint = getTimerPaint();
-        canvas.drawText(Integer.toString(time), overlay.getWidth() * 0.3f, overlay.getHeight() * 0.2f,
-                timerPaint);
+        if (time == 0) {
+            canvas.drawText("Finished!", overlay.getWidth() * 0.3f, overlay.getHeight() * 0.2f,
+                    timerPaint);
+        } else {
+            canvas.drawText(Integer.toString(time), overlay.getWidth() * 0.3f, overlay.getHeight() * 0.2f,
+                    timerPaint);
+        }
     }
 }

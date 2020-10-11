@@ -36,6 +36,7 @@ import kr.co.softcampus.tooksampoom.Utils.LimitedQueue;
 public class PushUpMeasureActivity extends AppCompatActivity {
 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
+    private static boolean _isStarted = false;
     protected static int _countDown = 120;
     PreviewView previewView;
     ImageView pushUpBodyImageView;
@@ -67,8 +68,6 @@ public class PushUpMeasureActivity extends AppCompatActivity {
             }
         }, ContextCompat.getMainExecutor(this));
         setPushUpInterpreter();
-
-
     }
 
     void setPushUpInterpreter() {
@@ -127,13 +126,15 @@ public class PushUpMeasureActivity extends AppCompatActivity {
     public void onClickStartButton(View view) {
         _countDown = 120;
         pushUpStartButton.setVisibility(View.GONE);
-        new CountDownTimer(121000, 1000){
+        _isStarted = true;
+        new CountDownTimer(120500, 1000){
             public void onTick(long millisUntilFinished){
                 _countDown --;
             }
             public  void onFinish(){
                 _countDown = 120;
                 pushUpStartButton.setVisibility(View.VISIBLE);
+                _isStarted = false;
             }
         }.start();
     }
@@ -148,7 +149,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
     public static void updateCounter() {
         int currentPosture = getCurrentPosture();
         if (currentPosture == 0) {
-            if (DownHit)
+            if (DownHit && _isStarted)
                 Count ++;
             DownHit = false;
         }
