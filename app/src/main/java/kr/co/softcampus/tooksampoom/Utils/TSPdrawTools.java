@@ -85,10 +85,10 @@ public class TSPdrawTools {
         }
     }
 
-    public static void createCountOverlay(Bitmap overlay, String type, int count, int time) {
+    public static void createCountOverlay(Bitmap overlay, String type, int count, int time, int currentPose) {
         Paint countPaint = getCountPaint();
         Canvas canvas = new Canvas(overlay);
-        canvas.drawText(type + ": " + count,overlay.getWidth() * 0.3f,
+        canvas.drawText(type + ": " + count + " : " + currentPose,overlay.getWidth() * 0.3f,
                 overlay.getHeight() * 0.8f, countPaint);
         Paint timerPaint = getTimerPaint();
         canvas.drawText(Integer.toString(time), overlay.getWidth() * 0.3f, overlay.getHeight() * 0.2f,
