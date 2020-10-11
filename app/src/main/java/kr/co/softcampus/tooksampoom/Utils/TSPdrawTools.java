@@ -31,6 +31,7 @@ public class TSPdrawTools {
 
     private static Paint bodyPaint = null;
     private static Paint _countPaint = null;
+    private static Paint _timerPaint = null;
 
     public static Paint getBodyPaint() {
         if (bodyPaint != null)
@@ -48,11 +49,23 @@ public class TSPdrawTools {
             return _countPaint;
         _countPaint = new Paint();
         _countPaint.setAntiAlias(true);
-        _countPaint.setStyle(Paint.Style.STROKE);
+        _countPaint.setStyle(Paint.Style.FILL);
         _countPaint.setColor(Color.BLUE);
         _countPaint.setStrokeWidth(10f);
         _countPaint.setTextSize(100f);
         return _countPaint;
+    }
+
+    public static Paint getTimerPaint() {
+        if (_timerPaint != null)
+            return _timerPaint;
+        _timerPaint = new Paint();
+        _timerPaint.setAntiAlias(true);
+        _timerPaint.setStyle(Paint.Style.FILL);
+        _timerPaint.setColor(Color.WHITE);
+        _timerPaint.setStrokeWidth(7f);
+        _timerPaint.setTextSize(170f);
+        return _timerPaint;
     }
 
     public static void createBodyOverlay(Bitmap overlay, List<PoseLandmark> landmarks) {
@@ -72,10 +85,13 @@ public class TSPdrawTools {
         }
     }
 
-    public static void createCountOverlay(Bitmap overlay, String type, int count) {
-        Paint paint = getCountPaint();
+    public static void createCountOverlay(Bitmap overlay, String type, int count, int time) {
+        Paint countPaint = getCountPaint();
         Canvas canvas = new Canvas(overlay);
         canvas.drawText(type + ": " + count,overlay.getWidth() * 0.3f,
-                overlay.getHeight() * 0.8f, paint);
+                overlay.getHeight() * 0.8f, countPaint);
+        Paint timerPaint = getTimerPaint();
+        canvas.drawText(Integer.toString(time), overlay.getWidth() * 0.3f, overlay.getHeight() * 0.2f,
+                timerPaint);
     }
 }

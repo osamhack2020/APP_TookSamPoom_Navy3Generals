@@ -26,6 +26,7 @@ import java.nio.ByteOrder;
 import java.util.List;
 import java.util.concurrent.Executor;
 
+import kr.co.softcampus.tooksampoom.Utils.ActivityMode;
 import kr.co.softcampus.tooksampoom.Utils.TSPdrawTools;
 
 public class LiveVideoAnalyzer {
@@ -37,7 +38,8 @@ public class LiveVideoAnalyzer {
                     .build()
     );
 
-    public static ImageAnalysis getImageAnalysis(Executor executor, ImageView imageView, Interpreter interpreter, String type) {
+    public static ImageAnalysis getImageAnalysis(Executor executor, ImageView imageView,
+                                                 Interpreter interpreter, ActivityMode am) {
         ImageAnalysis imageAnalysis =
                 new ImageAnalysis.Builder()
                         .setTargetResolution(new Size(1280, 720))
@@ -51,14 +53,13 @@ public class LiveVideoAnalyzer {
                         Bitmap overlay = Bitmap.createBitmap(image.getWidth(), image.getHeight(),Bitmap.Config.ARGB_8888);
                         TSPdrawTools.createBodyOverlay(overlay, pl);
 
+                        int maxInd = 0;
                         if (!pl.isEmpty()) {
                             ByteBuffer input = PushUpMeasureActivity.createInput(pl);
                             ByteBuffer output = ByteBuffer.allocateDirect(java.lang.Float.SIZE * 4 / java.lang.Byte.SIZE).order(ByteOrder.nativeOrder());
                             interpreter.run(input, output);
                             output.rewind();
-                            float[] result = new float[4];
                             float max = 0;
-                            int maxInd = 0;
                             for (int i = 0; i < 4; i++) {
                                 float cur = output.getFloat();
                                 if (cur > max) {
@@ -66,8 +67,11 @@ public class LiveVideoAnalyzer {
                                     maxInd = i;
                                 }
                             }
-                            TSPdrawTools.createCountOverlay(overlay, type, maxInd);
                         }
+                        int timer = 0;
+                        if (am == ActivityMode.PushUp)
+                            timer = PushUpMeasureActivity._countDown;
+                        TSPdrawTools.createCountOverlay(overlay, am.name(), maxInd, timer);
                         imageView.setImageBitmap(overlay);
                         image.close();
                     });

@@ -1,6 +1,9 @@
 package kr.co.softcampus.tooksampoom;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -26,14 +29,19 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
+import kr.co.softcampus.tooksampoom.Utils.ActivityMode;
+
 
 public class PushUpMeasureActivity extends AppCompatActivity {
 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
+    protected static int _countDown = 120;
     PreviewView previewView;
     ImageView pushUpBodyImageView;
+    Button pushUpStartButton;
     Interpreter pushUpInterpreter;
     public static String[] pushUpStatus = new String[]{"stand", "move", "down", "fail"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +49,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_push_up_measure);
         previewView = findViewById(R.id.previewView);
         pushUpBodyImageView = findViewById(R.id.push_up_body);
+        pushUpStartButton = findViewById(R.id.push_up_start_button);
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
         cameraProviderFuture.addListener(() -> {
             try {
@@ -80,7 +89,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
 
         preview.setSurfaceProvider(previewView.createSurfaceProvider());
         ImageAnalysis analysis = LiveVideoAnalyzer.getImageAnalysis(Executors.newSingleThreadExecutor(),
-                pushUpBodyImageView, pushUpInterpreter, "pushUpCount");
+                pushUpBodyImageView, pushUpInterpreter, ActivityMode.PushUp);
         cameraProvider.bindToLifecycle(this, cameraSelector, analysis, preview);
     }
 
@@ -107,6 +116,20 @@ public class PushUpMeasureActivity extends AppCompatActivity {
         for (float prob : probList)
             input.putFloat(prob);
         return input;
+    }
+
+    public void onClickStartButton(View view) {
+        _countDown = 120;
+        pushUpStartButton.setVisibility(View.GONE);
+        new CountDownTimer(121000, 1000){
+            public void onTick(long millisUntilFinished){
+                _countDown --;
+            }
+            public  void onFinish(){
+                _countDown = 120;
+                pushUpStartButton.setVisibility(View.VISIBLE);
+            }
+        }.start();
     }
 
 }
