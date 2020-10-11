@@ -67,10 +67,13 @@ public class LiveVideoAnalyzer {
                                     maxInd = i;
                                 }
                             }
+                            PushUpMeasureActivity.LatestPostures.add(maxInd);
                         }
                         int timer = 0;
-                        if (am == ActivityMode.PushUp)
+                        if (am == ActivityMode.PushUp) {
                             timer = PushUpMeasureActivity._countDown;
+                            PushUpMeasureActivity.updateCounter();
+                        }
                         TSPdrawTools.createCountOverlay(overlay, am.name(), maxInd, timer);
                         imageView.setImageBitmap(overlay);
                         image.close();

@@ -30,6 +30,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
 import kr.co.softcampus.tooksampoom.Utils.ActivityMode;
+import kr.co.softcampus.tooksampoom.Utils.LimitedQueue;
 
 
 public class PushUpMeasureActivity extends AppCompatActivity {
@@ -41,12 +42,17 @@ public class PushUpMeasureActivity extends AppCompatActivity {
     Button pushUpStartButton;
     Interpreter pushUpInterpreter;
     public static String[] pushUpStatus = new String[]{"stand", "move", "down", "fail"};
+    public static boolean DownHit;
+    public static int Count;
+    public static List<Integer> LatestPostures = new LimitedQueue<>(10);
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_push_up_measure);
+        Count = 0;
+        DownHit = false;
         previewView = findViewById(R.id.previewView);
         pushUpBodyImageView = findViewById(R.id.push_up_body);
         pushUpStartButton = findViewById(R.id.push_up_start_button);
@@ -130,6 +136,24 @@ public class PushUpMeasureActivity extends AppCompatActivity {
                 pushUpStartButton.setVisibility(View.VISIBLE);
             }
         }.start();
+    }
+
+    public static int getCurrentPosture() {
+        int sum = 0;
+        for (int i : LatestPostures)
+            sum += i;
+        return Math.round((float) sum / LatestPostures.size());
+    }
+
+    public static void updateCounter() {
+        int currentPosture = getCurrentPosture();
+        if (currentPosture == 0) {
+            if (DownHit)
+                Count ++;
+            DownHit = false;
+        }
+        if (currentPosture == 2)
+            DownHit = true;
     }
 
 }
