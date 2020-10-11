@@ -191,9 +191,9 @@ public class RunningActivity extends AppCompatActivity {
                 locationManager.removeUpdates(listener);
                 chronometer.stop();
                 //database로 시간(초) 보내기
-
-
                 int elapsedSec = (int)elapsedMillis/1000;
+                DBhelper.setRunningRecord(this, id, elapsedSec);
+                
                 time_result.setText(Integer.toString(elapsedSec/60)+"분 "+Integer.toString(elapsedSec%60)+"초");
                 speed_result.setText(Double.toString(Math.round((elapsedMillis/(distance*60))*100)/100.0)+" 분/km");
                 chronometer.setVisibility(View.GONE);
