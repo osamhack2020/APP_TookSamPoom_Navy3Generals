@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -18,7 +19,9 @@ public class DBhelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db){
         String sql1 = "CREATE TABLE User("
                 +"id INTEGER primary key not null, "
-                +"name TEXT not null,"
+                +"name TEXT not null, "
+                +"height INTEGER not null, "
+                +"weight INTEGER not null, "
                 +"age INTEGER not null,"
                 +"sex TEXT not null)";
 
@@ -29,7 +32,6 @@ public class DBhelper extends SQLiteOpenHelper {
                 +"running INTEGER,"
                 +"date DATE not null)";
         db.execSQL(sql1);
-        db.close();
     }
 
     @Override
@@ -45,7 +47,7 @@ public class DBhelper extends SQLiteOpenHelper {
                 +"height,"
                 +"weight,"
                 +"age,"
-                +"sex FROM User"
+                +"sex FROM User "
                 +"WHERE id="+id+"";
         Cursor c = db.rawQuery(sql,null);
         while(c.moveToNext()){
@@ -94,6 +96,7 @@ public class DBhelper extends SQLiteOpenHelper {
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("name", info.name);
+        Log.d("a",info.name);
         values.put("height", info.height);
         values.put("weight", info.weight);
         values.put("age", info.age);
