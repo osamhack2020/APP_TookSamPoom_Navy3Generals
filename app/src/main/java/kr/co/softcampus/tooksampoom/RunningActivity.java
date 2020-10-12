@@ -196,14 +196,19 @@ public class RunningActivity extends AppCompatActivity {
                                         ,location_storage.get(idx).getLongitude()
                                         ,distance_piece);
                 distance+=distance_piece[0];
-                //3000m 이상 달렸을 때 위치 갱신 멈추고 걸린시간, 평균 속도 화면에 띄워주는 코드
+                //3000m 이상 달렸을 때 위치 갱신 멈추고, 맵 크게 바꾸고 걸린시간, 평균 속도 화면에 띄워주는 코드
                 if(distance >= 3000.0){
                     locationManager.removeUpdates(listener);
                     chronometer.stop();
+                    LatLngBounds area = new LatLngBounds();
+                    for(LatLng point : positions){
+                        area.including(point);
+                    }
+                    update = CameraUpdateFactory.newLatLngBounds(area, 0);
                     elapsedSec = (int)elapsedMillis/1000;
                     //database로 시간(초) 보내기
-                    //DBhelper.setRunningRecord(this, id, 500);
-
+                    DBhelper.setRunningRecord(this, 1, elapsedSec);
+                    
                     time_result.setText(Integer.toString(elapsedSec/60)+"분 "+Integer.toString(elapsedSec%60)+"초");
                     speed_result.setText(Double.toString(Math.round((elapsedMillis/(distance*60))*100)/100.0)+" 분/km");
                     chronometer.setVisibility(View.GONE);

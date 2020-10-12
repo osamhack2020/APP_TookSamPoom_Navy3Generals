@@ -74,7 +74,7 @@ public class DBhelper extends SQLiteOpenHelper {
         String sql = "SELECT push_up,"
                 +"sit_up,"
                 +"running,"
-                +"date FROM Record"
+                +"date FROM Record "
                 +"WHERE id="+id+" ORDER BY date DESC LIMIT 10";
         Cursor c = db.rawQuery(sql,null);
         while(c.moveToNext()){
@@ -170,5 +170,20 @@ public class DBhelper extends SQLiteOpenHelper {
         db.execSQL(sql,value);
         db.close();
     }
+
+    public static int getId(Context context, String name){
+        DBhelper helper = new DBhelper(context);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String sql = "SELECT id FROM User WHERE name="+name+"";
+        Cursor c = db.rawQuery(sql,null);
+        while(c.moveToNext()){
+            int id_pos = c.getColumnIndex("id");
+            int id = c.getInt(id_pos);
+        }
+        db.close();
+        return id;
+    }
+
+
 }
 
