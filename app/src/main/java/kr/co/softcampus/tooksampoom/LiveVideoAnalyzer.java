@@ -1,14 +1,8 @@
 package kr.co.softcampus.tooksampoom;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.hardware.camera2.CameraAccessException;
-import android.hardware.camera2.CameraCharacteristics;
-import android.hardware.camera2.CameraManager;
-import android.hardware.camera2.CameraMetadata;
 import android.media.Image;
-import android.util.Size;
 import android.widget.ImageView;
 
 import androidx.camera.core.ImageAnalysis;
@@ -52,7 +46,7 @@ public class LiveVideoAnalyzer {
                         .build();
 
         imageAnalysis.setAnalyzer(executor, image -> {
-            AnalizeImage(image)
+            AnalyzeImage(image)
                     .addOnSuccessListener(pose -> {
                         List<PoseLandmark> pl = pose.getAllPoseLandmarks();
                         Bitmap overlay = Bitmap.createBitmap(image.getWidth(), image.getHeight(),Bitmap.Config.ARGB_8888);
@@ -89,7 +83,7 @@ public class LiveVideoAnalyzer {
         return imageAnalysis;
     }
 
-    public static Task<Pose> AnalizeImage(ImageProxy imageProxy) {
+    public static Task<Pose> AnalyzeImage(ImageProxy imageProxy) {
         @SuppressLint("UnsafeExperimentalUsageError")
         Image mediaImage = imageProxy.getImage();
         if (mediaImage != null) {

@@ -8,7 +8,6 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.Preview;
@@ -38,7 +37,9 @@ public class PushUpMeasureActivity extends AppCompatActivity {
 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private static boolean _isStarted = false;
-    protected static int _countDown = 120;
+    private static final int _pushUpCountDownMaxTime = 120;
+    private static final String _pushUpModelName = "push_up_model.tflite";
+    protected static int _countDown;
     PreviewView previewView;
     ImageView pushUpBodyImageView;
     Button pushUpStartButton;
@@ -53,6 +54,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_push_up_measure);
+        _countDown = _pushUpCountDownMaxTime;
         Count = 0;
         DownHit = false;
         previewView = findViewById(R.id.previewView);
@@ -71,9 +73,12 @@ public class PushUpMeasureActivity extends AppCompatActivity {
         setPushUpInterpreter();
     }
 
+    /**
+     * PushUp 카운트를 위한 텐서플로우 모델을 생성합니다.
+     */
     void setPushUpInterpreter() {
         try {
-            InputStream inputStream = getAssets().open("push_up_model.tflite");
+            InputStream inputStream = getAssets().open(_pushUpModelName);
             byte[] model = new byte[inputStream.available()];
             inputStream.read(model);
             ByteBuffer buffer = ByteBuffer.allocateDirect(model.length)
@@ -113,8 +118,12 @@ public class PushUpMeasureActivity extends AppCompatActivity {
         return input;
     }
 
+    /**
+     * PushUp 시작 버튼
+     * @param view
+     */
     public void onClickStartButton(View view) {
-        _countDown = 120;
+        _countDown = _pushUpCountDownMaxTime;
         pushUpStartButton.setVisibility(View.GONE);
         _isStarted = true;
         new CountDownTimer(120500, 1000){
@@ -122,7 +131,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
                 _countDown --;
             }
             public  void onFinish(){
-                _countDown = 120;
+                _countDown = _pushUpCountDownMaxTime;
                 pushUpStartButton.setVisibility(View.VISIBLE);
                 _isStarted = false;
             }

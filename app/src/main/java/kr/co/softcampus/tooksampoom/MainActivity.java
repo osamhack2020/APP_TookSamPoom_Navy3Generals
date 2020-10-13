@@ -5,19 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.mlkit.vision.pose.Pose;
-import com.google.mlkit.vision.pose.PoseLandmark;
-
-import java.util.List;
+import kr.co.softcampus.tooksampoom.Utils.PracticeSelectorRecycleAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
     public void onClickCCA(View view) {
         Intent ccaIntent = new Intent(this, CameraCaptureActivity.class);
         startActivity(ccaIntent);
+    }
+    
+    public void onClickPracticeSelector(View view) {
+        Intent ptSelector = new Intent(this, PracticeSelectorActivity.class);
+        startActivity(ptSelector);
     }
 
     public void onClickPushUpBt(View view) {

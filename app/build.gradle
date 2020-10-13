@@ -46,7 +46,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'org.tensorflow:tensorflow-lite:2.1.0'
-
     implementation 'com.google.mlkit:pose-detection:16.0.0'
 
     // CameraX core library using the camera2 implementation
@@ -60,6 +59,8 @@ dependencies {
     implementation "androidx.camera:camera-view:1.0.0-alpha15"
     // If you want to additionally use the CameraX Extensions library
     implementation "androidx.camera:camera-extensions:1.0.0-alpha15"
+
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 
 
 }

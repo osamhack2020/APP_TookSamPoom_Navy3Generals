@@ -18,7 +18,7 @@ public class VideoClasifier {
 
     Uri filePath;
     Context context;
-    int currentTimer = 0;
+    int currentTimer;
     int timeIncrement = 50000;
     MediaMetadataRetriever retriever;
 
