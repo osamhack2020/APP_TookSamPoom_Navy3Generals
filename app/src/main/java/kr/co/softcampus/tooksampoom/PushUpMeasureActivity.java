@@ -30,6 +30,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
 import kr.co.softcampus.tooksampoom.Utils.ActivityMode;
+import kr.co.softcampus.tooksampoom.Utils.DataNormalizer;
 import kr.co.softcampus.tooksampoom.Utils.LimitedQueue;
 
 
@@ -45,7 +46,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
     public static String[] pushUpStatus = new String[]{"stand", "move", "down", "fail"};
     public static boolean DownHit;
     public static int Count;
-    public static List<Integer> LatestPostures = new LimitedQueue<>(10);
+    public static List<Integer> LatestPostures = new LimitedQueue<>(6);
 
 
     @Override
@@ -98,28 +99,16 @@ public class PushUpMeasureActivity extends AppCompatActivity {
         cameraProvider.bindToLifecycle(this, cameraSelector, analysis, preview);
     }
 
+    /**
+     * PushUp 모델을 위한 인풋 버퍼 생성
+     * @param landmarks
+     * @return
+     */
     public static ByteBuffer createInput(List<PoseLandmark> landmarks) {
         ByteBuffer input = ByteBuffer.allocateDirect(99 * java.lang.Float.SIZE / java.lang.Byte.SIZE).order(ByteOrder.nativeOrder());
-        float xmax = 0;
-        float ymax = 0;
-        List<Float> xList = new ArrayList();
-        List<Float> yList = new ArrayList<>();
-        List<Float> probList = new ArrayList<>();
-
-        for (PoseLandmark pl : landmarks) {
-            xmax = Math.max(xmax, pl.getPosition().x);
-            ymax = Math.max(ymax, pl.getPosition().y);
-            xList.add(pl.getPosition().x);
-            yList.add(pl.getPosition().y);
-            probList.add(pl.getInFrameLikelihood());
-        }
-        for(float x : xList) {
-            input.putFloat(x/xmax);
-        }
-        for(float y : yList)
-            input.putFloat(y / ymax);
-        for (float prob : probList)
-            input.putFloat(prob);
+        List<Float> inputList = DataNormalizer.NormalizeWithAxisOnBody(landmarks);
+        for (Float f : inputList)
+            input.putFloat(f);
         return input;
     }
 

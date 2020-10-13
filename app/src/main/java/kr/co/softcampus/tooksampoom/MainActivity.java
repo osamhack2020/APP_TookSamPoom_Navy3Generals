@@ -32,23 +32,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         checkPermission();
 
-        Bitmap icon = BitmapFactory.decodeResource(getResources(),
-                R.mipmap.test_image_foreground);
-        final Task<Pose> ts =VideoClasifier.AnalizeImage(icon);
-        Thread tr = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                ts.addOnSuccessListener(new OnSuccessListener<Pose>() {
-                    @Override
-                    public void onSuccess(Pose pose) {
-                        List<PoseLandmark> a = pose.getAllPoseLandmarks();
-                        Log.d("Main", pose.getAllPoseLandmarks().get(0).getPosition().toString());
-                    }
-                });
-            }
-        });
-        tr.run();
-
     }
 
     public void checkPermission() {
