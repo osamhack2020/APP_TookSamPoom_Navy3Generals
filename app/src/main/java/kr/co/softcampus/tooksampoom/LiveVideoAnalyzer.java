@@ -1,7 +1,12 @@
 package kr.co.softcampus.tooksampoom;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
+import android.hardware.camera2.CameraMetadata;
 import android.media.Image;
 import android.util.Size;
 import android.widget.ImageView;
@@ -38,9 +43,11 @@ public class LiveVideoAnalyzer {
 
     public static ImageAnalysis getImageAnalysis(Executor executor, ImageView imageView,
                                                  Interpreter interpreter, ActivityMode am) {
+
+
         ImageAnalysis imageAnalysis =
                 new ImageAnalysis.Builder()
-                        .setTargetResolution(new Size(1280, 720))
+                        //.setTargetResolution(new Size(1280, 720))
                         .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                         .build();
 
