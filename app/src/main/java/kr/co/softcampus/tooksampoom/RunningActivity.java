@@ -136,7 +136,7 @@ public class RunningActivity extends AppCompatActivity {
         GetMyLocationListener locationListener = new GetMyLocationListener();
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                                                1000,
+                                                500,
                                                 0,
                                                 locationListener);
         } else {
@@ -186,8 +186,6 @@ public class RunningActivity extends AppCompatActivity {
         if(isButtonClicked == 1){
             //동선 그릴때 필요한 location을 List에 저장하고 이전에 측정된 위치와 현재 위치 사이의 거리 계산 후 total distance에 저장
             location_storage.add(location);
-            elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
-            Log.d("test","Success");
             if(idx!=0){
                 float[] distance_piece = new float[1];
                 Location.distanceBetween(location_storage.get(idx-1).getLatitude()
@@ -201,16 +199,24 @@ public class RunningActivity extends AppCompatActivity {
                     locationManager.removeUpdates(listener);
                     chronometer.stop();
                     LatLngBounds area = new LatLngBounds();
-                    for(LatLng point : positions){
+                    for(int i=0; i<postions.size(); i+=100){
                         area.including(point);
                     }
                     update = CameraUpdateFactory.newLatLngBounds(area, 0);
+                    map.moveCamera(update);
                     elapsedSec = (int)elapsedMillis/1000;
                     //database로 시간(초) 보내기
                     DBhelper.setRunningRecord(this, 1, elapsedSec);
+
+                    elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
+                    long nowTime = SystemClock.elapsedRealtime();
                     
+                    if(idx%20 == 0){
+                        long tookTime = nowTime - pastTime;
+                        long pastTime = SystemClock.elapsedRealtime();
+                        speed_result.setText(Long.toString(Math.round((tookTime/(distance*60))*100)/100.0)+" 분/km");
+                    }
                     time_result.setText(Integer.toString(elapsedSec/60)+"분 "+Integer.toString(elapsedSec%60)+"초");
-                    speed_result.setText(Double.toString(Math.round((elapsedMillis/(distance*60))*100)/100.0)+" 분/km");
                     chronometer.setVisibility(View.GONE);
                     speed_text.setVisibility(View.GONE);
                     distance_text.setVisibility(View.GONE);
