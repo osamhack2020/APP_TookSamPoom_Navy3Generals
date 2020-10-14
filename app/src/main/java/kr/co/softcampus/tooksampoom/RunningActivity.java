@@ -134,7 +134,7 @@ public class RunningActivity extends AppCompatActivity {
         GetMyLocationListener locationListener = new GetMyLocationListener();
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                                                500,
+                                                50,
                                                 0,
                                                 locationListener);
         } else {
@@ -184,6 +184,7 @@ public class RunningActivity extends AppCompatActivity {
         if(isButtonClicked == 1){
             //동선 그릴때 필요한 location을 List에 저장하고 이전에 측정된 위치와 현재 위치 사이의 거리 계산 후 total distance에 저장
             location_storage.add(location);
+            elapsedMillis = SystemClock.elapsedRealtime()-chronometer.getBase();
             if(idx!=0){
                 float[] distance_piece = new float[1];
                 Location.distanceBetween(location_storage.get(idx-1).getLatitude()
@@ -192,13 +193,30 @@ public class RunningActivity extends AppCompatActivity {
                                         ,location_storage.get(idx).getLongitude()
                                         ,distance_piece);
                 distance+=distance_piece[0];
+
+                long nowTime = SystemClock.elapsedRealtime();
+                if(idx%20 == 0){
+                    if(idx==0){
+                        float pastDistance = distance;
+                        long pastTime = SystemClock.elapsedRealtime();
+                    }
+                    else{
+                        long tookTime = nowTime - pastTime;
+                        float tookDistance = distance - pastDistance;
+                        float pastDistance = distance;
+                        long pastTime = SystemClock.elapsedRealtime();
+                        distance_text.setText(Double.toString(Math.round((distance/1000)*100)/100.0)+" km");
+                        speed_text.setText(Long.toString(Math.round((tookTime/(tookDistance*60))*100)/100.0)+" 분/km");
+                    }
+                }
+
                 //3000m 이상 달렸을 때 위치 갱신 멈추고, 맵 크게 바꾸고 걸린시간, 평균 속도 화면에 띄워주는 코드
                 if(distance >= 3000.0){
                     locationManager.removeUpdates(listener);
                     chronometer.stop();
                     LatLngBounds area = new LatLngBounds();
                     for(int i=0; i<postions.size(); i+=100){
-                        area.including(point);
+                        area.including(positions.get(i));
                     }
                     update = CameraUpdateFactory.newLatLngBounds(area, 0);
                     map.moveCamera(update);
@@ -206,14 +224,8 @@ public class RunningActivity extends AppCompatActivity {
                     //database로 시간(초) 보내기
                     DBhelper.setRunningRecord(this, 1, elapsedSec);
 
-                    elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
-                    long nowTime = SystemClock.elapsedRealtime();
-                    
-                    if(idx%20 == 0){
-                        long tookTime = nowTime - pastTime;
-                        long pastTime = SystemClock.elapsedRealtime();
-                        speed_result.setText(Long.toString(Math.round((tookTime/(distance*60))*100)/100.0)+" 분/km");
-                    }
+
+                    speed_result.setText(Double.toString(Math.round((elapsedMillis/(distance*60))*100)/100.0)+" 분/km");
                     time_result.setText(Integer.toString(elapsedSec/60)+"분 "+Integer.toString(elapsedSec%60)+"초");
                     chronometer.setVisibility(View.GONE);
                     speed_text.setVisibility(View.GONE);
@@ -224,12 +236,6 @@ public class RunningActivity extends AppCompatActivity {
                     time_result.setVisibility(View.VISIBLE);
                     speed_result.setVisibility(View.VISIBLE);
                 }
-            }
-
-            //distance가 0이 아닐때 지금까지 이동거리와 평균속도 화면에 띄우고 동선 drawing
-            if(distance!=0){
-                distance_text.setText(Double.toString(Math.round((distance/1000)*100)/100.0)+" km");
-                speed_text.setText(Double.toString(Math.round((elapsedMillis/(distance*60))*100)/100.0)+" 분/km");
             }
             positions.add(new LatLng(location.getLatitude(),location.getLongitude()));
             Polyline polyline = map.addPolyline((new PolylineOptions())
