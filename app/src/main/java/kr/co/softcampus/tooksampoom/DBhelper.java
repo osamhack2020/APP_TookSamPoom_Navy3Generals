@@ -67,10 +67,11 @@ public class DBhelper extends SQLiteOpenHelper {
         return userinfo;
     }
 
-    public static RecordInfo getRecord(Context context,int id){
+    public static RecordInfo[] getRecord(Context context,int id){
         DBhelper helper = new DBhelper(context);
         SQLiteDatabase db = helper.getWritableDatabase();
-        RecordInfo recordinfo = new RecordInfo();
+        RecordInfo[] recordInfo = new RecordInfo[10];
+        int i=0;
         String sql = "SELECT push_up,"
                 +"sit_up,"
                 +"running,"
@@ -82,15 +83,16 @@ public class DBhelper extends SQLiteOpenHelper {
             int sit_up_pos = c.getColumnIndex("sit_up");
             int running_pos = c.getColumnIndex("running");
             int date_pos = c.getColumnIndex("date");
-
-            recordinfo.setPushup(c.getInt(push_up_pos));
-            recordinfo.setSitup(c.getInt(sit_up_pos));
-            recordinfo.setRunning(c.getInt(running_pos));
-            recordinfo.setDate(c.getString(date_pos));
+            recordInfo[i].setPushup(c.getInt(push_up_pos));
+            recordInfo[i].setSitup(c.getInt(sit_up_pos));
+            recordInfo[i].setRunning(c.getInt(running_pos));
+            recordInfo[i].setDate(c.getString(date_pos));
+            i++;
         }
         db.close();
-        return recordinfo;
+        return recordInfo;
     }
+
     public static int setUser(Context context, UserInfo info){
         DBhelper helper = new DBhelper(context);
         SQLiteDatabase db = helper.getWritableDatabase();

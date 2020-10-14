@@ -8,6 +8,7 @@ public class RecordInfo {
     public String push_up;
     public String running;
     public String date;
+    public String id;
 
     public void setPushup(int push_up){
         this.push_up = Integer.toString(push_up);
@@ -20,6 +21,9 @@ public class RecordInfo {
     }
     public void setDate(String date){
         this.date =  date;
+    }
+    public void setId(int id){
+        this.id =  Integer.toString(id);
     }
 }
 
