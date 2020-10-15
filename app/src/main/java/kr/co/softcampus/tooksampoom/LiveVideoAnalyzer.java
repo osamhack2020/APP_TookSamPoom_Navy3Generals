@@ -43,11 +43,8 @@ public class LiveVideoAnalyzer {
 
     public static ImageAnalysis getImageAnalysis(Executor executor, ImageView imageView,
                                                  Interpreter interpreter, ActivityMode am) {
-
-
         ImageAnalysis imageAnalysis =
                 new ImageAnalysis.Builder()
-                        //.setTargetResolution(new Size(1280, 720))
                         .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                         .build();
 
@@ -55,7 +52,7 @@ public class LiveVideoAnalyzer {
             AnalizeImage(image)
                     .addOnSuccessListener(pose -> {
                         List<PoseLandmark> pl = pose.getAllPoseLandmarks();
-                        Bitmap overlay = Bitmap.createBitmap(image.getWidth(), image.getHeight(),Bitmap.Config.ARGB_8888);
+                        Bitmap overlay = Bitmap.createBitmap(image.getWidth(), image.getHeight(), Bitmap.Config.ARGB_8888);
                         TSPdrawTools.createBodyOverlay(overlay, pl);
 
                         int maxInd = 0;
