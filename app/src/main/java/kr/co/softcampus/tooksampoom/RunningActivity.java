@@ -27,6 +27,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -45,7 +46,8 @@ public class RunningActivity extends AppCompatActivity {
     TextView speed_result;
     TextView time_result;
     Chronometer chronometer;
-
+    float pastDistance=0;
+    long pastTime;
     int elapsedSec = 0;
     int idx=0;
     int isButtonClicked = -1;
@@ -192,13 +194,28 @@ public class RunningActivity extends AppCompatActivity {
                                         ,location_storage.get(idx).getLongitude()
                                         ,distance_piece);
                 distance+=distance_piece[0];
+                elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
+                long nowTime = SystemClock.elapsedRealtime();
+
+                if(idx==1){
+                    pastTime=0;
+                }
+                if(idx%20 == 0){
+                    float tookDistance = distance - pastDistance;
+                    pastDistance = distance;
+                    long tookTime = nowTime - pastTime;
+                    pastTime = SystemClock.elapsedRealtime();
+                    distance_text.setText(Double.toString(Math.round((distance/1000)*100)/100.0)+" km");
+                    speed_text.setText(Double.toString(Math.round((tookTime/(tookDistance*60))*100)/100.0)+" 분/km");
+                }
                 //3000m 이상 달렸을 때 위치 갱신 멈추고, 맵 크게 바꾸고 걸린시간, 평균 속도 화면에 띄워주는 코드
                 if(distance >= 3000.0){
                     locationManager.removeUpdates(listener);
                     chronometer.stop();
-                    LatLngBounds area = new LatLngBounds();
-                    for(int i=0; i<postions.size(); i+=100){
-                        area.including(point);
+                    LatLngBounds area;
+                    area = new LatLngBounds(positions.get(0), positions.get(1));
+                    for(int i=0; i<positions.size(); i+=100){
+                        area.including(positions.get(i));
                     }
                     update = CameraUpdateFactory.newLatLngBounds(area, 0);
                     map.moveCamera(update);
@@ -206,14 +223,6 @@ public class RunningActivity extends AppCompatActivity {
                     //database로 시간(초) 보내기
                     DBhelper.setRunningRecord(this, 1, elapsedSec);
 
-                    elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
-                    long nowTime = SystemClock.elapsedRealtime();
-                    
-                    if(idx%20 == 0){
-                        long tookTime = nowTime - pastTime;
-                        long pastTime = SystemClock.elapsedRealtime();
-                        speed_result.setText(Long.toString(Math.round((tookTime/(distance*60))*100)/100.0)+" 분/km");
-                    }
                     time_result.setText(Integer.toString(elapsedSec/60)+"분 "+Integer.toString(elapsedSec%60)+"초");
                     chronometer.setVisibility(View.GONE);
                     speed_text.setVisibility(View.GONE);
@@ -226,11 +235,6 @@ public class RunningActivity extends AppCompatActivity {
                 }
             }
 
-            //distance가 0이 아닐때 지금까지 이동거리와 평균속도 화면에 띄우고 동선 drawing
-            if(distance!=0){
-                distance_text.setText(Double.toString(Math.round((distance/1000)*100)/100.0)+" km");
-                speed_text.setText(Double.toString(Math.round((elapsedMillis/(distance*60))*100)/100.0)+" 분/km");
-            }
             positions.add(new LatLng(location.getLatitude(),location.getLongitude()));
             Polyline polyline = map.addPolyline((new PolylineOptions())
                     .clickable(false)

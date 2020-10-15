@@ -1,4 +1,23 @@
+package kr.co.softcampus.tooksampoom;
 
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class GraphActivity extends AppCompatActivity {
 
@@ -12,9 +31,21 @@ public class GraphActivity extends AppCompatActivity {
         lineChart = (LineChart)findViewById(R.id.chart);
         recordInfo = DBhelper.getRecord(this, 1);
 
-        List<Entry> pushUpEntry = new ArrayList<>();
-        for(int i=0; i<pushUpEntry.length; i++){
-            pushUpEntry.add(new Entry(recordInfo[i].date, Integer.parseInt(recordInfo[i].push_up)));
+        ArrayList<Entry> pushUpEntry = new ArrayList<>();
+        for(int i=0; i<10; i++){
+            pushUpEntry.add(new Entry(1, Integer.parseInt(recordInfo[i].push_up)));
+        }
+        for (RecordInfo recordinfo : recordInfo) {
+            Date to=new Date();
+            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                to = fm.parse(recordinfo.date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            long date_long = to.getTime();
+            int push_up = Integer.parseInt(recordinfo.push_up);
+            pushUpEntry.add(new Entry(date_long, push_up));
         }
 
         LineDataSet lineDataSet_pushUp = new LineDataSet(pushUpEntry, "팔굽혀펴기");
@@ -51,11 +82,13 @@ public class GraphActivity extends AppCompatActivity {
 
     }
 
+
+
     public void onClickPushUp(View view) {
-        
-        List<Entry> pushUpEntry = new ArrayList<>();
-        for(int i=0; i<pushUpEntry.length; i++){
-            pushUpEntry.add(new Entry(recordInfo[i].date, Integer.parseInt(recordInfo[i].push_up)));
+
+        ArrayList<Entry> pushUpEntry = new ArrayList<>();
+        for(int i=0; i<pushUpEntry.size(); i++){
+            pushUpEntry.add(new Entry(Integer.parseInt(recordInfo[i].date), Integer.parseInt(recordInfo[i].push_up)));
         }
 
         LineDataSet lineDataSet_pushUp = new LineDataSet(pushUpEntry, "팔굽혀펴기");
@@ -93,9 +126,9 @@ public class GraphActivity extends AppCompatActivity {
 
     public void onClickSitUp(View view){
 
-        List<Entry> sitUpEntry = new ArrayList<>();
-        for(int i=0; i<SitUpEntry.length; i++){
-            SitUpEntry.add(new Entry(recordInfo[i].date, Integer.parseInt(recordInfo[i].sit_up)));
+        ArrayList<Entry> sitUpEntry = new ArrayList<>();
+        for(int i=0; i<sitUpEntry.size(); i++){
+            sitUpEntry.add(new Entry(Integer.parseInt(recordInfo[i].date), Integer.parseInt(recordInfo[i].sit_up)));
         }
 
         LineDataSet lineDataSet_sitUp = new LineDataSet(sitUpEntry, "윗몸일으키기");
@@ -107,7 +140,7 @@ public class GraphActivity extends AppCompatActivity {
         lineDataSet_sitUp.setDrawCircleHole(true);
         lineDataSet_sitUp.setDrawCircles(true);
         lineDataSet_sitUp.setDrawValues(false);
-    
+
         LineData lineData = new LineData(lineDataSet_sitUp);
         lineChart.setData(lineData);
 
@@ -129,25 +162,25 @@ public class GraphActivity extends AppCompatActivity {
         lineChart.setDoubleTapToZoomEnabled(false);
         lineChart.setDescription(description);
         lineChart.invalidate();
-        
+
     }
 
-    public void conClickRunning(View view){
+    public void onClickRunning(View view){
 
-        List<Entry> runningEntry = new ArrayList<>();
-        for(int i=0; i<RunningEntry.length; i++){
-            RunningEntry.add(new Entry(recordInfo[i].date, Integer.parseInt(recordInfo[i].running)));
+        ArrayList<Entry> runningEntry = new ArrayList<>();
+        for(int i=0; i<runningEntry.size(); i++){
+            runningEntry.add(new Entry(Integer.parseInt(recordInfo[i].date), Integer.parseInt(recordInfo[i].running)));
         }
 
         LineDataSet lineDataSet_running = new LineDataSet(runningEntry, "3km 달리기");
-        lineDataSet.setLineWidth(2);
-        lineDataSet.setCircleRadius(6);
-        lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
-        lineDataSet.setCircleColorHole(Color.BLUE);
-        lineDataSet.setColor(Color.parseColor("#FFA1B4DC"));
-        lineDataSet.setDrawCircleHole(true);
-        lineDataSet.setDrawCircles(true);
-        lineDataSet.setDrawValues(false);
+        lineDataSet_running.setLineWidth(2);
+        lineDataSet_running.setCircleRadius(6);
+        lineDataSet_running.setCircleColor(Color.parseColor("#FFA1B4DC"));
+        lineDataSet_running.setCircleColorHole(Color.BLUE);
+        lineDataSet_running.setColor(Color.parseColor("#FFA1B4DC"));
+        lineDataSet_running.setDrawCircleHole(true);
+        lineDataSet_running.setDrawCircles(true);
+        lineDataSet_running.setDrawValues(false);
 
         LineData lineData = new LineData(lineDataSet_running);
         lineChart.setData(lineData);
@@ -172,26 +205,4 @@ public class GraphActivity extends AppCompatActivity {
         lineChart.invalidate();
     }
 
-
-    public void onClickDummy(View view){
-        init();
-    }
-
-    public void init(){
-        for(int i=10; i<24; i++){
-            RecordInfo recordinfo = new RecordInfo();
-            recordinfo.setId(1);
-            recordinfo.setPushup(67+i);
-            recordinfo.setRunning(720+i);
-            recordinfo.setSitup(80+i);
-            //Date date = new Date(System.currentTimeMillis());
-            //SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy/MM/dd");
-            //String formatDate = sdfNow.format(date);
-            String formatDate = "2020-08-"+i;
-            recordinfo.setDate(formatDate);
-            DBhelper.setPushUpRecord(this, recordinfo.id, recordinfo.push_up);
-            DBhelper.setSitUpRecord(this, recordinfo.id, recordinfo.sit_up);
-            DBhelper.setRunningRecord(this, recordinfo.id, recordinfo.running);
-        }
-    }
 }
