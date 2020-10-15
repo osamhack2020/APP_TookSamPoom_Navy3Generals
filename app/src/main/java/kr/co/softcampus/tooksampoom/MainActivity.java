@@ -6,20 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
-
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.mlkit.vision.pose.Pose;
-import com.google.mlkit.vision.pose.PoseLandmark;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickCCA(View view) {
-        Intent ccaIntent = new Intent(this, CameraCaptureActivity.class);
+        Intent ccaIntent = new Intent(this, TestDataGeneratorActivity.class);
         startActivity(ccaIntent);
     }
 

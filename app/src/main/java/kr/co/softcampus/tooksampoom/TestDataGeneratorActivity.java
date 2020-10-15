@@ -23,7 +23,7 @@ import java.util.List;
 
 import kr.co.softcampus.tooksampoom.Utils.TSPdrawTools;
 
-public class CameraCaptureActivity extends AppCompatActivity {
+public class TestDataGeneratorActivity extends AppCompatActivity {
 
     private static final int CREATE_FILE = 1;
     private static final int PICK_VIDEO = 2;

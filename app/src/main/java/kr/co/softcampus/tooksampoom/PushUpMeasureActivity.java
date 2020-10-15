@@ -1,5 +1,6 @@
 package kr.co.softcampus.tooksampoom;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -113,6 +114,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
         _countDown = 120;
         pushUpStartButton.setVisibility(View.GONE);
         _isStarted = true;
+        Context _ct = this;
         new CountDownTimer(120500, 1000){
             public void onTick(long millisUntilFinished){
                 _countDown --;
@@ -120,6 +122,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
             public  void onFinish(){
                 pushUpStartButton.setVisibility(View.VISIBLE);
                 pushUpStartButton.setText("기록저장하기");
+                DBhelper.setPushUpRecord(_ct, 1,Count);
                 pushUpStartButton.setOnClickListener(null);
                 pushUpStartButton.setOnClickListener(v -> {
                     finish();
