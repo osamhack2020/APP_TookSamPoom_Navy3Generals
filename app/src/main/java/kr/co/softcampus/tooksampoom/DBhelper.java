@@ -27,17 +27,17 @@ public class DBhelper extends SQLiteOpenHelper {
 
         String sql2 = "CREATE TABLE Record_Push_Up("
                 +"id INTEGER not null, "
-                +"push_up INTEGER,"
+                +"push_up INTEGER not null,"
                 +"date DATE not null)";
 
         String sql3 = "CREATE TABLE Record_Sit_Up("
                 +"id INTEGER not null, "
-                +"sit_up INTEGER,"
+                +"sit_up INTEGER not null,"
                 +"date DATE not null)";
 
         String sql4 = "CREATE TABLE Record_Running("
                 +"id INTEGER not null, "
-                +"running INTEGER,"
+                +"running INTEGER not null,"
                 +"date DATE not null)";
         db.execSQL(sql1);
         db.execSQL(sql2);
@@ -82,11 +82,9 @@ public class DBhelper extends SQLiteOpenHelper {
         DBhelper helper = new DBhelper(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         RecordInfo[] recordInfo = new RecordInfo[10];
-
         for (int i = 0; i < 10; i++) {
             recordInfo[i] = new RecordInfo();
         }
-
         int i=0;
         String sql = "SELECT push_up,"
                 +"date FROM Record_Push_Up "
@@ -107,11 +105,9 @@ public class DBhelper extends SQLiteOpenHelper {
         DBhelper helper = new DBhelper(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         RecordInfo[] recordInfo = new RecordInfo[10];
-
         for (int i = 0; i < 10; i++) {
             recordInfo[i] = new RecordInfo();
         }
-
         int i=0;
         String sql = "SELECT sit_up,"
                 +"date FROM Record_Sit_Up "
@@ -131,11 +127,9 @@ public class DBhelper extends SQLiteOpenHelper {
         DBhelper helper = new DBhelper(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         RecordInfo[] recordInfo = new RecordInfo[10];
-
         for (int i = 0; i < 10; i++) {
             recordInfo[i] = new RecordInfo();
         }
-
         int i=0;
         String sql = "SELECT running,"
                 +"date FROM Record_Running "
@@ -190,7 +184,7 @@ public class DBhelper extends SQLiteOpenHelper {
         String sql = "INSERT INTO Record_Push_Up(id,"
                 +"push_up,"
                 +"date) VALUES(?,?,?)";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         String date = sdf.format(new Date());
 
         String[] value = {Integer.toString(id),
@@ -206,7 +200,7 @@ public class DBhelper extends SQLiteOpenHelper {
         String sql = "INSERT INTO Record_Sit_Up(id,"
                 +"sit_up,"
                 +"date) VALUES(?,?,?)";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.getDefault());
         String date = sdf.format(new Date());
 
         String[] value = {Integer.toString(id),
@@ -222,7 +216,7 @@ public class DBhelper extends SQLiteOpenHelper {
         String sql = "INSERT INTO Record_Running(id,"
                 +"running,"
                 +"date) VALUES(?,?,?)";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.getDefault());
         String date = sdf.format(new Date());
 
         String[] value = {Integer.toString(id),
@@ -245,7 +239,5 @@ public class DBhelper extends SQLiteOpenHelper {
         db.close();
         return id;
     }
-
-
 }
 

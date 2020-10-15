@@ -89,11 +89,6 @@ public class MainActivity extends AppCompatActivity {
             recordinfo.setPushup(67+i);
             recordinfo.setRunning(720+i);
             recordinfo.setSitup(80+i);
-            //Date date = new Date(System.currentTimeMillis());
-            //SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy/MM/dd");
-            //String formatDate = sdfNow.format(date);
-            String formatDate = "2020-08-"+i;
-            recordinfo.setDate(formatDate);
             DBhelper.setPushUpRecord(this, Integer.parseInt(recordinfo.id),  Integer.parseInt(recordinfo.push_up));
             DBhelper.setSitUpRecord(this,  Integer.parseInt(recordinfo.id),  Integer.parseInt(recordinfo.sit_up));
             DBhelper.setRunningRecord(this,  Integer.parseInt(recordinfo.id),  Integer.parseInt(recordinfo.running));

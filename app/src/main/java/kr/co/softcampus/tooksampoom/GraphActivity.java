@@ -45,7 +45,7 @@ public class GraphActivity extends AppCompatActivity {
 
         for (RecordInfo recordinfo : recordInfo1) {
             Date to = new Date();
-            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try {
                 to = fm.parse(recordinfo.date);
             } catch (ParseException e) {
@@ -58,7 +58,7 @@ public class GraphActivity extends AppCompatActivity {
 
         for (RecordInfo recordinfo : recordInfo2) {
             Date to = new Date();
-            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try {
                 to = fm.parse(recordinfo.date);
             } catch (ParseException e) {
@@ -71,7 +71,7 @@ public class GraphActivity extends AppCompatActivity {
 
         for (RecordInfo recordinfo : recordInfo3) {
             Date to = new Date();
-            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try {
                 to = fm.parse(recordinfo.date);
             } catch (ParseException e) {
