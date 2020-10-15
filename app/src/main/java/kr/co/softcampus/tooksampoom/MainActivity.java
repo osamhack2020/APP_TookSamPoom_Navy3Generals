@@ -79,10 +79,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickDummy(View view){
-        init();
-    }
-
-    public void init(){
         for(int i=10; i<24; i++){
             RecordInfo recordinfo = new RecordInfo();
             recordinfo.setId(1);
@@ -94,4 +90,5 @@ public class MainActivity extends AppCompatActivity {
             DBhelper.setRunningRecord(this,  Integer.parseInt(recordinfo.id),  Integer.parseInt(recordinfo.running));
         }
     }
+
 }
