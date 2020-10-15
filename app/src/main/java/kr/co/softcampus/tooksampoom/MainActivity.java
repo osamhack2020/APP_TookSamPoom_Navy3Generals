@@ -60,6 +60,13 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(recordIntent, 0);
     }
 
+    public void onClickPracticeSelector(View view) {
+        Intent practiceSelectorIntent = new Intent(this, PracticeSelectorActivity.class);
+        startActivityForResult(practiceSelectorIntent, 0);
+    }
+
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
