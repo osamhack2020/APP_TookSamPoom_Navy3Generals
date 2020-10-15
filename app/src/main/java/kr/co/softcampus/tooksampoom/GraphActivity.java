@@ -13,6 +13,8 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,21 +24,27 @@ import java.util.Date;
 public class GraphActivity extends AppCompatActivity {
 
     private LineChart lineChart;
-    RecordInfo[] recordInfo;
+    RecordInfo[] recordInfo1;
+    RecordInfo[] recordInfo2;
+    RecordInfo[] recordInfo3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
-        lineChart = (LineChart)findViewById(R.id.chart);
-        recordInfo = DBhelper.getRecord(this, 1);
+
+        lineChart = (LineChart) findViewById(R.id.chart);
+        lineChart.invalidate();
+        recordInfo1 = DBhelper.getPushUpRecord(this, 1);
+        recordInfo2 = DBhelper.getSitUpRecord(this, 1);
+        recordInfo3 = DBhelper.getRunningRecord(this, 1);
 
         ArrayList<Entry> pushUpEntry = new ArrayList<>();
-        for(int i=0; i<10; i++){
-            pushUpEntry.add(new Entry(1, Integer.parseInt(recordInfo[i].push_up)));
-        }
-        for (RecordInfo recordinfo : recordInfo) {
-            Date to=new Date();
+        ArrayList<Entry> sitUpEntry = new ArrayList<>();
+        ArrayList<Entry> runningEntry = new ArrayList<>();
+
+        for (RecordInfo recordinfo : recordInfo1) {
+            Date to = new Date();
             SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 to = fm.parse(recordinfo.date);
@@ -46,6 +54,32 @@ public class GraphActivity extends AppCompatActivity {
             long date_long = to.getTime();
             int push_up = Integer.parseInt(recordinfo.push_up);
             pushUpEntry.add(new Entry(date_long, push_up));
+        }
+
+        for (RecordInfo recordinfo : recordInfo2) {
+            Date to = new Date();
+            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                to = fm.parse(recordinfo.date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            long date_long = to.getTime();
+            int sit_up = Integer.parseInt(recordinfo.sit_up);
+            sitUpEntry.add(new Entry(date_long, sit_up));
+        }
+
+        for (RecordInfo recordinfo : recordInfo3) {
+            Date to = new Date();
+            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                to = fm.parse(recordinfo.date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            long date_long = to.getTime();
+            int running = Integer.parseInt(recordinfo.running);
+            runningEntry.add(new Entry(date_long, running));
         }
 
         LineDataSet lineDataSet_pushUp = new LineDataSet(pushUpEntry, "팔굽혀펴기");
@@ -58,10 +92,12 @@ public class GraphActivity extends AppCompatActivity {
         lineDataSet_pushUp.setDrawCircles(true);
         lineDataSet_pushUp.setDrawValues(false);
 
-        LineData lineData= new LineData(lineDataSet_pushUp);
+        LineData lineData = new LineData(lineDataSet_pushUp);
         lineChart.setData(lineData);
 
+        MyXAxisValueFormatter xAxisformatter = new MyXAxisValueFormatter();
         XAxis xAxis = lineChart.getXAxis();
+        xAxis.setValueFormatter(xAxisformatter);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.BLACK);
 
@@ -78,16 +114,15 @@ public class GraphActivity extends AppCompatActivity {
 
         lineChart.setDoubleTapToZoomEnabled(false);
         lineChart.setDescription(description);
-        lineChart.invalidate();
+
 
     }
-
-
-
+}
+/*
     public void onClickPushUp(View view) {
 
         ArrayList<Entry> pushUpEntry = new ArrayList<>();
-        for(int i=0; i<pushUpEntry.size(); i++){
+        for (int i = 0; i < pushUpEntry.size(); i++) {
             pushUpEntry.add(new Entry(Integer.parseInt(recordInfo[i].date), Integer.parseInt(recordInfo[i].push_up)));
         }
 
@@ -101,7 +136,7 @@ public class GraphActivity extends AppCompatActivity {
         lineDataSet_pushUp.setDrawCircles(true);
         lineDataSet_pushUp.setDrawValues(false);
 
-        LineData lineData= new LineData(lineDataSet_pushUp);
+        LineData lineData = new LineData(lineDataSet_pushUp);
         lineChart.setData(lineData);
 
         XAxis xAxis = lineChart.getXAxis();
@@ -124,10 +159,10 @@ public class GraphActivity extends AppCompatActivity {
         lineChart.invalidate();
     }
 
-    public void onClickSitUp(View view){
+    public void onClickSitUp(View view) {
 
         ArrayList<Entry> sitUpEntry = new ArrayList<>();
-        for(int i=0; i<sitUpEntry.size(); i++){
+        for (int i = 0; i < sitUpEntry.size(); i++) {
             sitUpEntry.add(new Entry(Integer.parseInt(recordInfo[i].date), Integer.parseInt(recordInfo[i].sit_up)));
         }
 
@@ -165,10 +200,10 @@ public class GraphActivity extends AppCompatActivity {
 
     }
 
-    public void onClickRunning(View view){
+    public void onClickRunning(View view) {
 
         ArrayList<Entry> runningEntry = new ArrayList<>();
-        for(int i=0; i<runningEntry.size(); i++){
+        for (int i = 0; i < runningEntry.size(); i++) {
             runningEntry.add(new Entry(Integer.parseInt(recordInfo[i].date), Integer.parseInt(recordInfo[i].running)));
         }
 
@@ -204,5 +239,5 @@ public class GraphActivity extends AppCompatActivity {
         lineChart.setDescription(description);
         lineChart.invalidate();
     }
-
 }
+*/
