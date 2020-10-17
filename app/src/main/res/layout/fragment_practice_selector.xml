@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".Utils.PracticeSelectorFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/practice_selector_textview"
         android:layout_width="wrap_content"

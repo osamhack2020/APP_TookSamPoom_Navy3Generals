@@ -19,10 +19,9 @@ public class PracticeSelectorActivity extends AppCompatActivity {
         viewPager2 = findViewById(R.id.pager);
 
         List<String> list = new ArrayList<>();
-        list.add("First Screen");
-        list.add("Second Screen");
-        list.add("Third Screen");
-        list.add("Fourth Screen");
+        list.add("팔 굽혀펴기");
+        list.add("윗몸 일으키기");
+        list.add("3KM 달리기");
 
         viewPager2.setAdapter(new PracticeSelectorRecyclerAdapter(this, list, viewPager2));
 

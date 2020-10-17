@@ -13,9 +13,6 @@ import kr.co.softcampus.tooksampoom.R;
 
 public class PracticeSelectorFragment extends Fragment {
 
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
