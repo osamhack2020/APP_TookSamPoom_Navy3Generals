@@ -24,26 +24,39 @@ import java.util.Date;
 public class GraphActivity extends AppCompatActivity {
 
     private LineChart lineChart;
-    RecordInfo[] recordInfo1;
-    RecordInfo[] recordInfo2;
-    RecordInfo[] recordInfo3;
+    RecordInfo[] recordInfo_push_up;
+    RecordInfo[] recordInfo_sit_up;
+    RecordInfo[] recordInfo_running;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
-
         lineChart = (LineChart) findViewById(R.id.chart);
-        lineChart.invalidate();
-        recordInfo1 = DBhelper.getPushUpRecord(this, 1);
-        recordInfo2 = DBhelper.getSitUpRecord(this, 1);
-        recordInfo3 = DBhelper.getRunningRecord(this, 1);
 
-        ArrayList<Entry> pushUpEntry = new ArrayList<>();
-        ArrayList<Entry> sitUpEntry = new ArrayList<>();
-        ArrayList<Entry> runningEntry = new ArrayList<>();
+        recordInfo_push_up = DBhelper.getPushUpRecord(this, 1);
+        recordInfo_sit_up = DBhelper.getSitUpRecord(this, 1);
+        recordInfo_running = DBhelper.getRunningRecord(this, 1);
 
-        for (RecordInfo recordinfo : recordInfo1) {
+        setPushUpChart(recordInfo_push_up);
+    }
+    
+    public void onClickPushUp(){
+        setPushUpChart(recordInfo_push_up);
+    }
+
+    public void onClickSitUp(){
+        setPushUpChart(recordInfo_sit_up);
+    }
+
+    public void onClickRunning(){
+        setPushUpChart(recordInfo_running);
+    }
+
+    private void setPushUpChart(RecordInfo[] recordInfo){
+        ArrayList<Entry> Entry = new ArrayList<Entry>();
+
+        for (RecordInfo recordinfo : recordInfo) {
             Date to = new Date();
             SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try {
@@ -52,51 +65,25 @@ public class GraphActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             long date_long = to.getTime();
-            int push_up = Integer.parseInt(recordinfo.push_up);
-            pushUpEntry.add(new Entry(date_long, push_up));
+            int push_up = recordinfo.push_up;
+            Entry.add(new Entry(date_long, push_up));
         }
 
-        for (RecordInfo recordinfo : recordInfo2) {
-            Date to = new Date();
-            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            try {
-                to = fm.parse(recordinfo.date);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            long date_long = to.getTime();
-            int sit_up = Integer.parseInt(recordinfo.sit_up);
-            sitUpEntry.add(new Entry(date_long, sit_up));
-        }
+        LineDataSet lineDataSet = new LineDataSet(Entry, "팔굽혀펴기");
+        lineDataSet.setLineWidth(2);
+        lineDataSet.setCircleRadius(6);
+        lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
+        lineDataSet.setCircleColorHole(Color.BLUE);
+        lineDataSet.setColor(Color.parseColor("#FFA1B4DC"));
+        lineDataSet.setDrawCircleHole(true);
+        lineDataSet.setDrawCircles(true);
+        lineDataSet.setDrawValues(false);
 
-        for (RecordInfo recordinfo : recordInfo3) {
-            Date to = new Date();
-            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            try {
-                to = fm.parse(recordinfo.date);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            long date_long = to.getTime();
-            int running = Integer.parseInt(recordinfo.running);
-            runningEntry.add(new Entry(date_long, running));
-        }
-
-        LineDataSet lineDataSet_pushUp = new LineDataSet(pushUpEntry, "팔굽혀펴기");
-        lineDataSet_pushUp.setLineWidth(2);
-        lineDataSet_pushUp.setCircleRadius(6);
-        lineDataSet_pushUp.setCircleColor(Color.parseColor("#FFA1B4DC"));
-        lineDataSet_pushUp.setCircleColorHole(Color.BLUE);
-        lineDataSet_pushUp.setColor(Color.parseColor("#FFA1B4DC"));
-        lineDataSet_pushUp.setDrawCircleHole(true);
-        lineDataSet_pushUp.setDrawCircles(true);
-        lineDataSet_pushUp.setDrawValues(false);
-
-        LineData lineData = new LineData(lineDataSet_pushUp);
+        LineData lineData = new LineData(lineDataSet);
         lineChart.setData(lineData);
 
-        MyXAxisValueFormatter xAxisformatter = new MyXAxisValueFormatter();
         XAxis xAxis = lineChart.getXAxis();
+        MyXAxisValueFormatter xAxisformatter = new MyXAxisValueFormatter();
         xAxis.setValueFormatter(xAxisformatter);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.BLACK);
@@ -114,72 +101,40 @@ public class GraphActivity extends AppCompatActivity {
 
         lineChart.setDoubleTapToZoomEnabled(false);
         lineChart.setDescription(description);
-
-
-    }
-}
-/*
-    public void onClickPushUp(View view) {
-
-        ArrayList<Entry> pushUpEntry = new ArrayList<>();
-        for (int i = 0; i < pushUpEntry.size(); i++) {
-            pushUpEntry.add(new Entry(Integer.parseInt(recordInfo[i].date), Integer.parseInt(recordInfo[i].push_up)));
-        }
-
-        LineDataSet lineDataSet_pushUp = new LineDataSet(pushUpEntry, "팔굽혀펴기");
-        lineDataSet_pushUp.setLineWidth(2);
-        lineDataSet_pushUp.setCircleRadius(6);
-        lineDataSet_pushUp.setCircleColor(Color.parseColor("#FFA1B4DC"));
-        lineDataSet_pushUp.setCircleColorHole(Color.BLUE);
-        lineDataSet_pushUp.setColor(Color.parseColor("#FFA1B4DC"));
-        lineDataSet_pushUp.setDrawCircleHole(true);
-        lineDataSet_pushUp.setDrawCircles(true);
-        lineDataSet_pushUp.setDrawValues(false);
-
-        LineData lineData = new LineData(lineDataSet_pushUp);
-        lineChart.setData(lineData);
-
-        XAxis xAxis = lineChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setTextColor(Color.BLACK);
-
-        YAxis yLAxis = lineChart.getAxisLeft();
-        yLAxis.setTextColor(Color.BLACK);
-
-        YAxis yRAxis = lineChart.getAxisRight();
-        yRAxis.setDrawLabels(false);
-        yRAxis.setDrawAxisLine(false);
-        yRAxis.setDrawGridLines(false);
-
-        Description description = new Description();
-        description.setText("PUSH_UP");
-
-        lineChart.setDoubleTapToZoomEnabled(false);
-        lineChart.setDescription(description);
         lineChart.invalidate();
     }
 
-    public void onClickSitUp(View view) {
-
-        ArrayList<Entry> sitUpEntry = new ArrayList<>();
-        for (int i = 0; i < sitUpEntry.size(); i++) {
-            sitUpEntry.add(new Entry(Integer.parseInt(recordInfo[i].date), Integer.parseInt(recordInfo[i].sit_up)));
+    private void setSitUpChart(RecordInfo[] recordInfo){
+        ArrayList<Entry> Entry = new ArrayList<Entry>();
+        for (RecordInfo recordinfo : recordInfo) {
+            Date to = new Date();
+            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                to = fm.parse(recordinfo.date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            long date_long = to.getTime();
+            int sit_up = recordinfo.sit_up;
+            Entry.add(new Entry(date_long, sit_up));
         }
 
-        LineDataSet lineDataSet_sitUp = new LineDataSet(sitUpEntry, "윗몸일으키기");
-        lineDataSet_sitUp.setLineWidth(2);
-        lineDataSet_sitUp.setCircleRadius(6);
-        lineDataSet_sitUp.setCircleColor(Color.parseColor("#FFA1B4DC"));
-        lineDataSet_sitUp.setCircleColorHole(Color.BLUE);
-        lineDataSet_sitUp.setColor(Color.parseColor("#FFA1B4DC"));
-        lineDataSet_sitUp.setDrawCircleHole(true);
-        lineDataSet_sitUp.setDrawCircles(true);
-        lineDataSet_sitUp.setDrawValues(false);
+        LineDataSet lineDataSet = new LineDataSet(Entry, "윗몸일으키기");
+        lineDataSet.setLineWidth(2);
+        lineDataSet.setCircleRadius(6);
+        lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
+        lineDataSet.setCircleColorHole(Color.BLUE);
+        lineDataSet.setColor(Color.parseColor("#FFA1B4DC"));
+        lineDataSet.setDrawCircleHole(true);
+        lineDataSet.setDrawCircles(true);
+        lineDataSet.setDrawValues(false);
 
-        LineData lineData = new LineData(lineDataSet_sitUp);
+        LineData lineData = new LineData(lineDataSet);
         lineChart.setData(lineData);
 
         XAxis xAxis = lineChart.getXAxis();
+        MyXAxisValueFormatter xAxisformatter = new MyXAxisValueFormatter();
+        xAxis.setValueFormatter(xAxisformatter);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.BLACK);
 
@@ -197,30 +152,39 @@ public class GraphActivity extends AppCompatActivity {
         lineChart.setDoubleTapToZoomEnabled(false);
         lineChart.setDescription(description);
         lineChart.invalidate();
-
     }
 
-    public void onClickRunning(View view) {
-
-        ArrayList<Entry> runningEntry = new ArrayList<>();
-        for (int i = 0; i < runningEntry.size(); i++) {
-            runningEntry.add(new Entry(Integer.parseInt(recordInfo[i].date), Integer.parseInt(recordInfo[i].running)));
+    private void setRunningChart(RecordInfo[] recordInfo){
+        ArrayList<Entry> Entry = new ArrayList<Entry>();
+        for (RecordInfo recordinfo : recordInfo) {
+            Date to = new Date();
+            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                to = fm.parse(recordinfo.date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            long date_long = to.getTime();
+            int running = recordinfo.running;
+            Entry.add(new Entry(date_long, running));
         }
 
-        LineDataSet lineDataSet_running = new LineDataSet(runningEntry, "3km 달리기");
-        lineDataSet_running.setLineWidth(2);
-        lineDataSet_running.setCircleRadius(6);
-        lineDataSet_running.setCircleColor(Color.parseColor("#FFA1B4DC"));
-        lineDataSet_running.setCircleColorHole(Color.BLUE);
-        lineDataSet_running.setColor(Color.parseColor("#FFA1B4DC"));
-        lineDataSet_running.setDrawCircleHole(true);
-        lineDataSet_running.setDrawCircles(true);
-        lineDataSet_running.setDrawValues(false);
+        LineDataSet lineDataSet = new LineDataSet(Entry, "3km 달리기");
+        lineDataSet.setLineWidth(2);
+        lineDataSet.setCircleRadius(6);
+        lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
+        lineDataSet.setCircleColorHole(Color.BLUE);
+        lineDataSet.setColor(Color.parseColor("#FFA1B4DC"));
+        lineDataSet.setDrawCircleHole(true);
+        lineDataSet.setDrawCircles(true);
+        lineDataSet.setDrawValues(false);
 
-        LineData lineData = new LineData(lineDataSet_running);
+        LineData lineData = new LineData(lineDataSet);
         lineChart.setData(lineData);
 
         XAxis xAxis = lineChart.getXAxis();
+        MyXAxisValueFormatter xAxisformatter = new MyXAxisValueFormatter();
+        xAxis.setValueFormatter(xAxisformatter);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.BLACK);
 
@@ -233,11 +197,10 @@ public class GraphActivity extends AppCompatActivity {
         yRAxis.setDrawGridLines(false);
 
         Description description = new Description();
-        description.setText("Running");
+        description.setText("3km_RUNNING");
 
         lineChart.setDoubleTapToZoomEnabled(false);
         lineChart.setDescription(description);
         lineChart.invalidate();
     }
 }
-*/
