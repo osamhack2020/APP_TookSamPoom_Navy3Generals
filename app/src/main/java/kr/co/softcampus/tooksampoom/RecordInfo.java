@@ -4,9 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class RecordInfo {
-    public String sit_up;
-    public String push_up;
-    public String running;
+    public int sit_up;
+    public int push_up;
+    public int running;
     public String date;
     public String id;
 

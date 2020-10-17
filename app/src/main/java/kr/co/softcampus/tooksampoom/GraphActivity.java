@@ -42,15 +42,15 @@ public class GraphActivity extends AppCompatActivity {
     }
     
     public void onClickPushUp(){
-        setPushUpBtn(recordInfo_push_up);
+        setPushUpChart(recordInfo_push_up);
     }
 
     public void onClickSitUp(){
-        setPushUpBtn(recordInfo_sit_up);
+        setPushUpChart(recordInfo_sit_up);
     }
 
     public void onClickRunning(){
-        setPushUpBtn(recordInfo_running);
+        setPushUpChart(recordInfo_running);
     }
 
     private void setPushUpChart(RecordInfo[] recordInfo){
@@ -65,7 +65,7 @@ public class GraphActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             long date_long = to.getTime();
-            int push_up = Integer.parseInt(recordinfo.push_up);
+            int push_up = recordinfo.push_up;
             Entry.add(new Entry(date_long, push_up));
         }
 
@@ -115,7 +115,7 @@ public class GraphActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             long date_long = to.getTime();
-            int sit_up = Integer.parseInt(recordinfo.sit_up);
+            int sit_up = recordinfo.sit_up;
             Entry.add(new Entry(date_long, sit_up));
         }
 
@@ -165,7 +165,7 @@ public class GraphActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             long date_long = to.getTime();
-            int running = Integer.parseInt(recordinfo.running);
+            int running = recordinfo.running;
             Entry.add(new Entry(date_long, running));
         }
 
