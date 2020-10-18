@@ -9,12 +9,26 @@ public class DataNormalizer {
 
     private static final int _leftShoulderInd = 11;
     private static final int _leftHipInd = 23;
+    private static final int _leftHandInd = 15;
+    private static final int _leftAnkleInde = 27;
 
     public static List<Float> NormalizeWithAxisOnBody(List<PoseLandmark> plList) {
-        float x1 = (plList.get(_leftShoulderInd).getPosition().x + plList.get(_leftShoulderInd + 1).getPosition().x) / 2;
-        float y1 = (plList.get(_leftShoulderInd + 1).getPosition().y + plList.get(_leftShoulderInd + 1).getPosition().y) / 2;
-        float x2 = (plList.get(_leftHipInd).getPosition().x + plList.get(_leftHipInd).getPosition().x) / 2;
-        float y2 = (plList.get(_leftHipInd + 1).getPosition().x + plList.get(_leftHipInd + 1).getPosition().x) / 2;
+        return NormalizeOnAxis(plList, _leftShoulderInd, _leftHipInd);
+    }
+
+    public static List<Float> NormalizeWithAxisOnHandToFeet(List<PoseLandmark> plList) {
+        return NormalizeOnAxis(plList, _leftHandInd, _leftAnkleInde);
+    }
+
+    public static List<Float> NormalizeSitUp(List<PoseLandmark> plList) {
+        return NormalizeOnAxis(plList, _leftAnkleInde, _leftHipInd);
+    }
+
+    private static List<Float> NormalizeOnAxis(List<PoseLandmark> plList, int startIndex, int endIndex) {
+        float x1 = (plList.get(startIndex).getPosition().x + plList.get(startIndex + 1).getPosition().x) / 2;
+        float y1 = (plList.get(startIndex + 1).getPosition().y + plList.get(startIndex + 1).getPosition().y) / 2;
+        float x2 = (plList.get(endIndex).getPosition().x + plList.get(endIndex).getPosition().x) / 2;
+        float y2 = (plList.get(endIndex + 1).getPosition().x + plList.get(endIndex + 1).getPosition().x) / 2;
         double radian = Math.atan(Double.parseDouble(Float.valueOf((y2 - y1) / (x2 - x1)).toString()));
 
         float xMax = 0;
@@ -36,9 +50,7 @@ public class DataNormalizer {
             yList.add(ynew);
             probList.add(pl.getInFrameLikelihood());
         }
-
         List<Float> ans = new ArrayList<>();
-
         for (float x : xList)
             ans.add((x - xMin) / (xMax - xMin));
         for (float y : yList)
