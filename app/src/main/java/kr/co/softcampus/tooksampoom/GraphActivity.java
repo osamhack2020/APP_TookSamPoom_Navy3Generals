@@ -91,16 +91,6 @@ public class GraphActivity extends AppCompatActivity {
         YAxis yLAxis = lineChart.getAxisLeft();
         yLAxis.setTextColor(Color.BLACK);
 
-        YAxis yRAxis = lineChart.getAxisRight();
-        yRAxis.setDrawLabels(false);
-        yRAxis.setDrawAxisLine(false);
-        yRAxis.setDrawGridLines(false);
-
-        Description description = new Description();
-        description.setText("PUSH_UP");
-
-        lineChart.setDoubleTapToZoomEnabled(false);
-        lineChart.setDescription(description);
         lineChart.invalidate();
     }
 
