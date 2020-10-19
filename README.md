@@ -9,9 +9,11 @@
 
 [apk파일 다운로드](https://github.com/osamhack2020/)
 위 하이퍼링크에서 apk파일을 다운로드 받을 수 있습니다.
->**Note:** 안드로이드 api level 26이상 필요
 
 ## 사용방법
+
+## 소프트웨어 구성 및 시스템 요구사항
+- Android API level 26 이상
 
 ## 확장성
 
@@ -20,12 +22,13 @@
 팀장: 김기태(https://github.com/gth1030)
 - UC Berkeley, Bioinformatics 학부
 
-팀원: 정민석(https://github.com/minseok4787)
-- UNIST, Life Science 학부
+팀원: 정민석()
 
 팀원: 김민철()
 
 ## 버젼목표
+
+## 저작권 및 사용권 정보
 
 ### v0.1
 - 윗몸 일으키기 모델 계발
