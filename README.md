@@ -20,7 +20,8 @@
 팀장: 김기태(https://github.com/gth1030)
 - UC Berkeley, Bioinformatics 학부
 
-팀원: 정민석()
+팀원: 정민석(https://github.com/minseok4787)
+- UNIST, Life Science 학부
 
 팀원: 김민철()
 
