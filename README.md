@@ -7,13 +7,16 @@
 
 ## 설치방법
 
-[apk파일 다운로드](https://github.com/osamhack2020/)
+[apk파일 다운로드](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/tree/master/app/release)
 위 하이퍼링크에서 apk파일을 다운로드 받을 수 있습니다.
 
 ## 사용방법
 
 ## 소프트웨어 구성 및 시스템 요구사항
-- Android API level 26 이상
+
+- Android API level 26 이상 (필수)
+- Qualcomm®5 SnapdragonTM 730G 이상 <약 30FPS 이미지 분석>(권장)
+- 
 
 ## 확장성
 
@@ -28,8 +31,6 @@
 
 ## 버젼목표
 
-## 저작권 및 사용권 정보
-
 ### v0.1
 - 윗몸 일으키기 모델 계발
 - Main Activity에 그래프 형식의 유저 결과표 추가
@@ -40,4 +41,5 @@
 - 달리기 모드 서비스 형식으로 전환
 - 측정모드 화면회전 한가지로 고정
 
-
+## 저작권 및 사용권 정보
+ * [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)
