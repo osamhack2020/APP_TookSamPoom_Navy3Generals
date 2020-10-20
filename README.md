@@ -27,7 +27,8 @@
 팀원: 정민석(https://github.com/minseok4787)
 - UNIST, Life Science 학부
 
-팀원: 김민철()
+팀원: 김민철(https://github.com/uselessArkness)
+- 경성대학교, 정보통신공학과
 
 ## 버젼목표
 
