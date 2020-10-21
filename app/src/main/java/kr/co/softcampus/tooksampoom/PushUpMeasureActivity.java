@@ -104,7 +104,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
      */
     public static ByteBuffer createInput(List<PoseLandmark> landmarks) {
         ByteBuffer input = ByteBuffer.allocateDirect(99 * java.lang.Float.SIZE / java.lang.Byte.SIZE).order(ByteOrder.nativeOrder());
-        List<Float> inputList = DataNormalizer.NormalizeWithAxisOnHandToFeet(landmarks);
+        List<Float> inputList = DataNormalizer.NormalizeSitUp(landmarks);
         for (Float f : inputList)
             input.putFloat(f);
         return input;
