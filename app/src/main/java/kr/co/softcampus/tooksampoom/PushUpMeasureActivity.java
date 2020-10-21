@@ -38,7 +38,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private static boolean _isStarted = false;
-    private static final String _pushUpModelName = "push_up_axisOnWristToAnkle.tflite";
+    private static final String _pushUpModelName = "situp_model.tflite";
     protected static int _countDown = 120;
     PreviewView previewView;
     ImageView pushUpBodyImageView;
