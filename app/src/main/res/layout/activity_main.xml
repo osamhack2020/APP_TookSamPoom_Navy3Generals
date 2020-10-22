@@ -16,13 +16,6 @@
         tools:layout_editor_absoluteX="86dp" />
 
     <Button
-        android:id="@+id/push_up_bt"
-        android:layout_width="59dp"
-        android:layout_height="29dp"
-        android:onClick="onClickPushUpBt"
-        android:text="Push Up Layer" />
-
-    <Button
         android:id="@+id/record_btn"
         android:layout_width="34dp"
         android:layout_height="100dp"
@@ -49,6 +42,20 @@
         android:layout_height="wrap_content"
         android:onClick="onClickPracticeSelector"
         android:text="Button" />
+
+    <Button
+        android:id="@+id/push_up_bt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickPushUpBt"
+        android:text="Push Up Layer" />
+
+    <Button
+        android:id="@+id/sit_up_bt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickSitUpBt"
+        android:text="SIT Up LAYER" />
 
 
 </LinearLayout>

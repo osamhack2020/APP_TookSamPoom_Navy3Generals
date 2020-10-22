@@ -50,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(puIntent);
     }
 
+    public void onClickSitUpBt(View view) {
+        Intent siIntent = new Intent(this, SitUpMeasureActivity.class);
+        startActivity(siIntent);
+    }
+
     public void onClickRunning(View view) {
         Intent runningIntent = new Intent(this, RunningActivity.class);
         startActivityForResult(runningIntent, 0);
