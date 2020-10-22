@@ -70,14 +70,14 @@ public class MainActivity extends AppCompatActivity {
         Intent recordIntent = new Intent(this, GraphActivity.class);
         startActivityForResult(recordIntent, 0);
     }
-
+/*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         int runningTime = data.getIntExtra("time",0);
         //time_running.setText(Integer.toString(runningTime / 60)+"분 "+Integer.toString(runningTime%60)+"초");
     }
-
+*/
     public void onClickDummy(View view){
         for(int i=10; i<24; i++){
             RecordInfo recordinfo = new RecordInfo();

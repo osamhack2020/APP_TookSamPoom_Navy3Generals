@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -14,6 +15,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.text.ParseException;
@@ -40,58 +42,42 @@ public class GraphActivity extends AppCompatActivity {
 
         setPushUpChart(recordInfo_push_up);
     }
-    
-    public void onClickPushUp(){
-        setPushUpChart(recordInfo_push_up);
-    }
-
-    public void onClickSitUp(){
-        setPushUpChart(recordInfo_sit_up);
-    }
-
-    public void onClickRunning(){
-        setPushUpChart(recordInfo_running);
-    }
 
     private void setPushUpChart(RecordInfo[] recordInfo){
-        ArrayList<Entry> Entry = new ArrayList<Entry>();
+        lineChart.invalidate();
+        int i=0;
+        ArrayList<Entry> Entry = new ArrayList<>();
 
         for (RecordInfo recordinfo : recordInfo) {
             Date to = new Date();
-            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 to = fm.parse(recordinfo.date);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            long date_long = to.getTime();
+            float date_long = (float)to.getTime();
             int push_up = recordinfo.push_up;
             Entry.add(new Entry(date_long, push_up));
         }
 
+
         LineDataSet lineDataSet = new LineDataSet(Entry, "팔굽혀펴기");
-        lineDataSet.setLineWidth(2);
-        lineDataSet.setCircleRadius(6);
-        lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
-        lineDataSet.setCircleColorHole(Color.BLUE);
-        lineDataSet.setColor(Color.parseColor("#FFA1B4DC"));
-        lineDataSet.setDrawCircleHole(true);
-        lineDataSet.setDrawCircles(true);
-        lineDataSet.setDrawValues(false);
 
-        LineData lineData = new LineData(lineDataSet);
-        lineChart.setData(lineData);
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(lineDataSet); // add the data sets
 
+        LineData data = new LineData(dataSets);
+
+        lineDataSet.setColor(Color.BLACK);
+        lineDataSet.setCircleColor(Color.BLACK);
+
+        lineChart.setData(data);
         XAxis xAxis = lineChart.getXAxis();
-        MyXAxisValueFormatter xAxisformatter = new MyXAxisValueFormatter();
-        xAxis.setValueFormatter(xAxisformatter);
+        xAxis.setValueFormatter(new MyXAxisValueFormatter());
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setTextColor(Color.BLACK);
+        xAxis.setLabelCount(10);
 
-        YAxis yLAxis = lineChart.getAxisLeft();
-        yLAxis.setTextColor(Color.BLACK);
-
-        lineChart.invalidate();
     }
 
     private void setSitUpChart(RecordInfo[] recordInfo){
@@ -135,16 +121,10 @@ public class GraphActivity extends AppCompatActivity {
         yRAxis.setDrawLabels(false);
         yRAxis.setDrawAxisLine(false);
         yRAxis.setDrawGridLines(false);
-
-        Description description = new Description();
-        description.setText("SIT_UP");
-
-        lineChart.setDoubleTapToZoomEnabled(false);
-        lineChart.setDescription(description);
-        lineChart.invalidate();
     }
 
     private void setRunningChart(RecordInfo[] recordInfo){
+        lineChart.invalidate();
         ArrayList<Entry> Entry = new ArrayList<Entry>();
         for (RecordInfo recordinfo : recordInfo) {
             Date to = new Date();
@@ -185,12 +165,17 @@ public class GraphActivity extends AppCompatActivity {
         yRAxis.setDrawLabels(false);
         yRAxis.setDrawAxisLine(false);
         yRAxis.setDrawGridLines(false);
-
-        Description description = new Description();
-        description.setText("3km_RUNNING");
-
-        lineChart.setDoubleTapToZoomEnabled(false);
-        lineChart.setDescription(description);
-        lineChart.invalidate();
     }
+    public void onClickPushUp(View view){
+        setRunningChart(recordInfo_push_up);
+    }
+
+    public void onClickSitUp(View view){
+        setSitUpChart(recordInfo_sit_up);
+    }
+
+    public void onClickRunning(View view){
+        setPushUpChart(recordInfo_running);
+    }
+
 }
