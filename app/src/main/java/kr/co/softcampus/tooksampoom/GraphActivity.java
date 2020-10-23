@@ -64,8 +64,6 @@ public class GraphActivity extends AppCompatActivity {
             values[i] = date;
             i++;
         }
-
-
         LineDataSet lineDataSet = new LineDataSet(Entry, "팔굽혀펴기");
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
@@ -84,94 +82,86 @@ public class GraphActivity extends AppCompatActivity {
         xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setLabelCount(recordInfo_push_up.length);
-
-
     }
 
     private void setSitUpChart(RecordInfo[] recordInfo){
-        ArrayList<Entry> Entry = new ArrayList<Entry>();
+        lineChart.invalidate();
+        int i=0;
+        ArrayList<Entry> Entry = new ArrayList<>();
+        String[] values = new String[recordInfo_sit_up.length];
         for (RecordInfo recordinfo : recordInfo) {
             Date to = new Date();
-            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat fm1 = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat fm2 = new SimpleDateFormat("MM/dd");
             try {
-                to = fm.parse(recordinfo.date);
+                to = fm1.parse(recordinfo.date);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+            String date = fm2.format(to);
             int sit_up = recordinfo.sit_up;
-            Entry.add(new Entry(to.getTime(), sit_up));
+            Entry.add(new Entry(i,sit_up));
+            values[i] = date;
+            i++;
         }
-
         LineDataSet lineDataSet = new LineDataSet(Entry, "윗몸일으키기");
-        lineDataSet.setLineWidth(2);
-        lineDataSet.setCircleRadius(6);
-        lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
-        lineDataSet.setCircleColorHole(Color.BLUE);
-        lineDataSet.setColor(Color.parseColor("#FFA1B4DC"));
-        lineDataSet.setDrawCircleHole(true);
-        lineDataSet.setDrawCircles(true);
-        lineDataSet.setDrawValues(false);
 
-        LineData lineData = new LineData(lineDataSet);
-        lineChart.setData(lineData);
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(lineDataSet);
 
+        LineData data = new LineData(dataSets);
+
+        lineDataSet.setColor(Color.BLUE);
+        lineDataSet.setCircleColor(Color.BLUE);
+        lineDataSet.setLineWidth(2f);
+        lineDataSet.setCircleRadius(4f);
+        lineDataSet.setValueTextSize(9f);
+
+        lineChart.setData(data);
         XAxis xAxis = lineChart.getXAxis();
-        //MyXAxisValueFormatter xAxisformatter = new MyXAxisValueFormatter();
-        //xAxis.setValueFormatter(xAxisformatter);
+        xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setTextColor(Color.BLACK);
-
-        YAxis yLAxis = lineChart.getAxisLeft();
-        yLAxis.setTextColor(Color.BLACK);
-
-        YAxis yRAxis = lineChart.getAxisRight();
-        yRAxis.setDrawLabels(false);
-        yRAxis.setDrawAxisLine(false);
-        yRAxis.setDrawGridLines(false);
+        xAxis.setLabelCount(recordInfo_push_up.length);
     }
 
     private void setRunningChart(RecordInfo[] recordInfo){
         lineChart.invalidate();
-        ArrayList<Entry> Entry = new ArrayList<Entry>();
+        int i=0;
+        ArrayList<Entry> Entry = new ArrayList<>();
+        String[] values = new String[recordInfo_running.length];
         for (RecordInfo recordinfo : recordInfo) {
             Date to = new Date();
-            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat fm1 = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat fm2 = new SimpleDateFormat("MM/dd");
             try {
-                to = fm.parse(recordinfo.date);
+                to = fm1.parse(recordinfo.date);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            long date_long = to.getTime();
+            String date = fm2.format(to);
             int running = recordinfo.running;
-            Entry.add(new Entry(date_long, running));
+            Entry.add(new Entry(i,running));
+            values[i] = date;
+            i++;
         }
-
         LineDataSet lineDataSet = new LineDataSet(Entry, "3km 달리기");
-        lineDataSet.setLineWidth(2);
-        lineDataSet.setCircleRadius(6);
-        lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
-        lineDataSet.setCircleColorHole(Color.BLUE);
-        lineDataSet.setColor(Color.parseColor("#FFA1B4DC"));
-        lineDataSet.setDrawCircleHole(true);
-        lineDataSet.setDrawCircles(true);
-        lineDataSet.setDrawValues(false);
 
-        LineData lineData = new LineData(lineDataSet);
-        lineChart.setData(lineData);
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(lineDataSet);
 
+        LineData data = new LineData(dataSets);
+
+        lineDataSet.setColor(Color.BLUE);
+        lineDataSet.setCircleColor(Color.BLUE);
+        lineDataSet.setLineWidth(2f);
+        lineDataSet.setCircleRadius(4f);
+        lineDataSet.setValueTextSize(9f);
+
+        lineChart.setData(data);
         XAxis xAxis = lineChart.getXAxis();
-        //MyXAxisValueFormatter xAxisformatter = new MyXAxisValueFormatter();
-        //xAxis.setValueFormatter(xAxisformatter);
+        xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setTextColor(Color.BLACK);
-
-        YAxis yLAxis = lineChart.getAxisLeft();
-        yLAxis.setTextColor(Color.BLACK);
-
-        YAxis yRAxis = lineChart.getAxisRight();
-        yRAxis.setDrawLabels(false);
-        yRAxis.setDrawAxisLine(false);
-        yRAxis.setDrawGridLines(false);
+        xAxis.setLabelCount(recordInfo_push_up.length);
     }
     public void onClickPushUp(View view){
         setRunningChart(recordInfo_push_up);

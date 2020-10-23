@@ -16,27 +16,27 @@
     </com.github.mikephil.charting.charts.LineChart>
 
     <Button
-        android:id="@+id/pushUpBtn"
-        android:layout_width="158dp"
-        android:layout_height="37dp"
-        android:onClick="onClickPushUp"
-        android:text="팔굽혀펴기"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-    <Button
         android:id="@+id/sitUpBtn"
         android:layout_width="160dp"
         android:layout_height="35dp"
-        android:text="윗몸일으키기"
         android:onClick="onClickSitUp"
+        android:text="윗몸일으키기"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <Button
         android:id="@+id/runningBtn"
         android:layout_width="160dp"
         android:layout_height="34dp"
-        android:text="3km 달리기"
         android:onClick="onClickRunning"
+        android:text="3km 달리기"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <Button
+        android:id="@+id/pushUpBtn"
+        android:layout_width="158dp"
+        android:layout_height="37dp"
+        android:onClick="onClickPushUp"
+        android:text="팔굽혀펴기"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
 </LinearLayout>

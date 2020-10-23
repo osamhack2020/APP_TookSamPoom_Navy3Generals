@@ -88,7 +88,7 @@ public class DBhelper extends SQLiteOpenHelper {
         int i=0;
         String sql = "SELECT push_up,"
                 +"date FROM Record_Push_Up "
-                +"WHERE id="+id+" ORDER BY date LIMIT 10";
+                +"WHERE id="+id+" ORDER BY date DESC LIMIT 10";
         Cursor c = db.rawQuery(sql,null);
         while(c.moveToNext()){
             int push_up_pos = c.getColumnIndex("push_up");
@@ -111,7 +111,7 @@ public class DBhelper extends SQLiteOpenHelper {
         int i=0;
         String sql = "SELECT sit_up,"
                 +"date FROM Record_Sit_Up "
-                +"WHERE id="+id+" ORDER BY date DESC LIMIT 10";
+                +"WHERE id="+id+" ORDER BY date LIMIT 10";
         Cursor c = db.rawQuery(sql,null);
         while(c.moveToNext()){
             int sit_up_pos = c.getColumnIndex("sit_up");
@@ -133,7 +133,7 @@ public class DBhelper extends SQLiteOpenHelper {
         int i=0;
         String sql = "SELECT running,"
                 +"date FROM Record_Running "
-                +"WHERE id="+id+" ORDER BY date DESC LIMIT 10";
+                +"WHERE id="+id+" ORDER BY date LIMIT 10";
         Cursor c = db.rawQuery(sql,null);
         while(c.moveToNext()){
             int running_pos = c.getColumnIndex("running");
