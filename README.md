@@ -49,6 +49,18 @@ Server는 사용자들의 정보 및 데이터를 저장하고 불러올 수 있
 - Android API level 26 이상 (필수)
 - Qualcomm®5 SnapdragonTM 730G 이상 <~30FPS 이미지 분석>(권장)
 
+## 기술 스택 (Technique Used)
+
+|Server | | |
+|:----------:|:----------:|:----------:|
+| front | | |
+| back | | |  
+
+| Android | | |
+|:----------:|:----------:|:----------:|
+| API | | |
+| Model | | |  
+
 ## 확장성
 
 ## 팀 소개
