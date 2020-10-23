@@ -88,7 +88,7 @@ public class DBhelper extends SQLiteOpenHelper {
         int i=0;
         String sql = "SELECT push_up,"
                 +"date FROM Record_Push_Up "
-                +"WHERE id="+id+" ORDER BY date DESC LIMIT 10";
+                +"WHERE id="+id+" ORDER BY date LIMIT 10";
         Cursor c = db.rawQuery(sql,null);
         while(c.moveToNext()){
             int push_up_pos = c.getColumnIndex("push_up");

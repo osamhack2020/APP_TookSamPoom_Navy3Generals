@@ -2,6 +2,7 @@ package kr.co.softcampus.tooksampoom;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,36 +48,43 @@ public class GraphActivity extends AppCompatActivity {
         lineChart.invalidate();
         int i=0;
         ArrayList<Entry> Entry = new ArrayList<>();
-
+        String[] values = new String[recordInfo_push_up.length];
         for (RecordInfo recordinfo : recordInfo) {
             Date to = new Date();
-            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat fm1 = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat fm2 = new SimpleDateFormat("MM/dd");
             try {
-                to = fm.parse(recordinfo.date);
+                to = fm1.parse(recordinfo.date);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            float date_long = (float)to.getTime();
+            String date = fm2.format(to);
             int push_up = recordinfo.push_up;
-            Entry.add(new Entry(date_long, push_up));
+            Entry.add(new Entry(i,push_up));
+            values[i] = date;
+            i++;
         }
 
 
         LineDataSet lineDataSet = new LineDataSet(Entry, "팔굽혀펴기");
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(lineDataSet); // add the data sets
+        dataSets.add(lineDataSet);
 
         LineData data = new LineData(dataSets);
 
-        lineDataSet.setColor(Color.BLACK);
-        lineDataSet.setCircleColor(Color.BLACK);
+        lineDataSet.setColor(Color.BLUE);
+        lineDataSet.setCircleColor(Color.BLUE);
+        lineDataSet.setLineWidth(2f);
+        lineDataSet.setCircleRadius(4f);
+        lineDataSet.setValueTextSize(9f);
 
         lineChart.setData(data);
         XAxis xAxis = lineChart.getXAxis();
-        xAxis.setValueFormatter(new MyXAxisValueFormatter());
+        xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setLabelCount(10);
+        xAxis.setLabelCount(recordInfo_push_up.length);
+
 
     }
 
@@ -90,9 +98,8 @@ public class GraphActivity extends AppCompatActivity {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            long date_long = to.getTime();
             int sit_up = recordinfo.sit_up;
-            Entry.add(new Entry(date_long, sit_up));
+            Entry.add(new Entry(to.getTime(), sit_up));
         }
 
         LineDataSet lineDataSet = new LineDataSet(Entry, "윗몸일으키기");
@@ -109,8 +116,8 @@ public class GraphActivity extends AppCompatActivity {
         lineChart.setData(lineData);
 
         XAxis xAxis = lineChart.getXAxis();
-        MyXAxisValueFormatter xAxisformatter = new MyXAxisValueFormatter();
-        xAxis.setValueFormatter(xAxisformatter);
+        //MyXAxisValueFormatter xAxisformatter = new MyXAxisValueFormatter();
+        //xAxis.setValueFormatter(xAxisformatter);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.BLACK);
 
@@ -153,8 +160,8 @@ public class GraphActivity extends AppCompatActivity {
         lineChart.setData(lineData);
 
         XAxis xAxis = lineChart.getXAxis();
-        MyXAxisValueFormatter xAxisformatter = new MyXAxisValueFormatter();
-        xAxis.setValueFormatter(xAxisformatter);
+        //MyXAxisValueFormatter xAxisformatter = new MyXAxisValueFormatter();
+        //xAxis.setValueFormatter(xAxisformatter);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.BLACK);
 
