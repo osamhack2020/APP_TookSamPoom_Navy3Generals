@@ -22,8 +22,14 @@
 ML Kit Pose Detection은 사람의 신체구조를 좌표로 리턴해주는 API입니다.  
 저희 **특삼품**은 ML Kit Pose Detection을 이용하여 팔굽혀펴기와 윗몸일으키기를 측정하기 위해 다양한 샘플과 다양한 각도에서 촬영한 데이터를 가지고 AI Modeling을 하였습니다.  
 AI Modeling중 사용된 동영상을 0.05초 마다 프레임단위로 나눠지게 하여 샘플이 팔굽혀펴기와 윗몸일으키기 도중 어떠한 상태를 취하고 있는지를 분석하여 팔굽혀펴기와 윗몸일으키기마다 약 1만장의 이미지를 분석하여 AI Modeling을 하였습니다.  
+#### 예제
 
-![pushupstand](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/minseok_pushupstand.JPG) ![situpstand](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/kitae_situpstand.JPG)
+|  | **팔굽혀펴기** | **윗몸 일으키기** | 
+|:----------:|:----------:|:----------:|
+| **Stand** | ![pushupstand](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/minseok_pushupstand.JPG) | ![situpstand](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/kitae_situpstand.JPG) |
+| **Move** | ![pushupmove](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/minseok_pushupmove.JPG) | ![situpmove](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/kitae_situpmove.JPG) |
+| **Down** | ![pushupdown](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/minseok_pushupdown.JPG) | ![situpdown](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/kitae_situpdown.JPG) |
+
 
 
 ### App 개발
