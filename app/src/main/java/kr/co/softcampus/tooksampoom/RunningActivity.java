@@ -195,18 +195,18 @@ public class RunningActivity extends AppCompatActivity {
                                         ,location_storage.get(idx).getLongitude()
                                         ,distance_piece);
                 distance+=distance_piece[0];
+                distance_text.setText(Double.toString(Math.round((distance/1000)*100)/100.0)+" km");
                 elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
                 long nowTime = SystemClock.elapsedRealtime();
 
                 if(idx==1){
-                    pastTime=0;
+                    pastTime=SystemClock.elapsedRealtime();
                 }
                 if(idx%20 == 0){
                     float tookDistance = distance - pastDistance;
                     pastDistance = distance;
                     long tookTime = nowTime - pastTime;
                     pastTime = SystemClock.elapsedRealtime();
-                    distance_text.setText(Double.toString(Math.round((distance/1000)*100)/100.0)+" km");
                     speed_text.setText(Double.toString(Math.round((tookTime/(tookDistance*60))*100)/100.0)+" 분/km");
                 }
                 //3000m 이상 달렸을 때 위치 갱신 멈추고, 맵 크게 바꾸고 걸린시간, 평균 속도 화면에 띄워주는 코드
@@ -215,10 +215,11 @@ public class RunningActivity extends AppCompatActivity {
                     chronometer.stop();
                     LatLngBounds area;
                     area = new LatLngBounds(positions.get(0), positions.get(1));
-                    for(int i=0; i<positions.size(); i+=100){
-                        area.including(positions.get(i));
+                    for(int i=0; i<positions.size(); i+=50){
+                        area = area.including(positions.get(i));
                     }
-                    update = CameraUpdateFactory.newLatLngBounds(area, 0);
+                    area = area.including(positions.get(positions.size()-1));
+                    update = CameraUpdateFactory.newLatLngBounds(area,10);
                     map.moveCamera(update);
                     elapsedSec = (int)elapsedMillis/1000;
                     //database로 시간(초) 보내기
