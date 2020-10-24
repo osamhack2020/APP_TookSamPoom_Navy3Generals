@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-/*
+
     public void onClickCCA(View view) {
         Intent ccaIntent = new Intent(this, CameraCaptureActivity.class);
         startActivity(ccaIntent);
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         int runningTime = data.getIntExtra("time",0);
         //time_running.setText(Integer.toString(runningTime / 60)+"분 "+Integer.toString(runningTime%60)+"초");
     }
-*/
+
     public void onClickDummy(View view){
         for(int j=1; j<5; j++){
             for(int i=10; i<24; i++){

@@ -4,14 +4,11 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-feature android:name="android.hardware.camera.any" />
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,21 +18,18 @@
         android:theme="@style/AppTheme">
         <activity android:name=".PushUpMeasureActivity" />
         <activity android:name=".CameraCaptureActivity" />
-        <activity android:name=".RunningActivity" />
-        <activity android:name=".GraphActivity" />
-        <activity
-            android:name=".MainActivity"
-            android:theme="@style/MainTheme">
+        <activity android:name=".RunningActivity"/>
+        <activity android:name=".GraphActivity"/>
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAa42hidGtanaazhHLOTS6I4qU73ogOm64" />
+            android:value="AIzaSyAa42hidGtanaazhHLOTS6I4qU73ogOm64"/>
+        
     </application>
 
 </manifest>
