@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -26,10 +27,12 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.maps.model.RoundCap;
 
 import java.util.ArrayList;
 
@@ -69,19 +72,6 @@ public class RunningActivity extends AppCompatActivity {
         speed_result = (TextView) findViewById(R.id.speed_result);
         time_result = (TextView) findViewById(R.id.time_result);
         chronometer = (Chronometer) findViewById(R.id.chronometer);
-
-        UserInfo userinfo = new UserInfo();
-        userinfo.setName("minsook");
-        userinfo.setAge(22);
-        userinfo.setHeight(186);
-        userinfo.setSex("female");
-        userinfo.setWeight(72);
-        Log.d("db",Integer.toString(DBhelper.setUser(this,userinfo)));
-
-        UserInfo user1 = DBhelper.getUser(this,1);
-        Log.d("db", user1.name+" "+user1.height+" "+user1.weight+" "+user1.age+" "+user1.sex);
-
-
 
         init();
     }
@@ -171,7 +161,7 @@ public class RunningActivity extends AppCompatActivity {
     public void setMyLocation(Location location,LocationListener listener) {
         //현재 위치로 줌인
         LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
-        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(position, 16f);
+        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(position, 18f);
         //현재위치 따라 카메라 이동
         map.moveCamera(update);
         //현재위치 표시
@@ -219,7 +209,7 @@ public class RunningActivity extends AppCompatActivity {
                         area = area.including(positions.get(i));
                     }
                     area = area.including(positions.get(positions.size()-1));
-                    update = CameraUpdateFactory.newLatLngBounds(area,10);
+                    update = CameraUpdateFactory.newLatLngBounds(area,50);
                     map.moveCamera(update);
                     elapsedSec = (int)elapsedMillis/1000;
                     //database로 시간(초) 보내기
@@ -242,6 +232,12 @@ public class RunningActivity extends AppCompatActivity {
             Polyline polyline = map.addPolyline((new PolylineOptions())
                     .clickable(false)
                     .addAll(positions));
+
+            polyline.setStartCap(new RoundCap());
+            polyline.setEndCap((new RoundCap()));
+            polyline.setColor(Color.BLUE);
+            polyline.setJointType(JointType.ROUND);
+            polyline.setWidth(25);
             idx++;
         }
     }
