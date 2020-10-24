@@ -1,7 +1,12 @@
 package kr.co.softcampus.tooksampoom;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.Manifest;
 import android.content.Intent;
@@ -12,11 +17,16 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 import com.google.mlkit.vision.pose.Pose;
 import com.google.mlkit.vision.pose.PoseLandmark;
 
@@ -34,11 +44,45 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION};
 
+    BottomNavigationView bottomNavigationView;
+    FragmentManager fragmentManager = getSupportFragmentManager();
+    MainFragment mainFragment = new MainFragment();
+    GraphFragment graphFragment = new GraphFragment();
+    RankFragment rankFragment = new RankFragment();
+    ProfileFragment profileFragment = new ProfileFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         checkPermission();
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,mainFragment).commitAllowingStateLoss();
+
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.tab1:{
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container,mainFragment).commitAllowingStateLoss();
+                        return true;
+                    }
+                    case R.id.tab2:{
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container,graphFragment).commitAllowingStateLoss();
+                        return true;
+                    } case R.id.tab3:{
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container,rankFragment).commitAllowingStateLoss();
+                        return true;
+                    } case R.id.tab4: {
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, profileFragment).commitAllowingStateLoss();
+                        return true;
+                    }
+                    default: return false;
+                }
+            }
+        });
 
     }
 
@@ -54,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
+/*
     public void onClickCCA(View view) {
         Intent ccaIntent = new Intent(this, CameraCaptureActivity.class);
         startActivity(ccaIntent);
@@ -74,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         Intent recordIntent = new Intent(this, GraphActivity.class);
         startActivityForResult(recordIntent, 0);
     }
-/*
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

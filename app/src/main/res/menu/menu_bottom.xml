@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/tab1"
+        app:showAsAction="always"
+        android:icon="@drawable/main_icon"
+        android:enabled="true" android:checked="true"
+        android:title="메인" />
+
+    <item
+        android:id="@+id/tab2"
+        app:showAsAction="always"
+        android:icon="@drawable/record_icon"
+        android:enabled="true"
+        android:title="기록"/>
+
+    <item android:id="@+id/tab3"
+        app:showAsAction="always"
+        android:icon="@drawable/list_icon"
+        android:enabled="true"
+        android:title="랭킹"/>
+
+    <item android:id="@+id/tab4"
+        app:showAsAction="always"
+        android:icon="@drawable/main_icon"
+        android:enabled="true"
+        android:title="프로필"/>
+
+</menu>
