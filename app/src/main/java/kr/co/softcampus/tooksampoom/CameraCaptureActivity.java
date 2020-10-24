@@ -1,33 +1,22 @@
 package kr.co.softcampus.tooksampoom;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.ParcelFileDescriptor;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.mlkit.vision.pose.Pose;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.mlkit.vision.pose.PoseLandmark;
 
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +28,7 @@ public class CameraCaptureActivity extends AppCompatActivity {
     private static final int CREATE_FILE = 1;
     private static final int PICK_VIDEO = 2;
 
-    ImageView ccImageview;
+    ImageView ccImageView;
     ImageView ccaBodyOverlayImageview;
     VideoClasifier vc;
     ListView ccaListView;
@@ -49,7 +38,7 @@ public class CameraCaptureActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_capture);
-        ccImageview = findViewById(R.id.camera_cap_image);
+        ccImageView = findViewById(R.id.camera_cap_image);
         ccaBodyOverlayImageview = findViewById(R.id.cca_body_imageview);
         ccaListView = findViewById(R.id.ccm_list);
         ccaListView.setAdapter(new ArrayAdapter<String>(this,
@@ -78,7 +67,7 @@ public class CameraCaptureActivity extends AppCompatActivity {
                 Uri selectedMediaUri = data.getData();
                 vc = new VideoClasifier(selectedMediaUri, this);
                 Bitmap bt = vc.getNextBitmap();
-                ccImageview.setImageBitmap(bt);
+                ccImageView.setImageBitmap(bt);
             }
         } else if(requestCode == CREATE_FILE) {
             Uri uri = null;
@@ -98,63 +87,39 @@ public class CameraCaptureActivity extends AppCompatActivity {
         final Context cont = this;
         if (bt == null)
             return;
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                ccImageview.setImageBitmap(bt);
-            }
-        });
-        Thread tread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                VideoClasifier.AnalizeImage(bt)
-                        .addOnSuccessListener(
-                                new OnSuccessListener<Pose>() {
-                                    @Override
-                                    public void onSuccess(Pose pose) {
-                                        if(pose != null) {
-                                            List<PoseLandmark> lm = pose.getAllPoseLandmarks();
-                                            final List<String> list = new ArrayList<>();
-                                            DataWriter.WriteData(tspOutputStream, lm, imageResult);
-                                            for (PoseLandmark pl : lm) {
-                                                list.add(pl.getLandmarkType().name() + " = "
-                                                        + pl.getPosition().x
-                                                        + ", " + pl.getPosition().y
-                                                        + "--" + pl.getInFrameLikelihood());
-                                            }
-                                            Bitmap overlay = Bitmap.createBitmap(bt.getWidth(), bt.getHeight(), Bitmap.Config.ARGB_8888);
-                                            TSPdrawTools.createBodyOverlay(overlay, lm);
-                                            ccaBodyOverlayImageview.setImageBitmap(overlay);
-                                            runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    ArrayAdapter<String> ad = ((ArrayAdapter<String>)ccaListView.getAdapter());
-                                                    if(!ad.isEmpty())
-                                                        ad.clear();
-                                                    ad.addAll(list);
-                                                    ad.notifyDataSetChanged();
-                                                }
-                                            });
-                                        }
-                                    }
-                                })
-                        .addOnFailureListener(
-                                new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d("CCA", e.toString());
-                                        Log.d("CCA", e.getMessage());
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                ccaListView.setAdapter(new ArrayAdapter<String>(cont,
-                                                        android.R.layout.simple_list_item_1));
-                                            }
-                                        });
-                                    }
+        runOnUiThread(() -> ccImageView.setImageBitmap(bt));
+        Thread tread = new Thread(() -> VideoClasifier.AnalizeImage(bt)
+                .addOnSuccessListener(
+                        pose -> {
+                            if(pose != null) {
+                                List<PoseLandmark> lm = pose.getAllPoseLandmarks();
+                                final List<String> list = new ArrayList<>();
+                                DataWriter.WriteData(tspOutputStream, lm, imageResult);
+                                for (PoseLandmark pl : lm) {
+                                    list.add(pl.getLandmarkType().name() + " = "
+                                            + pl.getPosition().x
+                                            + ", " + pl.getPosition().y
+                                            + "--" + pl.getInFrameLikelihood());
+                                }
+                                Bitmap overlay = Bitmap.createBitmap(bt.getWidth(), bt.getHeight(), Bitmap.Config.ARGB_8888);
+                                TSPdrawTools.createBodyOverlay(overlay, lm);
+                                ccaBodyOverlayImageview.setImageBitmap(overlay);
+                                runOnUiThread(() -> {
+                                    ArrayAdapter<String> ad = ((ArrayAdapter<String>)ccaListView.getAdapter());
+                                    if(!ad.isEmpty())
+                                        ad.clear();
+                                    ad.addAll(list);
+                                    ad.notifyDataSetChanged();
                                 });
-            }
-        });
+                            }
+                        })
+                .addOnFailureListener(
+                        e -> {
+                            Log.d("CCA", e.toString());
+                            Log.d("CCA", e.getMessage());
+                            runOnUiThread(() -> ccaListView.setAdapter(new ArrayAdapter<String>(cont,
+                                    android.R.layout.simple_list_item_1)));
+                        }));
         tread.run();
     }
 

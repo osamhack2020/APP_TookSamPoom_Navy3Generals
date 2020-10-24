@@ -13,10 +13,12 @@ public class DataWriter {
                 return;
             StringBuilder sb = new StringBuilder();
             sb.append(result + "\n");
+            String quote = "";
             for (PoseLandmark p : pl) {
-                sb.append("\"" + p.getLandmarkType().name() + "\"," )
+                sb.append(quote + "\"" + p.getLandmarkType().name() + "\"," )
                         .append(p.getPosition().x + "," + p.getPosition().y)
                         .append(",").append(p.getInFrameLikelihood());
+                quote = ",";
             }
             sb.append("\n");
             fos.write((sb.toString()).getBytes());

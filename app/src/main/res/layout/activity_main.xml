@@ -16,10 +16,33 @@
 
     <Button
         android:id="@+id/push_up_bt"
-        android:layout_width="wrap_content"
+        android:layout_width="59dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:onClick="onClickPushUpBt"
         android:text="Push Up Layer" />
+
+    <Button
+        android:id="@+id/record_btn"
+        android:layout_width="132dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:onClick="onClickRecord"
+        android:text="기록" />
+
+    <Button
+        android:id="@+id/dummy_btn"
+        android:layout_width="92dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:onClick="onClickDummy"
+        android:text="dummy" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="93dp"
+        android:layout_height="37dp"
+        android:onClick="onClickRunning"
+        android:text="RunningActivity" />
+
 
 </LinearLayout>
