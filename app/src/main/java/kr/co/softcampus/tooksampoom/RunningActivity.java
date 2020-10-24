@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -26,10 +27,12 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.maps.model.RoundCap;
 
 import java.util.ArrayList;
 
@@ -69,19 +72,6 @@ public class RunningActivity extends AppCompatActivity {
         speed_result = (TextView) findViewById(R.id.speed_result);
         time_result = (TextView) findViewById(R.id.time_result);
         chronometer = (Chronometer) findViewById(R.id.chronometer);
-
-        UserInfo userinfo = new UserInfo();
-        userinfo.setName("minsook");
-        userinfo.setAge(22);
-        userinfo.setHeight(186);
-        userinfo.setSex("female");
-        userinfo.setWeight(72);
-        Log.d("db",Integer.toString(DBhelper.setUser(this,userinfo)));
-
-        UserInfo user1 = DBhelper.getUser(this,1);
-        Log.d("db", user1.name+" "+user1.height+" "+user1.weight+" "+user1.age+" "+user1.sex);
-
-
 
         init();
     }
@@ -136,9 +126,9 @@ public class RunningActivity extends AppCompatActivity {
         GetMyLocationListener locationListener = new GetMyLocationListener();
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                                                500,
-                                                0,
-                                                locationListener);
+                    50,
+                    0,
+                    locationListener);
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("실행 오류");
@@ -171,7 +161,7 @@ public class RunningActivity extends AppCompatActivity {
     public void setMyLocation(Location location,LocationListener listener) {
         //현재 위치로 줌인
         LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
-        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(position, 16f);
+        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(position, 18f);
         //현재위치 따라 카메라 이동
         map.moveCamera(update);
         //현재위치 표시
@@ -186,13 +176,14 @@ public class RunningActivity extends AppCompatActivity {
         if(isButtonClicked == 1){
             //동선 그릴때 필요한 location을 List에 저장하고 이전에 측정된 위치와 현재 위치 사이의 거리 계산 후 total distance에 저장
             location_storage.add(location);
+            elapsedMillis = SystemClock.elapsedRealtime()-chronometer.getBase();
             if(idx!=0){
                 float[] distance_piece = new float[1];
                 Location.distanceBetween(location_storage.get(idx-1).getLatitude()
-                                        ,location_storage.get(idx-1).getLongitude()
-                                        ,location_storage.get(idx).getLatitude()
-                                        ,location_storage.get(idx).getLongitude()
-                                        ,distance_piece);
+                        ,location_storage.get(idx-1).getLongitude()
+                        ,location_storage.get(idx).getLatitude()
+                        ,location_storage.get(idx).getLongitude()
+                        ,distance_piece);
                 distance+=distance_piece[0];
                 distance_text.setText(Double.toString(Math.round((distance/1000)*100)/100.0)+" km");
                 elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
@@ -214,16 +205,17 @@ public class RunningActivity extends AppCompatActivity {
                     chronometer.stop();
                     LatLngBounds area;
                     area = new LatLngBounds(positions.get(0), positions.get(1));
-                    for(int i=0; i<positions.size(); i+=100){
-                        area.including(positions.get(i));
-                        Log.d("qwerq", Integer.toString(i));
+                    for(int i=0; i<positions.size(); i+=50){
+                        area = area.including(positions.get(i));
                     }
-                    update = CameraUpdateFactory.newLatLngBounds(area,  10);
+                    area = area.including(positions.get(positions.size()-1));
+                    update = CameraUpdateFactory.newLatLngBounds(area,50);
                     map.moveCamera(update);
                     elapsedSec = (int)elapsedMillis/1000;
                     //database로 시간(초) 보내기
                     DBhelper.setRunningRecord(this, 1, elapsedSec);
 
+                    speed_result.setText(Double.toString(Math.round((elapsedMillis/(distance*60))*100)/100.0)+" 분/km");
                     time_result.setText(Integer.toString(elapsedSec/60)+"분 "+Integer.toString(elapsedSec%60)+"초");
                     chronometer.setVisibility(View.GONE);
                     speed_text.setVisibility(View.GONE);
@@ -240,8 +232,13 @@ public class RunningActivity extends AppCompatActivity {
             Polyline polyline = map.addPolyline((new PolylineOptions())
                     .clickable(false)
                     .addAll(positions));
+
+            polyline.setStartCap(new RoundCap());
+            polyline.setEndCap((new RoundCap()));
+            polyline.setColor(Color.BLUE);
+            polyline.setJointType(JointType.ROUND);
+            polyline.setWidth(25);
             idx++;
-            Log.d("test222", Integer.toString(idx));
         }
     }
 }
