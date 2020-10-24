@@ -12,7 +12,7 @@ public class MyYAxisValueFormatter implements IAxisValueFormatter {
     @Override
     public String getFormattedValue(float value, AxisBase axis) {
 
-        return (int)value / 60 + "분 " + (int)value % 60 + "초";
+        return -1*(int)value / 60 + "분 " + -1*(int)value % 60 + "초";
     }
 
 }

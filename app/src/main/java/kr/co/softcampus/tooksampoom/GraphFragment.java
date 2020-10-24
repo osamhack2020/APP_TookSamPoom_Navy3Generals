@@ -120,11 +120,19 @@ public class GraphFragment extends Fragment {
         xAxis.setLabelCount(recordInfo_push_up.length-1);
 
         YAxis yAxisLeft = lineChart.getAxisLeft(); //Y축의 왼쪽면 설정
+        yAxisLeft.setAxisMaximum(100);
+        yAxisLeft.setAxisMinimum(97);
+        yAxisLeft.setLabelCount(100-97+1,true);
         yAxisLeft.setValueFormatter(null);
+
         YAxis yAxisRight = lineChart.getAxisRight(); //Y축의 오른쪽면 설정
         yAxisRight.setDrawLabels(false);
         yAxisRight.setDrawAxisLine(false);
         yAxisRight.setDrawGridLines(false);
+
+        lineChart.getLegend().setEnabled(false);
+        lineChart.getDescription().setEnabled(false);
+        lineChart.setDrawGridBackground(false);
     }
 
     private void setSitUpChart(RecordInfo[] recordInfo){
@@ -167,6 +175,9 @@ public class GraphFragment extends Fragment {
         xAxis.setLabelCount(recordInfo_sit_up.length-1);
 
         YAxis yAxisLeft = lineChart.getAxisLeft(); //Y축의 왼쪽면 설정
+        yAxisLeft.setAxisMaximum(113);
+        yAxisLeft.setAxisMinimum(110);
+        yAxisLeft.setLabelCount(113-110+1,true);
         yAxisLeft.setValueFormatter(null);
         YAxis yAxisRight = lineChart.getAxisRight(); //Y축의 오른쪽면 설정
         yAxisRight.setDrawLabels(false);
@@ -190,7 +201,7 @@ public class GraphFragment extends Fragment {
             }
             String date = fm2.format(to);
             int running = recordInfo[i].running;
-            Entry.add(new Entry(j,running));
+            Entry.add(new Entry(j,-1*running));
             values[j] = date;
             j++;
         }
@@ -205,16 +216,22 @@ public class GraphFragment extends Fragment {
         lineDataSet.setCircleColor(Color.BLUE);
         lineDataSet.setLineWidth(2f);
         lineDataSet.setCircleRadius(4f);
-        lineDataSet.setValueTextSize(9f);
-
+        lineDataSet.setValueTextSize(7f);
+        lineDataSet.setValueFormatter(new MyIValueFormatter());
         lineChart.setData(data);
+
+
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setLabelCount(recordInfo_running.length-1);
 
         YAxis yAxisLeft = lineChart.getAxisLeft(); //Y축의 왼쪽면 설정
+        yAxisLeft.setAxisMaximum(-1*750);
+        yAxisLeft.setAxisMinimum(-1*753);
+        yAxisLeft.setLabelCount(4,true);
         yAxisLeft.setValueFormatter(new MyYAxisValueFormatter());
+
         YAxis yAxisRight = lineChart.getAxisRight(); //Y축의 오른쪽면 설정
         yAxisRight.setDrawLabels(false);
         yAxisRight.setDrawAxisLine(false);

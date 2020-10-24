@@ -2,6 +2,7 @@ package kr.co.softcampus.tooksampoom;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,14 +12,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.github.mikephil.charting.charts.RadarChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.RadarData;
+import com.github.mikephil.charting.data.RadarDataSet;
+import com.github.mikephil.charting.data.RadarEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class MainFragment extends Fragment{
     View view;
     Button button1;
     Button button2;
     Button button3;
     Button button4;
-    Button button5;
     Button button6;
+    RadarChart radarChart;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -27,8 +43,52 @@ public class MainFragment extends Fragment{
         button2 = (Button) view.findViewById(R.id.button2);
         button3 = (Button) view.findViewById(R.id.button3);
         button4 = (Button) view.findViewById(R.id.button4);
-        button5 = (Button) view.findViewById(R.id.button5);
         button6 = (Button) view.findViewById(R.id.button6);
+
+
+        radarChart = (RadarChart) view.findViewById((R.id.chart));
+
+
+        ArrayList<RadarEntry> dataValue = new ArrayList<>();
+        float a = (float)(46.0/76.0)*100;
+        dataValue.add(new RadarEntry(a));
+        dataValue.add(new RadarEntry((float)(54.0/86.0)*100));
+        dataValue.add(new RadarEntry((float)(623.0/760.0)*100));
+
+        RadarDataSet dataSet = new RadarDataSet(dataValue, "data");
+        dataSet.setColor(Color.BLUE);
+        dataSet.setColor(R.color.colorPrimary);
+        dataSet.setDrawFilled(true);
+        dataSet.setValueTextSize(13f);
+        RadarData data = new RadarData();
+        String[] values = {46+"개", 54+"개", 623/60+"분 "+623%60+"초"};
+        dataSet.setValueFormatter(new MyValueFormatter(values));
+        data.addDataSet(dataSet);
+
+        String[] labels =  {"팔굽혀펴기", "윗몸일으키기", "3km 달리기"};
+        XAxis xAxis = radarChart.getXAxis();
+        xAxis.setTextSize(13.5f);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
+
+        YAxis yAxis = radarChart.getYAxis();
+        yAxis.setAxisMinimum(0f);
+        yAxis.setAxisMaximum(100f);
+        yAxis.setLabelCount(5,true);
+        yAxis.setTextSize(11f);
+        yAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                if(value==100){
+                    return  "특급";
+                }
+                else{
+                    return "";
+                }
+            }
+        });
+        radarChart.getLegend().setEnabled(false);
+        radarChart.getDescription().setEnabled(false);
+        radarChart.setData(data);
 
 
         return view;
@@ -49,10 +109,6 @@ public class MainFragment extends Fragment{
         startActivityForResult(runningIntent, 0);
     }
 
-    public void onClickRecord(View view) {
-        Intent recordIntent = new Intent(getActivity(), GraphActivity.class);
-        startActivityForResult(recordIntent, 0);
-    }
 
     public void onClickDummy(View view){
         for(int j=1; j<5; j++){

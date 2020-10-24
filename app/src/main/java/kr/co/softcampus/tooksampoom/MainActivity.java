@@ -30,10 +30,14 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.mlkit.vision.pose.Pose;
 import com.google.mlkit.vision.pose.PoseLandmark;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import static kr.co.softcampus.tooksampoom.R.id.text_toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION};
 
+    Toolbar toolbar;
+    TextView textView;
     BottomNavigationView bottomNavigationView;
     FragmentManager fragmentManager = getSupportFragmentManager();
     MainFragment mainFragment = new MainFragment();
@@ -56,6 +62,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         checkPermission();
+        textView = (TextView)findViewById(text_toolbar);
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container,mainFragment).commitAllowingStateLoss();
@@ -67,15 +79,19 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.tab1:{
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,mainFragment).commitAllowingStateLoss();
+                        textView.setText("메인");
                         return true;
                     } case R.id.tab2:{
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,graphFragment).commitAllowingStateLoss();
+                        textView.setText("히스토리");
                         return true;
                     } case R.id.tab3:{
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,rankFragment).commitAllowingStateLoss();
+                        textView.setText("랭킹");
                         return true;
                     } case R.id.tab4: {
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, profileFragment).commitAllowingStateLoss();
+                        textView.setText("프로필");
                         return true;
                     }
                     default: return false;
@@ -111,11 +127,6 @@ public class MainActivity extends AppCompatActivity {
     public void onClickRunning(View view) {
         Intent runningIntent = new Intent(this, RunningActivity.class);
         startActivityForResult(runningIntent, 0);
-    }
-
-    public void onClickRecord(View view) {
-        Intent recordIntent = new Intent(this, GraphActivity.class);
-        startActivityForResult(recordIntent, 0);
     }
 
     @Override
