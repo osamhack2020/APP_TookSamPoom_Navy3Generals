@@ -19,6 +19,9 @@ public class DBhelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db){
         String sql1 = "CREATE TABLE User("
                 +"id INTEGER primary key not null, "
+                +"type TEXT not null, "
+                +"squadron TEXT not null, "
+                +"unit TEXT not null, "
                 +"name TEXT not null, "
                 +"height REAL not null, "
                 +"weight REAL not null, "
@@ -55,6 +58,9 @@ public class DBhelper extends SQLiteOpenHelper {
         SQLiteDatabase db = helper.getWritableDatabase();
         UserInfo userinfo = new UserInfo();
         String sql = "SELECT name,"
+                +"type,"
+                +"squadron,"
+                +"unit,"
                 +"height,"
                 +"weight,"
                 +"age,"
@@ -63,12 +69,18 @@ public class DBhelper extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(sql,null);
         while(c.moveToNext()){
             int name_pos = c.getColumnIndex("name");
+            int type_pos = c.getColumnIndex("type");
+            int squadron_pos = c.getColumnIndex("squadron");
+            int unit_pos = c.getColumnIndex("unit");
             int height_pos = c.getColumnIndex("height");
             int weight_pos = c.getColumnIndex("weight");
             int age_pos = c.getColumnIndex("age");
             int sex_pos = c.getColumnIndex("sex");
 
             userinfo.setName(c.getString(name_pos));
+            userinfo.setType(c.getString(type_pos));
+            userinfo.setSquadron(c.getString(squadron_pos));
+            userinfo.setUnit(c.getString(unit_pos));
             userinfo.setHeight(c.getDouble(height_pos));
             userinfo.setWeight(c.getDouble(weight_pos));
             userinfo.setAge(c.getInt(age_pos));
@@ -151,6 +163,9 @@ public class DBhelper extends SQLiteOpenHelper {
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("name", info.name);
+        values.put("type", info.type);
+        values.put("squadron", info.squadron);
+        values.put("unit", info.unit);
         values.put("height", info.height);
         values.put("weight", info.weight);
         values.put("age", info.age);
@@ -164,11 +179,17 @@ public class DBhelper extends SQLiteOpenHelper {
         DBhelper helper = new DBhelper(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         String sql = "UPDATE User SET name=?,"
+                +"type=?,"
+                +"squadron=?,"
+                +"unit=?,"
                 +"height=?,"
                 +"weight=?,"
                 +"age=?,"
                 +"sex=? WHERE id="+id+"";
         String[] value = {info.name,
+                info.type,
+                info.squadron,
+                info.unit,
                 Double.toString(info.height),
                 Double.toString(info.weight),
                 Integer.toString(info.age),
