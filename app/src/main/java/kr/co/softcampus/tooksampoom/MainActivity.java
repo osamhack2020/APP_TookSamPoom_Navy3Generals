@@ -68,8 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.tab1:{
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,mainFragment).commitAllowingStateLoss();
                         return true;
-                    }
-                    case R.id.tab2:{
+                    } case R.id.tab2:{
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,graphFragment).commitAllowingStateLoss();
                         return true;
                     } case R.id.tab3:{

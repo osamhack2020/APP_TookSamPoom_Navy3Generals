@@ -31,8 +31,6 @@ public class MainFragment extends Fragment{
         button6 = (Button) view.findViewById(R.id.button6);
 
 
-
-
         return view;
     }
 
