@@ -72,7 +72,7 @@ public class RunningActivity extends AppCompatActivity {
         speed_result = (TextView) findViewById(R.id.speed_result);
         time_result = (TextView) findViewById(R.id.time_result);
         chronometer = (Chronometer) findViewById(R.id.chronometer);
-
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         init();
     }
 
@@ -130,14 +130,16 @@ public class RunningActivity extends AppCompatActivity {
                     0,
                     locationListener);
         } else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("실행 오류");
-            builder.setMessage("GPS를 허용해주세요");
-            DialogListener dialogListener = new DialogListener();
-            builder.setPositiveButton("확인", dialogListener);
-            builder.show();
+        Log.d("test","?");
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("실행 오류");
+        builder.setMessage("GPS를 허용해주세요");
+        DialogListener dialogListener = new DialogListener();
+        builder.setPositiveButton("확인", dialogListener);
+        builder.show();
         }
-    }
+
+}
 
     class DialogListener implements DialogInterface.OnClickListener {
         @Override

@@ -20,38 +20,52 @@
         android:id="@+id/distance_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#E3E3E3"
         android:text="0 km"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:visibility="gone"
+        android:textSize="30dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintLeft_toRightOf="@id/chronometer"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/speed_text"
+        app:layout_constraintVertical_bias="0" />
 
     <TextView
         android:id="@+id/speed_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#E3E3E3"
         android:text="0 분/km"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/distance_text"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        android:textSize="30dp"
+        android:visibility="visible"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintLeft_toRightOf="@id/chronometer"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/chronometer" />
 
     <Chronometer
         android:id="@+id/chronometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/colorAccent"
-        android:textSize="20dp"
-        android:visibility="gone"
+        android:background="#E3E3E3"
+        android:textColor="@color/common_google_signin_btn_text_light"
+        android:textSize="40dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.85" />
 
     <Button
         android:id="@+id/startbtn"
         android:layout_width="155dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="40dp"
         android:onClick="onClickStartbtn"
         android:text="시작"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -93,16 +107,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@id/time" />
+
     <TextView
         android:id="@+id/speed_result"
         android:layout_width="130dp"
         android:layout_height="36dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:visibility="gone"
-        app:layout_constraintVertical_bias="0.3"
-        app:layout_constraintTop_toTopOf="@id/time"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/speed" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/time"
+        app:layout_constraintVertical_bias="0.3" />
     <Button
         android:id="@+id/successbtn"
         android:layout_width="100dp"
