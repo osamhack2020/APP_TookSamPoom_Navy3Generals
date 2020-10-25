@@ -7,12 +7,13 @@
 **특삼품**은 **특급을 세개 받은 프리미엄 전사**라는 뜻으로 짓게 되었습니다.
 특삼품은 **TensorFlow** 기반의 체력검정 측정앱입니다. 대한민국 군인이라면 일년에 한번씩 체력검정을 하게되어 있으며 우수한 성적을 거두어 특급전사가 될시 포상도 주어집니다! 하지만 채점자에 따라 체점기준이 판이하며 체력검정이 어려워 지기도 쉬워 지기도 하는것이 현실입니다. 저희는 체력검정 과정을 좀더 **객관적**으로 진행하고 **간소화**시키며 또한 수검자들이 미리 자신의 체력을  테스트 해 볼수 있도록 앱을 개발하게 되었습니다!
 
+
 ## 설치방법(Install)
 
 [apk파일 다운로드](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/tree/master/app/release)
 위 하이퍼링크에서 apk파일을 다운로드 받을 수 있습니다.
 
-## 사용방법
+## 사용방법(How to use)
 
 ## 개발과정 
 저희 팀이 **특삼품**을 개발하는 단계에서 필요로 하는 작업들을 정리해보았습니다.
@@ -23,18 +24,22 @@
 기본적으로 Model 작업에 사용된 API 는 [Google](https://www.google.com/)에서 제공하는 [ML Kit Pose Detection](https://developers.google.com/ml-kit/vision/pose-detection)입니다.
 ML Kit Pose Detection은 사람의 신체구조를 좌표로 리턴해주는 API입니다.  
 저희 **특삼품**은 ML Kit Pose Detection을 이용하여 팔굽혀펴기와 윗몸일으키기를 측정하기 위해 다양한 샘플과 다양한 각도에서 촬영한 데이터를 가지고 AI Modeling을 하였습니다.  
-AI Modeling중 사용된 동영상을 0.05초 마다 프레임단위로 나눠지게 하여 샘플이 팔굽혀펴기와 윗몸일으키기 도중 어떠한 상태를 취하고 있는지를 분석하여 팔굽혀펴기와 윗몸일으키기마다 약 1만장의 이미지를 분석하여 AI Modeling을 하였고 시작자세(Stand), 움직임자세(Move), 끝자세(Down)을 트레이닝해 특정 자세패턴을 통과시 갯수를 카운트 하는 모델입니다.  
+AI Modeling중 사용된 동영상을 0.05초 마다 프레임단위로 나눠지게 하여 샘플이 팔굽혀펴기와 윗몸일으키기 도중 어떠한 상태를 취하고 있는지를 분석하여 팔굽혀펴기와 윗몸일으키기마다 약 1만장의 이미지를 분석하여 AI Modeling을 하였고 **시작자세(Stand)**, **움직임자세(Move)**, **끝자세(Down)** 를 트레이닝해 특정 자세패턴을 통과시 갯수를 카운트 하는 모델입니다.  
 #### 예제(Example)
 
-![bunryu](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/bunryu.JPG)  
+![ML Kit Logo]() --                                                                       ![tsp image classifier]() --  
+![starttest]()
+![pushupstandtest](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/bunryu.JPG)  
+
 위 사진은 몸과 머리의 좌표를 0.05초마다 1장의 사진으로 리턴하여 분류하는 작업입니다.  
-사진마다 일일이 Stand, Move, Down을 입력해 AI Model이 인식하여 측정할 수 있게 데이터 작업을 약 **100+시간, 25,000장의 사진**을 분류하였습니다.  
+사진마다 일일이 Stand, Move, Down을 입력해 AI Model이 인식하여 측정할 수 있게 데이터 작업을 **약 100+시간, 40,000장+의 사진**을 분류하였습니다.  
 
 |  | **팔굽혀펴기** | **윗몸 일으키기** | 
 |:----------:|:----------:|:----------:|
 | **Stand** | ![pushupstand](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/minseok_pushupstand.JPG) | ![situpstand](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/kitae_situpstand.JPG) |
 | **Move** | ![pushupmove](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/minseok_pushupmove.JPG) | ![situpmove](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/kitae_situpmove.JPG) |
 | **Down** | ![pushupdown](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/minseok_pushupdown.JPG) | ![situpdown](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/kitae_situpdown.JPG) |
+
 
 
 
