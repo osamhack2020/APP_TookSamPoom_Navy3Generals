@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -104,7 +105,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
      */
     public static ByteBuffer createInput(List<PoseLandmark> landmarks) {
         ByteBuffer input = ByteBuffer.allocateDirect(99 * java.lang.Float.SIZE / java.lang.Byte.SIZE).order(ByteOrder.nativeOrder());
-        <Float> inputList = DataNormalizer.NormalizeSitUp(landmarks);
+        ArrayList<Float> inputList = DataNormalizer.NormalizeSitUp(landmarks);
         for (Float f : inputList)
             input.putFloat(f);
         return input;
