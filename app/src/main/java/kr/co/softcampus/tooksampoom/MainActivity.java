@@ -113,6 +113,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+    public void onClickSitUpBt(View view) {
+        Intent siIntent = new Intent(this, SitUpMeasureActivity.class);
+        startActivity(siIntent);
+    }
 
     public void onClickCCA(View view) {
         Intent ccaIntent = new Intent(this, CameraCaptureActivity.class);

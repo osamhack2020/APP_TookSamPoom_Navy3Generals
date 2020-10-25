@@ -184,6 +184,10 @@ public class MainFragment extends Fragment{
         Intent puIntent = new Intent(getActivity(), PushUpMeasureActivity.class);
         startActivity(puIntent);
     }
+    public void onClickSitUpBt(View view) {
+        Intent siIntent = new Intent(getActivity(), SitUpMeasureActivity.class);
+        startActivity(siIntent);
+    }
 
     public void onClickRunning(View view) {
         Intent runningIntent = new Intent(getActivity(), RunningActivity.class);

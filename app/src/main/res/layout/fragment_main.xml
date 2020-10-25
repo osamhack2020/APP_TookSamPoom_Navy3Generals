@@ -52,6 +52,7 @@
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="onClickSitUpBt"
                 android:text="SIT UP LAYER"
                 app:layout_constraintStart_toEndOf="@+id/button1"
                 app:layout_constraintTop_toTopOf="parent" />

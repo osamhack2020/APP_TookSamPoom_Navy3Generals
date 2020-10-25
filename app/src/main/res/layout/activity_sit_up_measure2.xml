@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PushUpMeasureActivity">
+    tools:context=".SitUpMeasureActivity">
 
     <androidx.camera.view.PreviewView
         android:id="@+id/previewView"
@@ -31,7 +31,7 @@
         app:srcCompat="@drawable/ic_launcher_foreground" />
 
     <Button
-        android:id="@+id/push_up_start_button"
+        android:id="@+id/sit_up_start_button"
         android:layout_width="162dp"
         android:layout_height="63dp"
         android:layout_marginBottom="40dp"

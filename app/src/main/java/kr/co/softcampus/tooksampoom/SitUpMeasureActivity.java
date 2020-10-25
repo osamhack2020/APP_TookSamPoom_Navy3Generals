@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -36,18 +35,18 @@ import kr.co.softcampus.tooksampoom.Utils.DataNormalizer;
 import kr.co.softcampus.tooksampoom.Utils.LimitedQueue;
 
 
-public class PushUpMeasureActivity extends AppCompatActivity {
+public class SitUpMeasureActivity extends AppCompatActivity {
 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private static boolean _isStarted = false;
-    private static final String _pushUpModelName = "situp_model.tflite";
+    private static final String _sitUpModelName = "situp_model.tflite";
     protected static int _countDown = 120;
     PreviewView previewView;
     TextView textView1;
     TextView textView2;
-    Button pushUpStartButton;
-    Interpreter pushUpInterpreter;
-    public static String[] pushUpStatus = new String[]{"stand", "move", "down", "fail"};
+    Button sitUpStartButton;
+    Interpreter sitUpInterpreter;
+    public static String[] sitUpStatus = new String[]{"stand", "move", "down", "fail"};
     public static boolean DownHit;
     public static int Count;
     public static List<Integer> LatestPostures = new LimitedQueue<>(6);
@@ -56,14 +55,13 @@ public class PushUpMeasureActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_push_up_measure);
+        setContentView(R.layout.activity_sit_up_measure2);
         Count = 0;
         DownHit = false;
         previewView = findViewById(R.id.previewView);
         textView1 = findViewById(R.id.textView1);
         textView2 = findViewById(R.id.textView2);
-
-        pushUpStartButton = findViewById(R.id.push_up_start_button);
+        sitUpStartButton = findViewById(R.id.sit_up_start_button);
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
         cameraProviderFuture.addListener(() -> {
             try {
@@ -79,13 +77,13 @@ public class PushUpMeasureActivity extends AppCompatActivity {
 
     void setPushUpInterpreter() {
         try {
-            InputStream inputStream = getAssets().open(_pushUpModelName);
+            InputStream inputStream = getAssets().open(_sitUpModelName);
             byte[] model = new byte[inputStream.available()];
             inputStream.read(model);
             ByteBuffer buffer = ByteBuffer.allocateDirect(model.length)
                     .order(ByteOrder.nativeOrder());
             buffer.put(model);
-            pushUpInterpreter = new Interpreter(buffer);
+            sitUpInterpreter = new Interpreter(buffer);
         } catch (IOException e) {
             // File not found?
         }
@@ -98,7 +96,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
                 .build();
         preview.setSurfaceProvider(previewView.createSurfaceProvider());
         ImageAnalysis analysis = LiveVideoAnalyzer.getImageAnalysis(Executors.newSingleThreadExecutor(),
-                textView1, textView2, pushUpInterpreter, ActivityMode.PushUp);
+                textView1, textView2, sitUpInterpreter, ActivityMode.SitUp);
         cameraProvider.bindToLifecycle(this, cameraSelector, analysis, preview);
     }
 
@@ -117,7 +115,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
 
     public void onClickStartButton(View view) {
         _countDown = 120;
-        pushUpStartButton.setVisibility(View.GONE);
+        sitUpStartButton.setVisibility(View.GONE);
         _isStarted = true;
         Context _ct = this;
         new CountDownTimer(120500, 1000){
@@ -125,11 +123,11 @@ public class PushUpMeasureActivity extends AppCompatActivity {
                 _countDown --;
             }
             public  void onFinish(){
-                pushUpStartButton.setVisibility(View.VISIBLE);
-                pushUpStartButton.setText("기록저장하기");
+                sitUpStartButton.setVisibility(View.VISIBLE);
+                sitUpStartButton.setText("기록저장하기");
                 DBhelper.setPushUpRecord(_ct, 1,Count);
-                pushUpStartButton.setOnClickListener(null);
-                pushUpStartButton.setOnClickListener(v -> {
+                sitUpStartButton.setOnClickListener(null);
+                sitUpStartButton.setOnClickListener(v -> {
                     finish();
                 });
                 _isStarted = false;
