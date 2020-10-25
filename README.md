@@ -24,7 +24,7 @@
 기본적으로 Model 작업에 사용된 API 는 [Google](https://www.google.com/)에서 제공하는 [ML Kit Pose Detection](https://developers.google.com/ml-kit/vision/pose-detection)입니다.
 ML Kit Pose Detection은 사람의 신체구조를 좌표로 리턴해주는 API입니다.  
 저희 **특삼품**은 ML Kit Pose Detection을 이용하여 팔굽혀펴기와 윗몸일으키기를 측정하기 위해 다양한 샘플과 다양한 각도에서 촬영한 데이터를 가지고 AI Modeling을 하였습니다.  
-AI Modeling중 사용된 동영상을 0.05초 마다 프레임단위로 나눠지게 하여 샘플이 팔굽혀펴기와 윗몸일으키기 도중 어떠한 상태를 취하고 있는지를 분석하여 팔굽혀펴기와 윗몸일으키기마다 약 1만장의 이미지를 분석하여 AI Modeling을 하였고 **시작자세(Stand)**, **움직임자세(Move)**, **끝자세(Down)** 를 트레이닝해 특정 자세패턴을 통과시 갯수를 카운트 하는 모델입니다.  
+AI Modeling중 사용된 동영상을 0.05초 마다 프레임단위로 나눠지게 하여 샘플이 팔굽혀펴기와 윗몸일으키기 도중 어떠한 상태를 취하고 있는지를 분석하여 팔굽혀펴기와 윗몸일으키기마다 약 2만장의 이미지를 분석하여 AI Modeling을 하였고 **시작자세(Stand)**, **움직임자세(Move)**, **끝자세(Down)** 를 트레이닝해 특정 자세패턴을 통과시 갯수를 카운트 하는 모델입니다.  
 #### 예제(Example)
 
 <img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%2C%202020-10-25%2015-33-27.png width="250">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;![tsp special force]()  
@@ -32,7 +32,10 @@ AI Modeling중 사용된 동영상을 0.05초 마다 프레임단위로 나눠�
 <img align="left" img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/bunryu.JPG width="350">  
 <img align="right" img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/bunryu.JPG width="350">   
 
- 위 사진은 몸과 머리의 좌표를 0.05초마다 1장의 사진으로 리턴하여 분류하는 작업입니다. 사진마다 일일이 Stand, Move, Down을 입력해 AI Model이 인식하여 측정할 수 있게 데이터 작업을 **약 100+시간, 40,000장+의 사진**을 분류하였습니다.
+  
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img align="center" img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/unnamed.png width="50">  
+
+위 사진은 몸과 머리의 좌표를 0.05초마다 1장의 사진으로 리턴하여 분류하는 작업입니다. 사진마다 일일이 Stand, Move, Down을 입력해 AI Model이 인식하여 측정할 수 있게 데이터 작업을 **약 100+시간, 40,000장+의 사진**을 분류하였습니다. 
 
 |  | **팔굽혀펴기** | **윗몸 일으키기** | 
 |:----------:|:----------:|:----------:|
