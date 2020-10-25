@@ -3,8 +3,10 @@ package kr.co.softcampus.tooksampoom;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.media.Image;
+import android.util.Log;
 import android.util.Size;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageProxy;
@@ -36,7 +38,7 @@ public class LiveVideoAnalyzer {
                     .build()
     );
 
-    public static ImageAnalysis getImageAnalysis(Executor executor, ImageView imageView,
+    public static ImageAnalysis getImageAnalysis(Executor executor, TextView textView1, TextView textView2,
                                                  Interpreter interpreter, ActivityMode am) {
         ImageAnalysis imageAnalysis =
                 new ImageAnalysis.Builder()
@@ -48,9 +50,6 @@ public class LiveVideoAnalyzer {
             AnalizeImage(image)
                     .addOnSuccessListener(pose -> {
                         List<PoseLandmark> pl = pose.getAllPoseLandmarks();
-                        Bitmap overlay = Bitmap.createBitmap(image.getWidth(), image.getHeight(),Bitmap.Config.ARGB_8888);
-                        TSPdrawTools.createBodyOverlay(overlay, pl);
-
                         int maxInd = 0;
                         if (!pl.isEmpty()) {
                             ByteBuffer input = PushUpMeasureActivity.createInput(pl);
@@ -74,8 +73,15 @@ public class LiveVideoAnalyzer {
                             PushUpMeasureActivity.updateCounter();
                             count = PushUpMeasureActivity.Count;
                         }
-                        TSPdrawTools.createCountOverlay(overlay, am.name(), count, timer, maxInd);
-                        imageView.setImageBitmap(overlay);
+                        //TSPdrawTools.createCountOverlay(overlay, am.name(), count, timer, maxInd);
+                        if(timer == 0){
+                            textView1.setText("Finished!");
+                        }
+                        else {
+                            textView1.setText(Integer.toString(timer));
+                        }
+                        textView2.setText(am.name()+": "+ count +": "+ maxInd);
+
                         image.close();
                     });
         });

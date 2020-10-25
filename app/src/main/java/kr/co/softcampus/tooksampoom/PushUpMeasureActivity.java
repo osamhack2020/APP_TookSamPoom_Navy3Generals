@@ -6,6 +6,7 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,7 +43,8 @@ public class PushUpMeasureActivity extends AppCompatActivity {
     private static final String _pushUpModelName = "situp_model.tflite";
     protected static int _countDown = 120;
     PreviewView previewView;
-    ImageView pushUpBodyImageView;
+    TextView textView1;
+    TextView textView2;
     Button pushUpStartButton;
     Interpreter pushUpInterpreter;
     public static String[] pushUpStatus = new String[]{"stand", "move", "down", "fail"};
@@ -58,7 +60,9 @@ public class PushUpMeasureActivity extends AppCompatActivity {
         Count = 0;
         DownHit = false;
         previewView = findViewById(R.id.previewView);
-        pushUpBodyImageView = findViewById(R.id.sit_up_body);
+        textView1 = findViewById(R.id.textView1);
+        textView2 = findViewById(R.id.textView2);
+
         pushUpStartButton = findViewById(R.id.sit_up_start_button);
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
         cameraProviderFuture.addListener(() -> {
@@ -94,7 +98,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
                 .build();
         preview.setSurfaceProvider(previewView.createSurfaceProvider());
         ImageAnalysis analysis = LiveVideoAnalyzer.getImageAnalysis(Executors.newSingleThreadExecutor(),
-                pushUpBodyImageView, pushUpInterpreter, ActivityMode.PushUp);
+                textView1, textView2, pushUpInterpreter, ActivityMode.PushUp);
         cameraProvider.bindToLifecycle(this, cameraSelector, analysis, preview);
     }
 
@@ -105,7 +109,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
      */
     public static ByteBuffer createInput(List<PoseLandmark> landmarks) {
         ByteBuffer input = ByteBuffer.allocateDirect(99 * java.lang.Float.SIZE / java.lang.Byte.SIZE).order(ByteOrder.nativeOrder());
-        ArrayList<Float> inputList = DataNormalizer.NormalizeSitUp(landmarks);
+        List<Float> inputList = DataNormalizer.NormalizeSitUp(landmarks);
         for (Float f : inputList)
             input.putFloat(f);
         return input;
