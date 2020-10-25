@@ -1,5 +1,6 @@
 package kr.co.softcampus.tooksampoom;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -37,6 +38,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private static boolean _isStarted = false;
+    private static final String _pushUpModelName = "situp_model.tflite";
     protected static int _countDown = 120;
     PreviewView previewView;
     ImageView pushUpBodyImageView;
@@ -55,8 +57,8 @@ public class PushUpMeasureActivity extends AppCompatActivity {
         Count = 0;
         DownHit = false;
         previewView = findViewById(R.id.previewView);
-        pushUpBodyImageView = findViewById(R.id.push_up_body);
-        pushUpStartButton = findViewById(R.id.push_up_start_button);
+        pushUpBodyImageView = findViewById(R.id.sit_up_body);
+        pushUpStartButton = findViewById(R.id.sit_up_start_button);
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
         cameraProviderFuture.addListener(() -> {
             try {
@@ -72,7 +74,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
 
     void setPushUpInterpreter() {
         try {
-            InputStream inputStream = getAssets().open("push_up_model.tflite");
+            InputStream inputStream = getAssets().open(_pushUpModelName);
             byte[] model = new byte[inputStream.available()];
             inputStream.read(model);
             ByteBuffer buffer = ByteBuffer.allocateDirect(model.length)
@@ -85,13 +87,10 @@ public class PushUpMeasureActivity extends AppCompatActivity {
     }
 
     void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
-        Preview preview = new Preview.Builder()
-                .build();
-
+        Preview preview = new Preview.Builder().build();
         CameraSelector cameraSelector = new CameraSelector.Builder()
                 .requireLensFacing(CameraSelector.LENS_FACING_BACK)
                 .build();
-
         preview.setSurfaceProvider(previewView.createSurfaceProvider());
         ImageAnalysis analysis = LiveVideoAnalyzer.getImageAnalysis(Executors.newSingleThreadExecutor(),
                 pushUpBodyImageView, pushUpInterpreter, ActivityMode.PushUp);
@@ -105,7 +104,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
      */
     public static ByteBuffer createInput(List<PoseLandmark> landmarks) {
         ByteBuffer input = ByteBuffer.allocateDirect(99 * java.lang.Float.SIZE / java.lang.Byte.SIZE).order(ByteOrder.nativeOrder());
-        List<Float> inputList = DataNormalizer.NormalizeWithAxisOnBody(landmarks);
+        <Float> inputList = DataNormalizer.NormalizeSitUp(landmarks);
         for (Float f : inputList)
             input.putFloat(f);
         return input;
@@ -115,13 +114,19 @@ public class PushUpMeasureActivity extends AppCompatActivity {
         _countDown = 120;
         pushUpStartButton.setVisibility(View.GONE);
         _isStarted = true;
+        Context _ct = this;
         new CountDownTimer(120500, 1000){
             public void onTick(long millisUntilFinished){
                 _countDown --;
             }
             public  void onFinish(){
-                _countDown = 120;
                 pushUpStartButton.setVisibility(View.VISIBLE);
+                pushUpStartButton.setText("기록저장하기");
+                DBhelper.setPushUpRecord(_ct, 1,Count);
+                pushUpStartButton.setOnClickListener(null);
+                pushUpStartButton.setOnClickListener(v -> {
+                    finish();
+                });
                 _isStarted = false;
             }
         }.start();
