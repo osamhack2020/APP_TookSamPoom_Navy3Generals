@@ -84,6 +84,8 @@ public class GraphFragment extends Fragment {
         lineChart.invalidate();
         int j=0;
         ArrayList<Entry> Entry = new ArrayList<>();
+        int max =0;
+        int min =10000;
         String[] values = new String[recordInfo.length];
         for (int i=recordInfo.length-1; i>=0; i--) {
             Date to = new Date();
@@ -98,6 +100,12 @@ public class GraphFragment extends Fragment {
             int push_up = recordInfo[i].push_up;
             Entry.add(new Entry(j,push_up));
             values[j] = date;
+            if(max<push_up){
+                max = push_up;
+            }
+            if(min>push_up){
+                min = push_up;
+            }
             j++;
         }
         LineDataSet lineDataSet = new LineDataSet(Entry, "팔굽혀펴기");
@@ -120,9 +128,9 @@ public class GraphFragment extends Fragment {
         xAxis.setLabelCount(recordInfo_push_up.length-1);
 
         YAxis yAxisLeft = lineChart.getAxisLeft(); //Y축의 왼쪽면 설정
-        yAxisLeft.setAxisMaximum(100);
-        yAxisLeft.setAxisMinimum(97);
-        yAxisLeft.setLabelCount(100-97+1,true);
+        yAxisLeft.setAxisMaximum(max);
+        yAxisLeft.setAxisMinimum(min);
+        yAxisLeft.setLabelCount(max-min+1,true);
         yAxisLeft.setValueFormatter(null);
 
         YAxis yAxisRight = lineChart.getAxisRight(); //Y축의 오른쪽면 설정
@@ -139,6 +147,8 @@ public class GraphFragment extends Fragment {
         lineChart.invalidate();
         int j=0;
         ArrayList<Entry> Entry = new ArrayList<>();
+        int max=0;
+        int min=10000;
         String[] values = new String[recordInfo.length];
         for (int i=recordInfo.length-1; i>=0; i--) {
             Date to = new Date();
@@ -153,6 +163,12 @@ public class GraphFragment extends Fragment {
             int sit_up = recordInfo[i].sit_up;
             Entry.add(new Entry(j,sit_up));
             values[j] = date;
+            if(max<sit_up){
+                max = sit_up;
+            }
+            if(min>sit_up){
+                min = sit_up;
+            }
             j++;
         }
         LineDataSet lineDataSet = new LineDataSet(Entry, "윗몸일으키기");
@@ -175,10 +191,11 @@ public class GraphFragment extends Fragment {
         xAxis.setLabelCount(recordInfo_sit_up.length-1);
 
         YAxis yAxisLeft = lineChart.getAxisLeft(); //Y축의 왼쪽면 설정
-        yAxisLeft.setAxisMaximum(113);
-        yAxisLeft.setAxisMinimum(110);
-        yAxisLeft.setLabelCount(113-110+1,true);
+        yAxisLeft.setAxisMaximum(max);
+        yAxisLeft.setAxisMinimum(min);
+        yAxisLeft.setLabelCount(max-min+1,true);
         yAxisLeft.setValueFormatter(null);
+
         YAxis yAxisRight = lineChart.getAxisRight(); //Y축의 오른쪽면 설정
         yAxisRight.setDrawLabels(false);
         yAxisRight.setDrawAxisLine(false);
@@ -189,6 +206,8 @@ public class GraphFragment extends Fragment {
         lineChart.invalidate();
         int j=0;
         ArrayList<Entry> Entry = new ArrayList<>();
+        int max=-10000;
+        int min=0;
         String[] values = new String[recordInfo.length];
         for (int i=recordInfo.length-1; i>=0; i--) {
             Date to = new Date();
@@ -203,6 +222,12 @@ public class GraphFragment extends Fragment {
             int running = recordInfo[i].running;
             Entry.add(new Entry(j,-1*running));
             values[j] = date;
+            if(max<-1*running){
+                max = -1*running;
+            }
+            if(min>-1*running){
+                min = -1*running;
+            }
             j++;
         }
         LineDataSet lineDataSet = new LineDataSet(Entry, "3km 달리기");
@@ -227,9 +252,9 @@ public class GraphFragment extends Fragment {
         xAxis.setLabelCount(recordInfo_running.length-1);
 
         YAxis yAxisLeft = lineChart.getAxisLeft(); //Y축의 왼쪽면 설정
-        yAxisLeft.setAxisMaximum(-1*750);
-        yAxisLeft.setAxisMinimum(-1*753);
-        yAxisLeft.setLabelCount(4,true);
+        yAxisLeft.setAxisMaximum(max);
+        yAxisLeft.setAxisMinimum(min);
+        yAxisLeft.setLabelCount(max-min+1,true);
         yAxisLeft.setValueFormatter(new MyYAxisValueFormatter());
 
         YAxis yAxisRight = lineChart.getAxisRight(); //Y축의 오른쪽면 설정

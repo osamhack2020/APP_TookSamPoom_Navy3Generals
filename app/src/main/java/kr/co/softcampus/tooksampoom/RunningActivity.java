@@ -12,10 +12,10 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,7 +48,11 @@ public class RunningActivity extends AppCompatActivity {
     TextView time;
     TextView speed_result;
     TextView time_result;
+    TextView finish;
     Chronometer chronometer;
+    LinearLayout display1;
+    LinearLayout display2;
+    LinearLayout display3;
     float pastDistance=0;
     long pastTime;
     int elapsedSec = 0;
@@ -71,8 +75,12 @@ public class RunningActivity extends AppCompatActivity {
         time = (TextView) findViewById(R.id.time);
         speed_result = (TextView) findViewById(R.id.speed_result);
         time_result = (TextView) findViewById(R.id.time_result);
+        finish = (TextView) findViewById(R.id.finish);
         chronometer = (Chronometer) findViewById(R.id.chronometer);
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        display1 = (LinearLayout) findViewById(R.id.display1);
+        display2 = (LinearLayout) findViewById(R.id.display2);
+        display3 = (LinearLayout) findViewById(R.id.display3);
+
         init();
     }
 
@@ -81,17 +89,14 @@ public class RunningActivity extends AppCompatActivity {
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
         startBtn.setVisibility(View.GONE);
-        chronometer.setVisibility(View.VISIBLE);
-        speed_text.setVisibility(View.VISIBLE);
-        distance_text.setVisibility(View.VISIBLE);
+        display1.setVisibility((View.VISIBLE));
         isButtonClicked = 1;
     }
 
-    //측정 끝난 뒤 완료버튼 누르면 이전 activity에 데이터 전달하고 현재 activity 종료
+    //측정 끝난 뒤 완료버튼 누르면 데이터 저장하고 현재 activity 종료
     public void onClickSuccessbtn(View view) {
-        Intent intent =new Intent();
-        intent.putExtra("time", elapsedSec);
-        setResult(RESULT_OK, intent);
+        int id = 1;
+        DBhelper.setRunningRecord(this, id, elapsedSec);
         finish();
     }
 
@@ -126,17 +131,16 @@ public class RunningActivity extends AppCompatActivity {
         GetMyLocationListener locationListener = new GetMyLocationListener();
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                    50,
+                    500,
                     0,
                     locationListener);
         } else {
-        Log.d("test","?");
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("실행 오류");
-        builder.setMessage("GPS를 허용해주세요");
-        DialogListener dialogListener = new DialogListener();
-        builder.setPositiveButton("확인", dialogListener);
-        builder.show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("실행 오류");
+            builder.setMessage("GPS를 허용해주세요");
+            DialogListener dialogListener = new DialogListener();
+            builder.setPositiveButton("확인", dialogListener);
+            builder.show();
         }
 
 }
@@ -194,7 +198,7 @@ public class RunningActivity extends AppCompatActivity {
                 if(idx==1){
                     pastTime=SystemClock.elapsedRealtime();
                 }
-                if(idx%20 == 0){
+                if(idx%10 == 0){
                     float tookDistance = distance - pastDistance;
                     pastDistance = distance;
                     long tookTime = nowTime - pastTime;
@@ -214,19 +218,13 @@ public class RunningActivity extends AppCompatActivity {
                     update = CameraUpdateFactory.newLatLngBounds(area,50);
                     map.moveCamera(update);
                     elapsedSec = (int)elapsedMillis/1000;
-                    //database로 시간(초) 보내기
-                    DBhelper.setRunningRecord(this, 1, elapsedSec);
-
                     speed_result.setText(Double.toString(Math.round((elapsedMillis/(distance*60))*100)/100.0)+" 분/km");
                     time_result.setText(Integer.toString(elapsedSec/60)+"분 "+Integer.toString(elapsedSec%60)+"초");
-                    chronometer.setVisibility(View.GONE);
-                    speed_text.setVisibility(View.GONE);
-                    distance_text.setVisibility(View.GONE);
+                    display1.setVisibility(View.GONE);
                     successBtn.setVisibility(View.VISIBLE);
-                    time.setVisibility(View.VISIBLE);
-                    speed.setVisibility(View.VISIBLE);
-                    time_result.setVisibility(View.VISIBLE);
-                    speed_result.setVisibility(View.VISIBLE);
+                    finish.setVisibility(View.VISIBLE);
+                    display2.setVisibility(View.VISIBLE);
+                    display3.setVisibility(View.VISIBLE);
                 }
             }
 

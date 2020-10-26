@@ -130,14 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickRunning(View view) {
         Intent runningIntent = new Intent(this, RunningActivity.class);
-        startActivityForResult(runningIntent, 0);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        int runningTime = data.getIntExtra("time",0);
-        //time_running.setText(Integer.toString(runningTime / 60)+"분 "+Integer.toString(runningTime%60)+"초");
+        startActivity(runningIntent);
     }
 
     public void onClickDummy(View view){
