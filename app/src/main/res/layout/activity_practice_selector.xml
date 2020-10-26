@@ -5,13 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".PracticeSelectorActivity">
 
-
     <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="181dp"
-        tools:layout_editor_absoluteY="271dp" />
-
-
-
+        tools:layout_editor_absoluteX="291dp"
+        tools:layout_editor_absoluteY="311dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
