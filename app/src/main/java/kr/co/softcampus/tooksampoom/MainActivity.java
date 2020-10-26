@@ -133,6 +133,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(runningIntent);
     }
 
+    public void onClickStart(View view) {
+        Intent startIntent = new Intent(this, PracticeSelectorActivity.class);
+        startActivityForResult(startIntent, 0);
+    }
+
     public void onClickDummy(View view){
         for(int j=1; j<5; j++){
             for(int i=10; i<24; i++){

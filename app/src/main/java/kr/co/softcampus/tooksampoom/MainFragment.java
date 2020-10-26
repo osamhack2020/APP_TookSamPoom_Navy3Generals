@@ -33,6 +33,7 @@ public class MainFragment extends Fragment{
     Button button3;
     Button button4;
     Button button6;
+    Button button7;
     RadarChart radarChart;
 
     @Override
@@ -44,7 +45,7 @@ public class MainFragment extends Fragment{
         button3 = (Button) view.findViewById(R.id.button3);
         button4 = (Button) view.findViewById(R.id.button4);
         button6 = (Button) view.findViewById(R.id.button6);
-
+        button7 = (Button) view.findViewById(R.id.button7);
 
         radarChart = (RadarChart) view.findViewById((R.id.chart));
 
@@ -194,6 +195,10 @@ public class MainFragment extends Fragment{
         startActivityForResult(runningIntent, 0);
     }
 
+    public void onClickStart(View view) {
+        Intent startIntent = new Intent(getActivity(), PracticeSelectorActivity.class);
+        startActivityForResult(startIntent, 0);
+    }
 
     public void onClickDummy(View view){
         for(int j=1; j<5; j++){
