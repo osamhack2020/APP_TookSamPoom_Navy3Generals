@@ -117,7 +117,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
 
     public void onClickStartButton(View view) {
         _countDown = 120;
-        pushUpStartButton.setVisibility(View.GONE);
+        pushUpStartButton.setVisibility(View.INVISIBLE);
         _isStarted = true;
         Context _ct = this;
         new CountDownTimer(120500, 1000){
