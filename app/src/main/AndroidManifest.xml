@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MainTheme">
-        <activity android:name=".SitUpMeasureActivity"></activity>
+        <activity android:name=".PracticeSelectorActivity"></activity>
+        <activity android:name=".SitUpMeasureActivity" />
         <activity android:name=".PushUpMeasureActivity" />
         <activity android:name=".CameraCaptureActivity" />
         <activity android:name=".RunningActivity" />
