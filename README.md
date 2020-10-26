@@ -14,7 +14,8 @@
 또한 요즘 20~30대 층에서 유행하는 게임들의 공통점인 경쟁구도를 통한 자신의 계급을 나타내고자 현재 자신이 앱 사용자들중에서 어떤 수준에 머물고 있는지를 재미있게 표현하여 조금 더 체력검정에 열정을 쏟을 수 있게 만들었습니다.  
 그리고 사용자 뿐만 아니라 체력검정을 관리하는 관리자 입장에서도 유용한 앱입니다.   
 측정을 할때마다 여러 사람이 붙어서 일일이 측정하고 그 기록을 수기로 작성하여 인트라넷에 입력하게 되면 귀찮음도 있을 뿐 더러 시간이 매우 많이 소모되고 그렇게 되면 효율성이 떨어지게 됩니다.  
-위의 피드백을 반영하여 시간을 극도로 단축시키며 정확하고 객관적으로 기록 할 수 있게 하기 위해 ;;기반으로 웹 서버 데이터베이스를 구축하여 사용자들의 기록을 관리자들이 한눈에 볼 수 있게 만들게 되었습니다.  
+위의 피드백을 반영하여 시간을 극도로 단축시키며 정확하고 객관적으로 기록 할 수 있게 하기 위해 []기반으로 웹 서버 데이터베이스를 구축하여 사용자들의 기록을 관리자들이 한눈에 볼 수 있게 만들게 되었습니다.  
+이러한 특성은 관리자가 좁게는 개개인의 사용자의 체력검정능력을 넓게는 각 부대 단위의 체력을 측정하고 관리할 수 있게됩니다.
 또한 이런 서비스를 구축하게 된다면 추후에 체력검정 정책이 개편될 경우에도 유용하게 사용할 수 있습니다.  
 예를 들어 체력검정의 필요성이 요구되어 1년에 2번 측정하게 될 경우에도 힘을 들이지 않고 체력검정을 쉽게 볼 수 있고 정책개편이 올바른지에 대해서도 객관적으로 볼 수 있습니다.
 그리고 체력검정을 실시하여 전년대비 성과가 출중했을 경우 휴가나 양호보고 제도를 개편했다 했을때도 마찬가지로 사용자들에게 이 제도가 얼마나 영향을 미쳤는지에 대해 분석할 수 있고 체력검정의 중요성을 느끼지 못하는 병사들에게도 충분히 동기부여를 할 수 있게 만드는 순기능중에 하나가 됩니다.  
@@ -42,7 +43,6 @@ AI Modeling중 사용된 동영상을 프레임단위로 나눠지게 하여 샘
 #### 예제(Example)
 
 ![classifier](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/classfier.JPG)  
-
 ![pushupb](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/Pushupb.JPG)  
 ![situpb](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/Situpb.JPG)  
 
@@ -72,10 +72,10 @@ Server는 Node.js 기반으로 SQLite를 활용하여 데이터를 저장하도�
 | back | | |  
 | Other | | |  
 
-| Android | | |
+| Android | Android Studio 4.1 |  |
 |:----------:|:----------:|:----------:|
-| API | CameraX |  |
-| Model | ML Kit Pose Detection |  |  
+| API | CameraX 1.0.0-beta08<br>ViewPager2 1.0.0 |  |
+| Model | ML Kit Pose Detection 16.0.0 |  |  
 | Other | | |  
 
 ## 확장성
