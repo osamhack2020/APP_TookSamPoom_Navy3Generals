@@ -131,7 +131,7 @@ public class RunningActivity extends AppCompatActivity {
         GetMyLocationListener locationListener = new GetMyLocationListener();
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                    500,
+                    50,
                     0,
                     locationListener);
         } else {
@@ -198,7 +198,7 @@ public class RunningActivity extends AppCompatActivity {
                 if(idx==1){
                     pastTime=SystemClock.elapsedRealtime();
                 }
-                if(idx%10 == 0){
+                if(idx%50 == 0){
                     float tookDistance = distance - pastDistance;
                     pastDistance = distance;
                     long tookTime = nowTime - pastTime;
@@ -220,7 +220,7 @@ public class RunningActivity extends AppCompatActivity {
                         area = area.including(positions.get(i));
                     }
                     area = area.including(positions.get(positions.size()-1));
-                    update = CameraUpdateFactory.newLatLngBounds(area,50);
+                    update = CameraUpdateFactory.newLatLngBounds(area,80);
                     map.moveCamera(update);
                     elapsedSec = (int)elapsedMillis/1000;
                     speed_result.setText(Double.toString(Math.round((elapsedMillis/(distance*60))*100)/100.0)+" 분/km");

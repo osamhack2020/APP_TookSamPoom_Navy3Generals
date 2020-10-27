@@ -1,41 +1,22 @@
 package kr.co.softcampus.tooksampoom;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
-import com.google.mlkit.vision.pose.Pose;
-import com.google.mlkit.vision.pose.PoseLandmark;
-
-import org.w3c.dom.Text;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 import static kr.co.softcampus.tooksampoom.R.id.text_toolbar;
 
@@ -55,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     MainFragment mainFragment = new MainFragment();
     GraphFragment graphFragment = new GraphFragment();
     RankFragment rankFragment = new RankFragment();
-    ProfileFragment profileFragment = new ProfileFragment();
+    SettingFragment profileFragment = new SettingFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     } case R.id.tab4: {
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, profileFragment).commitAllowingStateLoss();
-                        textView.setText("프로필");
+                        textView.setText("설정");
                         return true;
                     }
                     default: return false;
