@@ -199,7 +199,7 @@ public class RunningActivity extends AppCompatActivity {
                 if(idx==1){
                     pastTime=SystemClock.elapsedRealtime();
                 }
-                if(idx%50 == 0){
+                if(idx%10 == 0){
                     float tookDistance = distance - pastDistance;
                     pastDistance = distance;
                     long tookTime = nowTime - pastTime;
