@@ -23,8 +23,7 @@
                 android:id="@+id/toggleGroup"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:padding="10dp">
+                android:layout_gravity="center">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/pushupBtn"
@@ -34,6 +33,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="팔굽혀펴기"
+                    android:textSize="14dp"
                     app:shapeAppearance="@style/Rounded" />
 
                 <com.google.android.material.button.MaterialButton
@@ -43,7 +43,8 @@
                     android:layout_height="match_parent"
 
                     android:layout_weight="1"
-                    android:text="윗몸일으키기" />
+                    android:text="윗몸일으키기"
+                    android:textSize="14dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/runBtn"
@@ -53,6 +54,7 @@
                     android:layout_weight="1"
 
                     android:text="3km달리기"
+                    android:textSize="14dp"
                     app:shapeAppearance="@style/Rounded" />
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
