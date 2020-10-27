@@ -44,6 +44,7 @@ public class SitUpMeasureActivity extends AppCompatActivity {
     PreviewView previewView;
     TextView textView1;
     TextView textView2;
+    TextView text_result;
     Button sitUpStartButton;
     Interpreter sitUpInterpreter;
     public static String[] sitUpStatus = new String[]{"stand", "move", "down", "fail"};
@@ -61,6 +62,7 @@ public class SitUpMeasureActivity extends AppCompatActivity {
         previewView = findViewById(R.id.previewView);
         textView1 = findViewById(R.id.textView1);
         textView2 = findViewById(R.id.textView2);
+        text_result = findViewById(R.id.text_result);
         sitUpStartButton = findViewById(R.id.sit_up_start_button);
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
         cameraProviderFuture.addListener(() -> {

@@ -52,6 +52,7 @@ public class LiveVideoAnalyzer {
             return "0"+time/60+":0"+mSec;
         }
     }
+
     public static ImageAnalysis getImageAnalysis(Executor executor, TextView textView1, TextView textView2,
                                                  Interpreter interpreter, ActivityMode am) {
         ImageAnalysis imageAnalysis =
@@ -94,8 +95,8 @@ public class LiveVideoAnalyzer {
                             SitUpMeasureActivity.updateCounter();
                             count = SitUpMeasureActivity.Count;
                         }
-                        TSPdrawTools.createCountOverlay(overlay, am.name(), count, timer, maxInd);
-                        imageView.setImageBitmap(overlay);
+                        //TSPdrawTools.createCountOverlay(overlay, am.name(), count, timer, maxInd);
+                        //imageView.setImageBitmap(overlay);
                         if(timer == 0){
                             textView1.setText("Finished!");
                         }
@@ -108,8 +109,6 @@ public class LiveVideoAnalyzer {
                         else{
                             textView2.setText("횟수: "+ count);
                         }
-
-
                         image.close();
                     });
         });

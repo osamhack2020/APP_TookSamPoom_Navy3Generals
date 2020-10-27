@@ -35,7 +35,7 @@ public class SettingFragment extends Fragment {
     }
 
     public void onClickCCA(View view) {
-        Intent ccaIntent = new Intent(getActivity(), CameraCaptureActivity.class);
+        Intent ccaIntent = new Intent(getActivity(), TestDataGeneratorActivity.class);
         startActivity(ccaIntent);
     }
 

@@ -132,7 +132,7 @@ public class RunningActivity extends AppCompatActivity {
         GetMyLocationListener locationListener = new GetMyLocationListener();
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                    50,
+                    100,
                     0,
                     locationListener);
         } else {
@@ -217,7 +217,7 @@ public class RunningActivity extends AppCompatActivity {
                     else{
                         area = new LatLngBounds(positions.get(0), positions.get(1));
                     }
-                    for(int i=0; i<positions.size(); i+=20){
+                    for(int i=0; i<positions.size(); i+=10){
                         area = area.including(positions.get(i));
                     }
                     area = area.including(positions.get(positions.size()-1));

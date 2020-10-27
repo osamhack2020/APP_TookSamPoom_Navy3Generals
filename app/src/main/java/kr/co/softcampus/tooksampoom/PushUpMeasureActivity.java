@@ -45,6 +45,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
     PreviewView previewView;
     TextView textView1;
     TextView textView2;
+    TextView text_result;
     Button pushUpStartButton;
     ImageView pushUpBodyImageView;
     Interpreter pushUpInterpreter;
@@ -63,6 +64,8 @@ public class PushUpMeasureActivity extends AppCompatActivity {
         previewView = findViewById(R.id.previewView);
         textView1 = findViewById(R.id.textView1);
         textView2 = findViewById(R.id.textView2);
+        text_result = findViewById(R.id.text_result);
+        text_result.setVisibility(View.GONE);
         pushUpBodyImageView = findViewById(R.id.push_up_body);
         pushUpStartButton = findViewById(R.id.push_up_start_button);
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
@@ -128,9 +131,10 @@ public class PushUpMeasureActivity extends AppCompatActivity {
                 _countDown --;
             }
             public  void onFinish(){
-                _countDown = 120;
                 pushUpStartButton.setVisibility(View.VISIBLE);
                 pushUpStartButton.setText("기록저장하기");
+                text_result.setText(resultCalculator(Count));
+                text_result.setVisibility(View.VISIBLE);
                 DBhelper.setPushUpRecord(_ct, 1,Count);
                 pushUpStartButton.setOnClickListener(null);
                 pushUpStartButton.setOnClickListener(v -> {
@@ -157,6 +161,24 @@ public class PushUpMeasureActivity extends AppCompatActivity {
         }
         if (currentPosture == 2)
             DownHit = true;
+    }
+
+    public static String resultCalculator(int count){
+        if(count<48){
+            return "미달";
+        }
+        if(count>=48&&count<=55){
+            return "3급";
+        }
+        if(count>=56&&count<=63){
+            return "2급";
+        }
+        if(count>=64&&count<=71){
+            return "1급";
+        }
+        else{
+            return "특급";
+        }
     }
 
 }
