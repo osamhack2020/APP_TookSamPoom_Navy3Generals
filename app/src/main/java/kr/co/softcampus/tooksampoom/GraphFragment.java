@@ -113,11 +113,13 @@ public class GraphFragment extends Fragment {
 
         LineData data = new LineData(dataSets);
 
-        lineDataSet.setColor(Color.BLUE);
-        lineDataSet.setCircleColor(Color.BLUE);
+        lineDataSet.setColor(Color.BLACK);
+        lineDataSet.setCircleColor(Color.rgb(40,104,176));
         lineDataSet.setLineWidth(2f);
-        lineDataSet.setCircleRadius(4f);
-        lineDataSet.setValueTextSize(9f);
+        lineDataSet.setCircleRadius(5f);
+        lineDataSet.setValueTextSize(10f);
+        //lineDataSet.setDrawFilled(true);
+        //lineDataSet.setFillColor(Color.rgb(40,104,176));
 
         lineChart.setData(data);
         XAxis xAxis = lineChart.getXAxis();
@@ -176,11 +178,13 @@ public class GraphFragment extends Fragment {
 
         LineData data = new LineData(dataSets);
 
-        lineDataSet.setColor(Color.BLUE);
-        lineDataSet.setCircleColor(Color.BLUE);
+        lineDataSet.setColor(Color.BLACK);
+        lineDataSet.setCircleColor(Color.rgb(40,104,176));
         lineDataSet.setLineWidth(2f);
-        lineDataSet.setCircleRadius(4f);
-        lineDataSet.setValueTextSize(9f);
+        lineDataSet.setCircleRadius(5f);
+        lineDataSet.setValueTextSize(10f);
+        //lineDataSet.setDrawFilled(true);
+        //lineDataSet.setFillColor(Color.rgb(40,104,176));
 
         lineChart.setData(data);
         XAxis xAxis = lineChart.getXAxis();
@@ -235,13 +239,13 @@ public class GraphFragment extends Fragment {
 
         LineData data = new LineData(dataSets);
 
-        lineDataSet.setColor(Color.BLUE);
-        lineDataSet.setCircleColor(Color.BLUE);
+        lineDataSet.setColor(Color.BLACK);
+        lineDataSet.setCircleColor(Color.rgb(40,104,176));
         lineDataSet.setLineWidth(2f);
-        lineDataSet.setCircleRadius(4f);
-        lineDataSet.setValueTextSize(7f);
-        lineDataSet.setValueFormatter(new MyIValueFormatter());
-        lineChart.setData(data);
+        lineDataSet.setCircleRadius(5f);
+        lineDataSet.setValueTextSize(10f);
+        //lineDataSet.setDrawFilled(false);
+        //lineDataSet.setFillColor(Color.rgb(40,104,176));
 
 
         XAxis xAxis = lineChart.getXAxis();

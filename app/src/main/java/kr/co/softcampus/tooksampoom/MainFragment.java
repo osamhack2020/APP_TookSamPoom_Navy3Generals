@@ -45,6 +45,7 @@ public class MainFragment extends Fragment{
         dataValue.add(new RadarEntry(formatSitUp(80)));
         dataValue.add(new RadarEntry(formatRunning(720)));
         RadarDataSet dataSet = new RadarDataSet(dataValue, "data");
+        dataSet.setColor(Color.BLACK);
         dataSet.setDrawFilled(true);
         dataSet.setFillColor(Color.rgb(40,104,176));
         RadarData data = new RadarData();

@@ -50,7 +50,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/sit_up_icon" />
+                app:srcCompat="@drawable/sit_up_icon_down" />
 
             <ImageView
                 android:id="@+id/running_icon"

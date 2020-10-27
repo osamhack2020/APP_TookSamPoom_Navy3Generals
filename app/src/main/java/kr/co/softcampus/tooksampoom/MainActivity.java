@@ -22,7 +22,7 @@ import static kr.co.softcampus.tooksampoom.R.id.text_toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
-    static boolean developer_mode = false;
+    static boolean developer_mode = true;
     String[] permissions_list = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
