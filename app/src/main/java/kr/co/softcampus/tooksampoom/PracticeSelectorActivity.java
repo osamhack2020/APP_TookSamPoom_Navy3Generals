@@ -28,7 +28,6 @@ public class PracticeSelectorActivity extends AppCompatActivity {
     ImageView sit_up_icon;
     ImageView running_icon;
 
-    int dpWidthInPx;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

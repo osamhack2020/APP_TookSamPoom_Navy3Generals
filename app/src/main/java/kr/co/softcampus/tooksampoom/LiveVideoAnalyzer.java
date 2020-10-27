@@ -29,6 +29,8 @@ import java.util.concurrent.Executor;
 import kr.co.softcampus.tooksampoom.Utils.ActivityMode;
 import kr.co.softcampus.tooksampoom.Utils.TSPdrawTools;
 
+import static kr.co.softcampus.tooksampoom.MainActivity.developer_mode;
+
 public class LiveVideoAnalyzer {
 
     static PoseDetector poseDetector = PoseDetection.getClient(
@@ -93,7 +95,13 @@ public class LiveVideoAnalyzer {
                         else {
                             textView1.setText(timeFormatter(timer));
                         }
-                        textView2.setText("횟수: "+ count +": "+ maxInd);
+                        if(developer_mode){
+                            textView2.setText("횟수: "+ count +": "+ maxInd);
+                        }
+                        else{
+                            textView2.setText("횟수: "+ count);
+                        }
+
 
                         image.close();
                     });

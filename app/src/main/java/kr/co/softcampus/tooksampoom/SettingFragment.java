@@ -9,15 +9,29 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import static kr.co.softcampus.tooksampoom.MainActivity.developer_mode;
 
 public class SettingFragment extends Fragment {
 
+    Button button5;
+    Button button6;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
-        return inflater.inflate(R.layout.fragment_setting, container, false);
+        View view = inflater.inflate(R.layout.fragment_setting,container, false);
+        button5 = view.findViewById(R.id.button5);
+        button6 = view.findViewById(R.id.button6);
+        if(developer_mode){
+            button5.setVisibility(View.VISIBLE);
+            button6.setVisibility(View.VISIBLE);
+        }
+        else{
+            button5.setVisibility(View.GONE);
+            button6.setVisibility(View.GONE);
+        }
+        return view;
     }
 
     public void onClickCCA(View view) {

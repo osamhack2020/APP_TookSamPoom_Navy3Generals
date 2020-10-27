@@ -25,12 +25,15 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="121dp"
-        android:layout_height="61dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_shape"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:textStyle="bold"
         android:gravity="center_vertical|center_horizontal"
         android:onClick="onClickPU"
         android:text="측정 시작"
-        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

@@ -7,40 +7,53 @@
     android:layout_height="match_parent"
     tools:context=".MainFragment">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/text_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
+            android:layout_marginStart="20dp"
 
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
             android:textColor="#000000"
             android:textSize="25dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.github.mikephil.charting.charts.RadarChart
             android:id="@+id/chart"
-            android:layout_width="match_parent"
-            android:layout_height="432dp">
+            android:layout_width="0dp"
+            android:layout_height="400dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_name">
 
         </com.github.mikephil.charting.charts.RadarChart>
 
         <Button
             android:id="@+id/button7"
-            android:layout_width="149dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|center_vertical"
+            android:background="@drawable/button_shape"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            android:textStyle="bold"
             android:onClick="onClickStart"
             android:text="체력 측정"
-            android:textSize="20dp" />
 
-    </LinearLayout>
+            app:layout_constraintBottom_toBottomOf="@+id/chart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </FrameLayout>

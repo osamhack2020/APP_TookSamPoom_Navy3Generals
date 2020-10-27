@@ -19,6 +19,8 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,50 +34,46 @@ public class GraphFragment extends Fragment {
     RecordInfo[] recordInfo_sit_up;
     RecordInfo[] recordInfo_running;
     View view;
-    Button button_1;
-    Button button_2;
-    Button button_3;
+    MaterialButtonToggleGroup toggleGroup;
+    MaterialButton pushUpBtn;
+    MaterialButton sitUpBtn;
+    MaterialButton runningBtn;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_graph,container, false);
-        button_1 = (Button)view.findViewById(R.id.pushUpBtn);
-        button_2 = (Button)view.findViewById(R.id.sitUpBtn);
-        button_3 = (Button)view.findViewById(R.id.runningBtn);
+        pushUpBtn = view.findViewById(R.id.pushupBtn);
+        sitUpBtn = view.findViewById(R.id.situpBtn);
+        runningBtn = view.findViewById(R.id.runBtn);
+        toggleGroup = view.findViewById(R.id.toggleGroup);
+        toggleGroup.setSingleSelection(true);
+        toggleGroup.setSelectionRequired(true);
         lineChart = (LineChart)view.findViewById(R.id.chart);
 
         recordInfo_push_up = DBhelper.getPushUpRecord(getActivity(), 1);
         recordInfo_sit_up = DBhelper.getSitUpRecord(getActivity(), 1);
         recordInfo_running = DBhelper.getRunningRecord(getActivity(), 1);
 
-        setPushUpChart(recordInfo_push_up);
-
-        button_1.setOnClickListener(new View.OnClickListener()
-        {
+        toggleGroup.addOnButtonCheckedListener(new MaterialButtonToggleGroup.OnButtonCheckedListener() {
             @Override
-            public void onClick(View v)
-            {
-                setPushUpChart(recordInfo_push_up);
+            public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
+                switch(checkedId){
+                    case R.id.pushupBtn:
+                        setPushUpChart(recordInfo_push_up);
+                        break;
+                    case R.id.situpBtn:
+                        setSitUpChart(recordInfo_sit_up);
+                        break;
+                    case R.id.runBtn:
+                        setRunningChart(recordInfo_running);
+                        break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + checkedId);
+                }
             }
         });
-
-        button_2.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                setSitUpChart(recordInfo_sit_up);
-            }
-        });
-
-        button_3.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                setRunningChart(recordInfo_running);
-            }
-        });
+        toggleGroup.check(R.id.pushupBtn);
 
         return view;
     }

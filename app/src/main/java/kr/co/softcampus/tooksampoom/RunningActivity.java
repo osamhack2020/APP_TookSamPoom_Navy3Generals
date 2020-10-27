@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.dd.CircularProgressButton;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -240,9 +241,9 @@ public class RunningActivity extends AppCompatActivity {
 
             polyline.setStartCap(new RoundCap());
             polyline.setEndCap((new RoundCap()));
-            polyline.setColor(Color.BLUE);
+            polyline.setColor(Color.argb(255,40,104,176));
             polyline.setJointType(JointType.ROUND);
-            polyline.setWidth(25);
+            polyline.setWidth(30);
             idx++;
         }
     }

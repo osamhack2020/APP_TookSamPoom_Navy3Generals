@@ -41,23 +41,21 @@ public class MainFragment extends Fragment{
         textView.setText("일병 정민석님");
 
         ArrayList<RadarEntry> dataValue = new ArrayList<>();
-        dataValue.add(new RadarEntry(formatPushUp(120)));
+        dataValue.add(new RadarEntry(formatPushUp(57)));
         dataValue.add(new RadarEntry(formatSitUp(80)));
-        dataValue.add(new RadarEntry(formatRunning(1300)));
-
+        dataValue.add(new RadarEntry(formatRunning(720)));
         RadarDataSet dataSet = new RadarDataSet(dataValue, "data");
-        dataSet.setColor(Color.BLUE);
-        dataSet.setColor(R.color.colorPrimary);
         dataSet.setDrawFilled(true);
-        dataSet.setValueTextSize(10f);
+        dataSet.setFillColor(Color.rgb(40,104,176));
         RadarData data = new RadarData();
-        String[] values = {120+"개", 80+"개", 1300/60+"분 "+1300%60+"초"};
+        String[] values = {57+"개", 80+"개", 720/60+"분 "+720%60+"초"};
         dataSet.setValueFormatter(new MyValueFormatter(values));
+        dataSet.setValueTextSize(11f);
         data.addDataSet(dataSet);
 
         String[] labels =  {"팔굽혀펴기", "윗몸일으키기", "3km 달리기"};
         XAxis xAxis = radarChart.getXAxis();
-        xAxis.setTextSize(11f);
+        xAxis.setTextSize(13f);
         xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
 
         YAxis yAxis = radarChart.getYAxis();
