@@ -51,8 +51,8 @@ public class TSPdrawTools {
         _countPaint.setAntiAlias(true);
         _countPaint.setStyle(Paint.Style.FILL);
         _countPaint.setColor(Color.BLUE);
-        _countPaint.setStrokeWidth(10f);
-        _countPaint.setTextSize(100f);
+        _countPaint.setStrokeWidth(3f);
+        _countPaint.setTextSize(40f);
         return _countPaint;
     }
 
@@ -63,8 +63,8 @@ public class TSPdrawTools {
         _timerPaint.setAntiAlias(true);
         _timerPaint.setStyle(Paint.Style.FILL);
         _timerPaint.setColor(Color.WHITE);
-        _timerPaint.setStrokeWidth(7f);
-        _timerPaint.setTextSize(170f);
+        _timerPaint.setStrokeWidth(3f);
+        _timerPaint.setTextSize(100f);
         return _timerPaint;
     }
 
@@ -88,14 +88,14 @@ public class TSPdrawTools {
     public static void createCountOverlay(Bitmap overlay, String type, int count, int time, int currentPose) {
         Paint countPaint = getCountPaint();
         Canvas canvas = new Canvas(overlay);
-        canvas.drawText(type + ": " + count + " : " + currentPose,overlay.getWidth() * 0.3f,
-                overlay.getHeight() * 0.8f, countPaint);
+        canvas.drawText(type + ": " + count + " : " + currentPose,overlay.getWidth() * 0.45f,
+                overlay.getHeight() * 0.9f, countPaint);
         Paint timerPaint = getTimerPaint();
         if (time == 0) {
-            canvas.drawText("Finished!", overlay.getWidth() * 0.3f, overlay.getHeight() * 0.2f,
+            canvas.drawText("Finished!", overlay.getWidth() * 0.45f, overlay.getHeight() * 0.1f,
                     timerPaint);
         } else {
-            canvas.drawText(Integer.toString(time), overlay.getWidth() * 0.3f, overlay.getHeight() * 0.2f,
+            canvas.drawText(Integer.toString(time), overlay.getWidth() * 0.45f, overlay.getHeight() * 0.1f,
                     timerPaint);
         }
     }

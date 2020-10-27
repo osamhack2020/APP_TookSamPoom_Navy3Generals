@@ -20,10 +20,9 @@
     </androidx.camera.view.PreviewView>
 
     <ImageView
-        android:id="@+id/sit_up_body"
+        android:id="@+id/push_up_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

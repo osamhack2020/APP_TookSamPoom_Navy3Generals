@@ -1,9 +1,13 @@
 package kr.co.softcampus.tooksampoom;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
+import android.hardware.camera2.CameraMetadata;
 import android.media.Image;
-import android.util.Log;
 import android.util.Size;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -52,7 +56,6 @@ public class LiveVideoAnalyzer {
                                                  Interpreter interpreter, ActivityMode am) {
         ImageAnalysis imageAnalysis =
                 new ImageAnalysis.Builder()
-                        .setTargetResolution(new Size(1280, 720))
                         .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                         .build();
 
@@ -60,6 +63,9 @@ public class LiveVideoAnalyzer {
             AnalizeImage(image)
                     .addOnSuccessListener(pose -> {
                         List<PoseLandmark> pl = pose.getAllPoseLandmarks();
+                        Bitmap overlay = Bitmap.createBitmap(image.getWidth(), image.getHeight(), Bitmap.Config.ARGB_8888);
+                        TSPdrawTools.createBodyOverlay(overlay, pl);
+
                         int maxInd = 0;
                         if (!pl.isEmpty()) {
                             ByteBuffer input = PushUpMeasureActivity.createInput(pl);
@@ -88,7 +94,8 @@ public class LiveVideoAnalyzer {
                             SitUpMeasureActivity.updateCounter();
                             count = SitUpMeasureActivity.Count;
                         }
-                        //TSPdrawTools.createCountOverlay(overlay, am.name(), count, timer, maxInd);
+                        TSPdrawTools.createCountOverlay(overlay, am.name(), count, timer, maxInd);
+                        imageView.setImageBitmap(overlay);
                         if(timer == 0){
                             textView1.setText("Finished!");
                         }

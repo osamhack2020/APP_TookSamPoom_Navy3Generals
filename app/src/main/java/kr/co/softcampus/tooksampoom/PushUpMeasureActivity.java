@@ -40,12 +40,13 @@ public class PushUpMeasureActivity extends AppCompatActivity {
 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private static boolean _isStarted = false;
-    private static final String _pushUpModelName = "situp_model.tflite";
+    private static final String _pushUpModelName = "push_up_axisOnWristToAnkle.tflite";
     protected static int _countDown = 120;
     PreviewView previewView;
     TextView textView1;
     TextView textView2;
     Button pushUpStartButton;
+    ImageView pushUpBodyImageView;
     Interpreter pushUpInterpreter;
     public static String[] pushUpStatus = new String[]{"stand", "move", "down", "fail"};
     public static boolean DownHit;
@@ -62,7 +63,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
         previewView = findViewById(R.id.previewView);
         textView1 = findViewById(R.id.textView1);
         textView2 = findViewById(R.id.textView2);
-
+        pushUpBodyImageView = findViewById(R.id.push_up_body);
         pushUpStartButton = findViewById(R.id.push_up_start_button);
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
         cameraProviderFuture.addListener(() -> {
@@ -97,6 +98,8 @@ public class PushUpMeasureActivity extends AppCompatActivity {
                 .requireLensFacing(CameraSelector.LENS_FACING_BACK)
                 .build();
         preview.setSurfaceProvider(previewView.createSurfaceProvider());
+        //ImageAnalysis analysis = LiveVideoAnalyzer.getImageAnalysis(Executors.newSingleThreadExecutor(),
+                //pushUpBodyImageView, pushUpInterpreter, ActivityMode.PushUp);
         ImageAnalysis analysis = LiveVideoAnalyzer.getImageAnalysis(Executors.newSingleThreadExecutor(),
                 textView1, textView2, pushUpInterpreter, ActivityMode.PushUp);
         cameraProvider.bindToLifecycle(this, cameraSelector, analysis, preview);
@@ -109,7 +112,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
      */
     public static ByteBuffer createInput(List<PoseLandmark> landmarks) {
         ByteBuffer input = ByteBuffer.allocateDirect(99 * java.lang.Float.SIZE / java.lang.Byte.SIZE).order(ByteOrder.nativeOrder());
-        List<Float> inputList = DataNormalizer.NormalizeSitUp(landmarks);
+        List<Float> inputList = DataNormalizer.NormalizeWithAxisOnBody(landmarks);
         for (Float f : inputList)
             input.putFloat(f);
         return input;
@@ -125,6 +128,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
                 _countDown --;
             }
             public  void onFinish(){
+                _countDown = 120;
                 pushUpStartButton.setVisibility(View.VISIBLE);
                 pushUpStartButton.setText("기록저장하기");
                 DBhelper.setPushUpRecord(_ct, 1,Count);

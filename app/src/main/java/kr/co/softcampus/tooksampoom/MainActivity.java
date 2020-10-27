@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickCCA(View view) {
-        Intent ccaIntent = new Intent(this, CameraCaptureActivity.class);
+        Intent ccaIntent = new Intent(this, TestDataGeneratorActivity.class);
         startActivity(ccaIntent);
     }
 
@@ -163,5 +163,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
 }
