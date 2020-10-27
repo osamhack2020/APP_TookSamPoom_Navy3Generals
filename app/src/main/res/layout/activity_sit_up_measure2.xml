@@ -58,10 +58,10 @@
     <TextView
         android:id="@+id/textView2"
         android:layout_width="323dp"
-        android:layout_height="69dp"
+        android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="30dp"
+        android:textSize="40dp"
         app:layout_constraintBottom_toTopOf="@+id/sit_up_start_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -72,10 +72,10 @@ public class SitUpMeasureActivity extends AppCompatActivity {
                 // This should never be reached.
             }
         }, ContextCompat.getMainExecutor(this));
-        setPushUpInterpreter();
+        setSitUpInterpreter();
     }
 
-    void setPushUpInterpreter() {
+    void setSitUpInterpreter() {
         try {
             InputStream inputStream = getAssets().open(_sitUpModelName);
             byte[] model = new byte[inputStream.available()];
@@ -96,7 +96,7 @@ public class SitUpMeasureActivity extends AppCompatActivity {
                 .build();
         preview.setSurfaceProvider(previewView.createSurfaceProvider());
         ImageAnalysis analysis = LiveVideoAnalyzer.getImageAnalysis(Executors.newSingleThreadExecutor(),
-                textView1, textView2, sitUpInterpreter, ActivityMode.PushUp);
+                textView1, textView2, sitUpInterpreter, ActivityMode.SitUp);
         cameraProvider.bindToLifecycle(this, cameraSelector, analysis, preview);
     }
 
@@ -115,7 +115,7 @@ public class SitUpMeasureActivity extends AppCompatActivity {
 
     public void onClickStartButton(View view) {
         _countDown = 120;
-        sitUpStartButton.setVisibility(View.GONE);
+        sitUpStartButton.setVisibility(View.INVISIBLE);
         _isStarted = true;
         Context _ct = this;
         new CountDownTimer(120500, 1000){

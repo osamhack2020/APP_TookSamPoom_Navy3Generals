@@ -37,7 +37,15 @@ public class LiveVideoAnalyzer {
                     .setPerformanceMode(PoseDetectorOptions.PERFORMANCE_MODE_FAST)
                     .build()
     );
-
+    public static String timeFormatter(int time){
+        int mSec = time%60;
+        if(mSec>=10){
+            return "0"+time/60+":"+mSec;
+        }
+        else{
+            return "0"+time/60+":0"+mSec;
+        }
+    }
     public static ImageAnalysis getImageAnalysis(Executor executor, TextView textView1, TextView textView2,
                                                  Interpreter interpreter, ActivityMode am) {
         ImageAnalysis imageAnalysis =
@@ -73,14 +81,19 @@ public class LiveVideoAnalyzer {
                             PushUpMeasureActivity.updateCounter();
                             count = PushUpMeasureActivity.Count;
                         }
+                        else{
+                            timer = SitUpMeasureActivity._countDown;
+                            SitUpMeasureActivity.updateCounter();
+                            count = SitUpMeasureActivity.Count;
+                        }
                         //TSPdrawTools.createCountOverlay(overlay, am.name(), count, timer, maxInd);
                         if(timer == 0){
                             textView1.setText("Finished!");
                         }
                         else {
-                            textView1.setText(Integer.toString(timer));
+                            textView1.setText(timeFormatter(timer));
                         }
-                        textView2.setText(am.name()+": "+ count +": "+ maxInd);
+                        textView2.setText("횟수: "+ count +": "+ maxInd);
 
                         image.close();
                     });

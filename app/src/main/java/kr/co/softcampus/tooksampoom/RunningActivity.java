@@ -210,8 +210,13 @@ public class RunningActivity extends AppCompatActivity {
                     locationManager.removeUpdates(listener);
                     chronometer.stop();
                     LatLngBounds area;
-                    area = new LatLngBounds(positions.get(0), positions.get(1));
-                    for(int i=0; i<positions.size(); i+=50){
+                    if(positions.get(0).latitude>=positions.get(1).latitude){
+                        area = new LatLngBounds(positions.get(1), positions.get(0));
+                    }
+                    else{
+                        area = new LatLngBounds(positions.get(0), positions.get(1));
+                    }
+                    for(int i=0; i<positions.size(); i+=20){
                         area = area.including(positions.get(i));
                     }
                     area = area.including(positions.get(positions.size()-1));
