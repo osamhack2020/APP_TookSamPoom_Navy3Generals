@@ -118,8 +118,6 @@ public class GraphFragment extends Fragment {
         lineDataSet.setLineWidth(2f);
         lineDataSet.setCircleRadius(5f);
         lineDataSet.setValueTextSize(10f);
-        //lineDataSet.setDrawFilled(true);
-        //lineDataSet.setFillColor(Color.rgb(40,104,176));
 
         lineChart.setData(data);
         XAxis xAxis = lineChart.getXAxis();
@@ -183,8 +181,6 @@ public class GraphFragment extends Fragment {
         lineDataSet.setLineWidth(2f);
         lineDataSet.setCircleRadius(5f);
         lineDataSet.setValueTextSize(10f);
-        //lineDataSet.setDrawFilled(true);
-        //lineDataSet.setFillColor(Color.rgb(40,104,176));
 
         lineChart.setData(data);
         XAxis xAxis = lineChart.getXAxis();
@@ -244,8 +240,8 @@ public class GraphFragment extends Fragment {
         lineDataSet.setLineWidth(2f);
         lineDataSet.setCircleRadius(5f);
         lineDataSet.setValueTextSize(10f);
-        //lineDataSet.setDrawFilled(false);
-        //lineDataSet.setFillColor(Color.rgb(40,104,176));
+        lineDataSet.setValueFormatter(new MyIValueFormatter());
+        lineChart.setData(data);
 
 
         XAxis xAxis = lineChart.getXAxis();
