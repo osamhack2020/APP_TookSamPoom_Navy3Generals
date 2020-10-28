@@ -170,7 +170,7 @@ public class RunningActivity extends AppCompatActivity {
     public void setMyLocation(Location location,LocationListener listener) {
         //현재 위치로 줌인
         LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
-        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(position, 18f);
+        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(position, 17f);
         //현재위치 따라 카메라 이동
         map.moveCamera(update);
         //현재위치 표시
@@ -201,7 +201,7 @@ public class RunningActivity extends AppCompatActivity {
                 if(idx==1){
                     pastTime=SystemClock.elapsedRealtime();
                 }
-                if(idx%10 == 0){
+                if(idx%30 == 0){
                     float tookDistance = distance - pastDistance;
                     pastDistance = distance;
                     long tookTime = nowTime - pastTime;
@@ -232,6 +232,7 @@ public class RunningActivity extends AppCompatActivity {
                     display1.setVisibility(View.GONE);
                     successBtn.setVisibility(View.VISIBLE);
                     finish.setVisibility(View.VISIBLE);
+                    result.setVisibility(View.VISIBLE);
                     display2.setVisibility(View.VISIBLE);
                     display3.setVisibility(View.VISIBLE);
                 }
