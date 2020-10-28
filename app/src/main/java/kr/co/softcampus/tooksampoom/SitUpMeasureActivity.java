@@ -93,7 +93,7 @@ public class SitUpMeasureActivity extends AppCompatActivity {
                 .build();
         preview.setSurfaceProvider(previewView.createSurfaceProvider());
         ImageAnalysis analysis = LiveVideoAnalyzer.getImageAnalysis(Executors.newSingleThreadExecutor(),
-                sitUpBodyImageView, sitUpInterpreter, ActivityMode.PushUp);
+                sitUpBodyImageView, sitUpInterpreter, ActivityMode.SitUp);
         cameraProvider.bindToLifecycle(this, cameraSelector, analysis, preview);
     }
 
