@@ -39,7 +39,7 @@ public class SitUpMeasureActivity extends AppCompatActivity {
 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private static boolean _isStarted = false;
-    private static final String _sitUpModelName = "situp_model.tflite";
+    private static final String _sitUpModelName = "situp_model1024.tflite";
     protected static int _countDown = 120;
     PreviewView previewView;
     TextView textView1;
@@ -57,7 +57,7 @@ public class SitUpMeasureActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sit_up_measure2);
+        setContentView(R.layout.activity_sit_up_measure);
         Count = 0;
         DownHit = false;
         previewView = findViewById(R.id.previewView);

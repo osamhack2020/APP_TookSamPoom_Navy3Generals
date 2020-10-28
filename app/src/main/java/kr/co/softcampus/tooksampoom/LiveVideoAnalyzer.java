@@ -69,7 +69,12 @@ public class LiveVideoAnalyzer {
 
                         int maxInd = 0;
                         if (!pl.isEmpty()) {
-                            ByteBuffer input = PushUpMeasureActivity.createInput(pl);
+                            ByteBuffer input = null;
+                            if (am == ActivityMode.PushUp) {
+                                input = PushUpMeasureActivity.createInput(pl);
+                            } else if (am == ActivityMode.SitUp) {
+                                input = SitUpMeasureActivity.createInput(pl);
+                            }
                             ByteBuffer output = ByteBuffer.allocateDirect(java.lang.Float.SIZE * 4 / java.lang.Byte.SIZE).order(ByteOrder.nativeOrder());
                             interpreter.run(input, output);
                             output.rewind();
@@ -81,7 +86,11 @@ public class LiveVideoAnalyzer {
                                     maxInd = i;
                                 }
                             }
-                            PushUpMeasureActivity.LatestPostures.add(maxInd);
+                            if (am == ActivityMode.PushUp) {
+                                PushUpMeasureActivity.LatestPostures.add(maxInd);
+                            } else if (am == ActivityMode.SitUp) {
+                                SitUpMeasureActivity.LatestPostures.add(maxInd);
+                            }
                         }
                         int timer = 0;
                         int count = 0;
@@ -89,6 +98,10 @@ public class LiveVideoAnalyzer {
                             timer = PushUpMeasureActivity._countDown;
                             PushUpMeasureActivity.updateCounter();
                             count = PushUpMeasureActivity.Count;
+                        } else if (am == ActivityMode.SitUp) {
+                            timer = SitUpMeasureActivity._countDown;
+                            SitUpMeasureActivity.updateCounter();
+                            count = SitUpMeasureActivity.Count;
                         }
                         else{
                             timer = SitUpMeasureActivity._countDown;
