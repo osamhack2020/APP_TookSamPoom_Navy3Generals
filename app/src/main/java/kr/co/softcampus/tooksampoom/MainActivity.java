@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClickStart(View view) {
         Intent startIntent = new Intent(this, PracticeSelectorActivity.class);
         startActivityForResult(startIntent, 0);
+    }
 
     public void onClickPracticeSelector(View view) {
         Intent practiceSelectorIntent = new Intent(this, PracticeSelectorActivity.class);
