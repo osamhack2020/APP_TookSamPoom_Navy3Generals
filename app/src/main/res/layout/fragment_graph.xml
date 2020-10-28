@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_graph"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,7 +23,8 @@
                 android:id="@+id/toggleGroup"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:layout_margin="2dp">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/pushupBtn"
@@ -33,7 +34,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="팔굽혀펴기"
-                    android:textSize="14dp"
+                    android:textSize="10dp"
                     app:shapeAppearance="@style/Rounded" />
 
                 <com.google.android.material.button.MaterialButton
@@ -44,7 +45,7 @@
 
                     android:layout_weight="1"
                     android:text="윗몸일으키기"
-                    android:textSize="14dp" />
+                    android:textSize="10dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/runBtn"
@@ -54,7 +55,7 @@
                     android:layout_weight="1"
 
                     android:text="3km달리기"
-                    android:textSize="14dp"
+                    android:textSize="10dp"
                     app:shapeAppearance="@style/Rounded" />
             </com.google.android.material.button.MaterialButtonToggleGroup>
 

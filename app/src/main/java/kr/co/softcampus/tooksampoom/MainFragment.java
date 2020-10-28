@@ -31,15 +31,19 @@ public class MainFragment extends Fragment{
     View view;
     RadarChart radarChart;
     TextView textView;
+    TextView score;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_main,container, false);
         radarChart = (RadarChart) view.findViewById((R.id.chart));
         textView = (TextView) view.findViewById(R.id.text_name);
-
+        score = (TextView) view.findViewById(R.id.text_score);
         textView.setText("일병 정민석님");
 
+
+
+        score.setText("총점: "+ Double.toString((Math.round((formatPushUp(57)+formatSitUp(80)+formatRunning(720))*10)/10.0))+"점");
         ArrayList<RadarEntry> dataValue = new ArrayList<>();
         dataValue.add(new RadarEntry(formatPushUp(57)));
         dataValue.add(new RadarEntry(formatSitUp(80)));

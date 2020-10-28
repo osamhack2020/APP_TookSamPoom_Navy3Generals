@@ -42,31 +42,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.85" />
 
-    <ImageView
-        android:id="@+id/image_puup"
-        android:layout_width="130dp"
-        android:layout_height="150dp"
-        android:src="@drawable/push_up_stand"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.35"
-        app:srcCompat="@drawable/push_up_stand" />
-
-    <ImageView
-        android:id="@+id/image_pudown"
-        android:layout_width="130dp"
-        android:layout_height="150dp"
-        android:src="@drawable/push_up_down"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintVertical_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -80,8 +55,8 @@
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.7" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.2" />
 
     <TextView
         android:id="@+id/textView6"
@@ -89,7 +64,7 @@
         android:layout_height="wrap_content"
         android:gravity="left|center_vertical"
         android:paddingLeft="20dp"
-        android:paddingTop="20dp"
+        android:paddingTop="10dp"
         android:paddingRight="20dp"
         android:text="- 측정하는 사람의 머리가 왼쪽으로 오도록 위치하고 시작해 주십시오."
         android:textColor="@color/black"
@@ -99,16 +74,15 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="0dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:src="@drawable/right_arrow"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toStartOf="@+id/image_pudown"
-        app:layout_constraintStart_toEndOf="@+id/image_puup"
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/push_up_example"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintVertical_bias="0.1" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 

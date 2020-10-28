@@ -50,6 +50,7 @@ public class RunningActivity extends AppCompatActivity {
     TextView speed_result;
     TextView time_result;
     TextView finish;
+    TextView result;
     Chronometer chronometer;
     LinearLayout display1;
     LinearLayout display2;
@@ -77,6 +78,7 @@ public class RunningActivity extends AppCompatActivity {
         speed_result = (TextView) findViewById(R.id.speed_result);
         time_result = (TextView) findViewById(R.id.time_result);
         finish = (TextView) findViewById(R.id.finish);
+        result = (TextView) findViewById(R.id.textView7);
         chronometer = (Chronometer) findViewById(R.id.chronometer);
         display1 = (LinearLayout) findViewById(R.id.display1);
         display2 = (LinearLayout) findViewById(R.id.display2);
@@ -226,6 +228,7 @@ public class RunningActivity extends AppCompatActivity {
                     elapsedSec = (int)elapsedMillis/1000;
                     speed_result.setText(Double.toString(Math.round((elapsedMillis/(distance*60))*100)/100.0)+" 분/km");
                     time_result.setText(Integer.toString(elapsedSec/60)+"분 "+Integer.toString(elapsedSec%60)+"초");
+                    result.setText(runningCalculator(elapsedSec));
                     display1.setVisibility(View.GONE);
                     successBtn.setVisibility(View.VISIBLE);
                     finish.setVisibility(View.VISIBLE);
@@ -246,5 +249,24 @@ public class RunningActivity extends AppCompatActivity {
             polyline.setWidth(30);
             idx++;
         }
+    }
+
+    public String runningCalculator(int time){
+        if(time>=937){
+            return "미달";
+        }
+        if(time<=936&&time>=875){
+            return "3급";
+        }
+        if(time<=874&&time>=813){
+            return "2급";
+        }
+        if(time<=812&&time>=751){
+            return "1급";
+        }
+        if(time<=750){
+            return "특급";
+        }
+        return "";
     }
 }
