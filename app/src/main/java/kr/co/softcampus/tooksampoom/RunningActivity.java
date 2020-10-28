@@ -12,6 +12,7 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -109,6 +110,7 @@ public class RunningActivity extends AppCompatActivity {
         //Map callback 등록
         MapReadyCallback mapCallback = new MapReadyCallback();
         mapFragment.getMapAsync(mapCallback);
+
     }
 
 
@@ -129,7 +131,6 @@ public class RunningActivity extends AppCompatActivity {
                 return;
             }
         }
-
         //GPS 사용가능하면 1초마다 위치 갱신하고 불가능하면 Dialog 띄워서 확인 누르면 finish() 실행
         GetMyLocationListener locationListener = new GetMyLocationListener();
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
@@ -141,19 +142,16 @@ public class RunningActivity extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("실행 오류");
             builder.setMessage("GPS를 허용해주세요");
-            DialogListener dialogListener = new DialogListener();
-            builder.setPositiveButton("확인", dialogListener);
+            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
             builder.show();
         }
 
 }
-
-    class DialogListener implements DialogInterface.OnClickListener {
-        @Override
-        public void onClick(DialogInterface dialogInterface, int i) {
-            finish();
-        }
-    }
 
     class GetMyLocationListener implements LocationListener {
         //위치 갱신될 때 마다 call되는 method
@@ -168,11 +166,13 @@ public class RunningActivity extends AppCompatActivity {
     }
 
     public void setMyLocation(Location location,LocationListener listener) {
+
         //현재 위치로 줌인
         LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
         CameraUpdate update = CameraUpdateFactory.newLatLngZoom(position, 17f);
         //현재위치 따라 카메라 이동
         map.moveCamera(update);
+
         //현재위치 표시
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
             if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_DENIED){
@@ -201,7 +201,7 @@ public class RunningActivity extends AppCompatActivity {
                 if(idx==1){
                     pastTime=SystemClock.elapsedRealtime();
                 }
-                if(idx%30 == 0){
+                if(idx%10 == 0){
                     float tookDistance = distance - pastDistance;
                     pastDistance = distance;
                     long tookTime = nowTime - pastTime;
@@ -219,7 +219,7 @@ public class RunningActivity extends AppCompatActivity {
                     else{
                         area = new LatLngBounds(positions.get(0), positions.get(1));
                     }
-                    for(int i=0; i<positions.size(); i+=10){
+                    for(int i=2; i<positions.size(); i+=3){
                         area = area.including(positions.get(i));
                     }
                     area = area.including(positions.get(positions.size()-1));
