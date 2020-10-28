@@ -70,12 +70,12 @@ public class RunningActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_running);
-        startBtn = (Button) findViewById(R.id.startbtn);
-        successBtn = (Button) findViewById(R.id.successbtn);
-        distance_text = (TextView) findViewById(R.id.distance_text);
-        speed_text = (TextView) findViewById(R.id.speed_text);
-        speed = (TextView) findViewById(R.id.speed);
-        time = (TextView) findViewById(R.id.time);
+        startBtn = findViewById(R.id.startbtn);
+        successBtn = findViewById(R.id.successbtn);
+        distance_text = findViewById(R.id.distance_text);
+        speed_text = findViewById(R.id.speed_text);
+        speed = findViewById(R.id.speed);
+        time = findViewById(R.id.time);
         speed_result = (TextView) findViewById(R.id.speed_result);
         time_result = (TextView) findViewById(R.id.time_result);
         finish = (TextView) findViewById(R.id.finish);

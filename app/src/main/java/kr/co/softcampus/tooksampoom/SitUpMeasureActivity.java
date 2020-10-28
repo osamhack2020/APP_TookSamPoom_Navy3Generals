@@ -45,6 +45,7 @@ public class SitUpMeasureActivity extends AppCompatActivity {
     TextView textView1;
     TextView textView2;
     TextView text_result;
+    ImageView sitUpBodyImageView;
     Button sitUpStartButton;
     Interpreter sitUpInterpreter;
     public static String[] sitUpStatus = new String[]{"stand", "move", "down", "fail"};
@@ -63,6 +64,8 @@ public class SitUpMeasureActivity extends AppCompatActivity {
         textView1 = findViewById(R.id.textView1);
         textView2 = findViewById(R.id.textView2);
         text_result = findViewById(R.id.text_result);
+        previewView = findViewById(R.id.previewView);
+        sitUpBodyImageView = findViewById(R.id.sit_up_body);
         sitUpStartButton = findViewById(R.id.sit_up_start_button);
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
         cameraProviderFuture.addListener(() -> {
@@ -74,10 +77,10 @@ public class SitUpMeasureActivity extends AppCompatActivity {
                 // This should never be reached.
             }
         }, ContextCompat.getMainExecutor(this));
-        setSitUpInterpreter();
+        setPushUpInterpreter();
     }
 
-    void setSitUpInterpreter() {
+    void setPushUpInterpreter() {
         try {
             InputStream inputStream = getAssets().open(_sitUpModelName);
             byte[] model = new byte[inputStream.available()];

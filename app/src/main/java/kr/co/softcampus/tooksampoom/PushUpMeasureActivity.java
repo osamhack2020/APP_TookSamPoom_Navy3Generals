@@ -62,6 +62,8 @@ public class PushUpMeasureActivity extends AppCompatActivity {
         Count = 0;
         DownHit = false;
         previewView = findViewById(R.id.previewView);
+        pushUpBodyImageView = findViewById(R.id.sit_up_body);
+        pushUpStartButton = findViewById(R.id.sit_up_start_button);
         textView1 = findViewById(R.id.textView1);
         textView2 = findViewById(R.id.textView2);
         text_result = findViewById(R.id.text_result);
@@ -101,8 +103,6 @@ public class PushUpMeasureActivity extends AppCompatActivity {
                 .requireLensFacing(CameraSelector.LENS_FACING_BACK)
                 .build();
         preview.setSurfaceProvider(previewView.createSurfaceProvider());
-        //ImageAnalysis analysis = LiveVideoAnalyzer.getImageAnalysis(Executors.newSingleThreadExecutor(),
-                //pushUpBodyImageView, pushUpInterpreter, ActivityMode.PushUp);
         ImageAnalysis analysis = LiveVideoAnalyzer.getImageAnalysis(Executors.newSingleThreadExecutor(),
                 textView1, textView2, pushUpInterpreter, ActivityMode.PushUp);
         cameraProvider.bindToLifecycle(this, cameraSelector, analysis, preview);
@@ -115,7 +115,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
      */
     public static ByteBuffer createInput(List<PoseLandmark> landmarks) {
         ByteBuffer input = ByteBuffer.allocateDirect(99 * java.lang.Float.SIZE / java.lang.Byte.SIZE).order(ByteOrder.nativeOrder());
-        List<Float> inputList = DataNormalizer.NormalizeWithAxisOnBody(landmarks);
+        List<Float> inputList = DataNormalizer.NormalizeWithAxisOnHandToFeet(landmarks);
         for (Float f : inputList)
             input.putFloat(f);
         return input;
