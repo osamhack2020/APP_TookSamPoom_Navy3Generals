@@ -51,7 +51,7 @@
         android:paddingRight="20dp"
         android:text="- 측정할 때 끝까지 올라오고 내려갈 때는 가슴과 봉 사이의 거리가 5cm정도 될때까지 내려와 주십시오."
         android:textColor="@color/black"
-        android:textSize="15dp"
+        android:textSize="12dp"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +68,7 @@
         android:paddingRight="20dp"
         android:text="- 측정하는 사람의 머리가 왼쪽으로 오도록 위치하고 시작해 주십시오."
         android:textColor="@color/black"
-        android:textSize="15dp"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
