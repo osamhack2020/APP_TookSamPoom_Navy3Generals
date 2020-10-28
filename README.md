@@ -47,11 +47,12 @@ AI Modeling중 사용된 동영상을 프레임단위로 나눠지게 하여 샘
 ![pushupb](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/Pushupb.JPG)  
 ![situpb](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/Situpb.JPG)  
 
-이외에도 체력측정의 정확성과 효율성을 높이기 위해 저희 팀은 모델의 **정규화**와**경량화** 를 하였습니다.  
+이외에도 체력측정의 정확성과 효율성을 높이기 위해 저희 팀은 모델의 **정규화**와 **경량화** 를 하였습니다.  
 
 ![nomalization](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/nomalization.JPG)
-![WeightL](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/WeightL.JPG)
+![WeightL](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/WeightL.JPG)  
 
+기존 모델은 서버에서 이용하여 데이터를 측정하고 하였으나 모델의 정규화와 경량화를 거친후에는 앱 자체에서도 로컬머신으로 측정이 가능하게 하여 서버와 통신없이 자체적으로 측정할 수 있게 되었습니다.
 
 ### App 개발
 
