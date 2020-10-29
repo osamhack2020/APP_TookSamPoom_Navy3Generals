@@ -38,6 +38,7 @@ TSP를 통하여 과거와 현재의 체력 대비태세를 점검하고 평가�
 위 하이퍼링크에서 apk파일을 다운로드 받을 수 있습니다.
 
 ## 사용방법(How to use)
+https://youtu.be/st1lePmgLb4
 
 ## 개발과정(Development Process)
 저희 팀의 **특삼품**의 작동과정을 정리해보았습니다.
