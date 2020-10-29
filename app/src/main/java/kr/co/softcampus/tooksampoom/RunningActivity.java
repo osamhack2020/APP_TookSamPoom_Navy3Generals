@@ -209,7 +209,7 @@ public class RunningActivity extends AppCompatActivity {
                         speed_text.setText(Double.toString(Math.round((tookTime/(tookDistance*60))*100)/100.0)+" 분/km");
                     }
                     //3000m 이상 달렸을 때 위치 갱신 멈추고, 맵 크게 바꾸고 걸린시간, 평균 속도 화면에 띄워주는 코드
-                    if(distance >= 3000.0){
+                    if(distance >= 1000.0){
                         locationManager.removeUpdates(listener);
                         chronometer.stop();
                         area = area.including(positions.get(positions.size()-1));
