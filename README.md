@@ -20,8 +20,10 @@
 통합 어드민 페이지는 크게 3가지 구성요소로 이루어져 있습니다.
 각 군의 최근 한달동안 이루어진 체력검정 결과의 평균값을 레이더 차트 형식으로 비교 분석하는 그래프
 ![adminOverall](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/Tsp_admin_overall.png)
+
 각 군의 매달 실시되는 체력검정 결과에 평균값을 내어 최근 1년동안의 평균 체력 변화 추이를 보여주는 라인 그래프(5점:특급, 4점:1급, 3점:2급, 1점이하:미달)
 ![adminOverall](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/Tsp_admin_overall_history.png)
+
 그리고 구체적인 부대별 체력 대비테세 및 상,하위 부대를 확인할 수 있는 부대별 최근 한달동안의 체력검정 결과 테이블을 제공하고 있습니다.
 ![adminOverall](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/Tsp_admin_per_base.png)
 
