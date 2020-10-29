@@ -30,8 +30,6 @@ public class TSPdrawTools {
     };
 
     private static Paint bodyPaint = null;
-    private static Paint _countPaint = null;
-    private static Paint _timerPaint = null;
 
     public static Paint getBodyPaint() {
         if (bodyPaint != null)
@@ -42,30 +40,6 @@ public class TSPdrawTools {
         bodyPaint.setColor(Color.RED);
         bodyPaint.setStrokeWidth(10f);
         return bodyPaint;
-    }
-
-    public static Paint getCountPaint() {
-        if (_countPaint != null)
-            return _countPaint;
-        _countPaint = new Paint();
-        _countPaint.setAntiAlias(true);
-        _countPaint.setStyle(Paint.Style.FILL);
-        _countPaint.setColor(Color.BLUE);
-        _countPaint.setStrokeWidth(3f);
-        _countPaint.setTextSize(40f);
-        return _countPaint;
-    }
-
-    public static Paint getTimerPaint() {
-        if (_timerPaint != null)
-            return _timerPaint;
-        _timerPaint = new Paint();
-        _timerPaint.setAntiAlias(true);
-        _timerPaint.setStyle(Paint.Style.FILL);
-        _timerPaint.setColor(Color.WHITE);
-        _timerPaint.setStrokeWidth(3f);
-        _timerPaint.setTextSize(100f);
-        return _timerPaint;
     }
 
     public static void createBodyOverlay(Bitmap overlay, List<PoseLandmark> landmarks) {
@@ -85,18 +59,4 @@ public class TSPdrawTools {
         }
     }
 
-    public static void createCountOverlay(Bitmap overlay, String type, int count, int time, int currentPose) {
-        Paint countPaint = getCountPaint();
-        Canvas canvas = new Canvas(overlay);
-        canvas.drawText(type + ": " + count + " : " + currentPose,overlay.getWidth() * 0.45f,
-                overlay.getHeight() * 0.9f, countPaint);
-        Paint timerPaint = getTimerPaint();
-        if (time == 0) {
-            canvas.drawText("Finished!", overlay.getWidth() * 0.45f, overlay.getHeight() * 0.1f,
-                    timerPaint);
-        } else {
-            canvas.drawText(Integer.toString(time), overlay.getWidth() * 0.45f, overlay.getHeight() * 0.1f,
-                    timerPaint);
-        }
-    }
 }

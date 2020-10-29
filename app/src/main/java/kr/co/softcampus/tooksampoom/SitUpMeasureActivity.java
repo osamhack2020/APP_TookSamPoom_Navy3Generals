@@ -100,7 +100,7 @@ public class SitUpMeasureActivity extends AppCompatActivity {
                 .requireLensFacing(CameraSelector.LENS_FACING_BACK)
                 .build();
         preview.setSurfaceProvider(previewView.createSurfaceProvider());
-        ImageAnalysis analysis = LiveVideoAnalyzer.getImageAnalysis(Executors.newSingleThreadExecutor(),
+        ImageAnalysis analysis = LiveVideoAnalyzer.getImageAnalysis(Executors.newSingleThreadExecutor(), sitUpBodyImageView,
                 textView1, textView2, sitUpInterpreter, ActivityMode.SitUp);
         cameraProvider.bindToLifecycle(this, cameraSelector, analysis, preview);
     }

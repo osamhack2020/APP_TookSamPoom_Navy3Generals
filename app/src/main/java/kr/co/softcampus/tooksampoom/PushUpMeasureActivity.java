@@ -103,7 +103,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
                 .requireLensFacing(CameraSelector.LENS_FACING_BACK)
                 .build();
         preview.setSurfaceProvider(previewView.createSurfaceProvider());
-        ImageAnalysis analysis = LiveVideoAnalyzer.getImageAnalysis(Executors.newSingleThreadExecutor(),
+        ImageAnalysis analysis = LiveVideoAnalyzer.getImageAnalysis(Executors.newSingleThreadExecutor(), pushUpBodyImageView,
                 textView1, textView2, pushUpInterpreter, ActivityMode.PushUp);
         cameraProvider.bindToLifecycle(this, cameraSelector, analysis, preview);
     }

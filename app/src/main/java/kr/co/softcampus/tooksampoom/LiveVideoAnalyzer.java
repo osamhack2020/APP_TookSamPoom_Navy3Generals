@@ -53,7 +53,7 @@ public class LiveVideoAnalyzer {
         }
     }
 
-    public static ImageAnalysis getImageAnalysis(Executor executor, TextView textView1, TextView textView2,
+    public static ImageAnalysis getImageAnalysis(Executor executor, ImageView imageView, TextView textView1, TextView textView2,
                                                  Interpreter interpreter, ActivityMode am) {
         ImageAnalysis imageAnalysis =
                 new ImageAnalysis.Builder()
@@ -108,8 +108,7 @@ public class LiveVideoAnalyzer {
                             SitUpMeasureActivity.updateCounter();
                             count = SitUpMeasureActivity.Count;
                         }
-                        //TSPdrawTools.createCountOverlay(overlay, am.name(), count, timer, maxInd);
-                        //imageView.setImageBitmap(overlay);
+                        imageView.setImageBitmap(overlay);
                         if(timer == 0){
                             textView1.setText("Finished!");
                         }

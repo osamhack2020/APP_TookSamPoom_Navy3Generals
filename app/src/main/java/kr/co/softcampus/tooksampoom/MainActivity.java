@@ -127,12 +127,25 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickDummy(View view){
         for(int j=1; j<5; j++){
+            int push_up = 50;
+            int sit_up =60;
+            int running = 800;
             for(int i=10; i<24; i++){
+                if(i<=17){
+                    push_up += i%3;
+                    sit_up += i%4;
+                    running -= i%7;
+                }
+                else{
+                    push_up += i%4;
+                    sit_up += i%3;
+                    running -= i%8;
+                }
                 RecordInfo recordinfo = new RecordInfo();
                 recordinfo.setId(j);
-                recordinfo.setPushup(67+i+10*j);
-                recordinfo.setRunning(720+i+10*j);
-                recordinfo.setSitup(80+i+10*j);
+                recordinfo.setPushup(push_up);
+                recordinfo.setRunning(running);
+                recordinfo.setSitup(sit_up);
 
                 DBhelper helper = new DBhelper(this);
                 SQLiteDatabase db = helper.getWritableDatabase();
