@@ -92,29 +92,31 @@ public class LiveVideoAnalyzer {
                                 SitUpMeasureActivity.LatestPostures.add(maxInd);
                             }
                         }
-                        int timer = 0;
+                        int timer1 = 0;
+                        int timer2 = 0;
                         int count = 0;
                         if (am == ActivityMode.PushUp) {
-                            timer = PushUpMeasureActivity._countDown;
+                            timer1 = PushUpMeasureActivity._countDown;
                             PushUpMeasureActivity.updateCounter();
                             count = PushUpMeasureActivity.Count;
+                            if(timer1 == 0){
+                                textView1.setText("Finished!");
+                            }
+                            else {
+                                textView1.setText(timeFormatter(timer1));
+                            }
                         } else if (am == ActivityMode.SitUp) {
-                            timer = SitUpMeasureActivity._countDown;
+                            timer2 = SitUpMeasureActivity._countDown;
                             SitUpMeasureActivity.updateCounter();
                             count = SitUpMeasureActivity.Count;
-                        }
-                        else{
-                            timer = SitUpMeasureActivity._countDown;
-                            SitUpMeasureActivity.updateCounter();
-                            count = SitUpMeasureActivity.Count;
+                            if(timer2 ==0){
+                                textView1.setText("Finished!");
+                            }
+                            else {
+                                textView1.setText(timeFormatter(timer2));
+                            }
                         }
                         imageView.setImageBitmap(overlay);
-                        if(timer == 0){
-                            textView1.setText("Finished!");
-                        }
-                        else {
-                            textView1.setText(timeFormatter(timer));
-                        }
                         if(developer_mode){
                             textView2.setText("횟수: "+ count +": "+ maxInd);
                         }
