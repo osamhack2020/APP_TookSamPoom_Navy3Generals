@@ -1,5 +1,6 @@
 package kr.co.softcampus.tooksampoom;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -50,7 +51,6 @@ public class GraphFragment extends Fragment {
         toggleGroup.setSingleSelection(true);
         toggleGroup.setSelectionRequired(true);
         lineChart = (LineChart)view.findViewById(R.id.chart);
-
         recordInfo_push_up = DBhelper.getPushUpRecord(getActivity(), 1);
         recordInfo_sit_up = DBhelper.getSitUpRecord(getActivity(), 1);
         recordInfo_running = DBhelper.getRunningRecord(getActivity(), 1);
@@ -259,5 +259,61 @@ public class GraphFragment extends Fragment {
         yAxisRight.setDrawLabels(false);
         yAxisRight.setDrawAxisLine(false);
         yAxisRight.setDrawGridLines(false);
+    }
+    public void setDummyData(){
+        for(int j=1; j<5; j++){
+            int push_up = 50;
+            int sit_up =60;
+            int running = 800;
+            for(int i=10; i<24; i++){
+                if(i<=17){
+                    push_up += i%3;
+                    sit_up += i%4;
+                    running -= i%7;
+                }
+                else{
+                    push_up += i%4;
+                    sit_up += i%3;
+                    running -= i%8;
+                }
+                RecordInfo recordinfo = new RecordInfo();
+                recordinfo.setId(j);
+                recordinfo.setPushup(push_up);
+                recordinfo.setRunning(running);
+                recordinfo.setSitup(sit_up);
+
+                DBhelper helper = new DBhelper(getActivity());
+                SQLiteDatabase db = helper.getWritableDatabase();
+
+                String sql1 = "INSERT INTO Record_Push_Up(id,"
+                        +"push_up,"
+                        +"date) VALUES(?,?,?)";
+                String date1 = "2020-10-"+i+" 20:10:43";
+                String[] value1 = {Integer.toString(j),
+                        Integer.toString(recordinfo.push_up),
+                        date1};
+                db.execSQL(sql1,value1);
+
+                String sql2 = "INSERT INTO Record_Sit_Up(id,"
+                        +"sit_up,"
+                        +"date) VALUES(?,?,?)";
+                String date2 = "2020-10-"+i+" 20:10:43";
+                String[] value2 = {Integer.toString(j),
+                        Integer.toString(recordinfo.sit_up),
+                        date2};
+                db.execSQL(sql2,value2);
+
+                String sql3 = "INSERT INTO Record_Running(id,"
+                        +"running,"
+                        +"date) VALUES(?,?,?)";
+                String date3 = "2020-10-"+i+" 20:10:43";
+                String[] value3 = {Integer.toString(j),
+                        Integer.toString(recordinfo.running),
+                        date3};
+                db.execSQL(sql3,value3);
+
+                db.close();
+            }
+        }
     }
 }
