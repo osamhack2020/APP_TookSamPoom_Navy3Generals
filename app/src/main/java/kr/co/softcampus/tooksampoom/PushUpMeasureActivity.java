@@ -6,6 +6,7 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -41,8 +43,11 @@ public class PushUpMeasureActivity extends AppCompatActivity {
     private static final String _pushUpModelName = "push_up_axisOnWristToAnkle.tflite";
     protected static int _countDown = 120;
     PreviewView previewView;
-    ImageView pushUpBodyImageView;
+    TextView textView1;
+    TextView textView2;
+    TextView text_result;
     Button pushUpStartButton;
+    ImageView pushUpBodyImageView;
     Interpreter pushUpInterpreter;
     public static String[] pushUpStatus = new String[]{"stand", "move", "down", "fail"};
     public static boolean DownHit;
@@ -59,6 +64,12 @@ public class PushUpMeasureActivity extends AppCompatActivity {
         previewView = findViewById(R.id.previewView);
         pushUpBodyImageView = findViewById(R.id.sit_up_body);
         pushUpStartButton = findViewById(R.id.sit_up_start_button);
+        textView1 = findViewById(R.id.textView1);
+        textView2 = findViewById(R.id.textView2);
+        text_result = findViewById(R.id.text_result);
+        text_result.setVisibility(View.GONE);
+        pushUpBodyImageView = findViewById(R.id.push_up_body);
+        pushUpStartButton = findViewById(R.id.push_up_start_button);
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
         cameraProviderFuture.addListener(() -> {
             try {
@@ -93,7 +104,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
                 .build();
         preview.setSurfaceProvider(previewView.createSurfaceProvider());
         ImageAnalysis analysis = LiveVideoAnalyzer.getImageAnalysis(Executors.newSingleThreadExecutor(),
-                pushUpBodyImageView, pushUpInterpreter, ActivityMode.PushUp);
+                textView1, textView2, pushUpInterpreter, ActivityMode.PushUp);
         cameraProvider.bindToLifecycle(this, cameraSelector, analysis, preview);
     }
 
@@ -112,7 +123,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
 
     public void onClickStartButton(View view) {
         _countDown = 120;
-        pushUpStartButton.setVisibility(View.GONE);
+        pushUpStartButton.setVisibility(View.INVISIBLE);
         _isStarted = true;
         Context _ct = this;
         new CountDownTimer(120500, 1000){
@@ -122,6 +133,8 @@ public class PushUpMeasureActivity extends AppCompatActivity {
             public  void onFinish(){
                 pushUpStartButton.setVisibility(View.VISIBLE);
                 pushUpStartButton.setText("기록저장하기");
+                text_result.setText(resultCalculator(Count));
+                text_result.setVisibility(View.VISIBLE);
                 DBhelper.setPushUpRecord(_ct, 1,Count);
                 pushUpStartButton.setOnClickListener(null);
                 pushUpStartButton.setOnClickListener(v -> {
@@ -148,6 +161,24 @@ public class PushUpMeasureActivity extends AppCompatActivity {
         }
         if (currentPosture == 2)
             DownHit = true;
+    }
+
+    public static String resultCalculator(int count){
+        if(count<48){
+            return "미달";
+        }
+        if(count>=48&&count<=55){
+            return "3급";
+        }
+        if(count>=56&&count<=63){
+            return "2급";
+        }
+        if(count>=64&&count<=71){
+            return "1급";
+        }
+        else{
+            return "특급";
+        }
     }
 
 }

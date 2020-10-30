@@ -1,61 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClickCCA"
-        android:text="Button"
-        tools:layout_editor_absoluteX="86dp" />
-
-    <Button
-        android:id="@+id/record_btn"
-        android:layout_width="34dp"
-        android:layout_height="100dp"
-        android:onClick="onClickRecord"
-        android:text="기록" />
-
-    <Button
-        android:id="@+id/dummy_btn"
-        android:layout_width="92dp"
-        android:layout_height="wrap_content"
-        android:onClick="onClickDummy"
-        android:text="dummy" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="93dp"
-        android:layout_height="37dp"
-        android:onClick="onClickRunning"
-        android:text="RunningActivity" />
-
-    <Button
-        android:id="@+id/practice_selector"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onClickPracticeSelector"
-        android:text="Button" />
+        android:background="@color/design_default_color_surface"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme">
+        <TextView
+            android:id="@+id/text_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="메인"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/push_up_bt"
+    </androidx.appcompat.widget.Toolbar>
+
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickPushUpBt"
-        android:text="Push Up Layer" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginBottom="?attr/actionBarSize">
 
-    <Button
-        android:id="@+id/sit_up_bt"
+
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_gravity="bottom"
+        android:background="@color/lightGrey"
+        app:menu="@menu/menu_bottom"
+        app:labelVisibilityMode="unlabeled"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickSitUpBt"
-        android:text="SIT Up LAYER" />
+        android:layout_height="wrap_content"/>
 
-
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

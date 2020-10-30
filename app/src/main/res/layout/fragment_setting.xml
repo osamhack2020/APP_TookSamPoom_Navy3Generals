@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_setting"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SettingFragment" >
+
+    <Button
+        android:id="@+id/button2"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/setting_button_shape"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="20dp"
+        android:text="내 정보 업데이트"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/setting_button_shape"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="20dp"
+        android:text="등급표"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        style="?android:borderlessButtonStyle"/>
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/setting_button_shape"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="20dp"
+        android:text="버전 정보"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        style="?android:borderlessButtonStyle"/>
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/setting_button_shape"
+        android:gravity="left|center_vertical"
+        android:onClick="onClickDummy"
+        android:paddingLeft="20dp"
+        android:text="더미 데이터"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        style="?android:borderlessButtonStyle"/>
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/setting_button_shape"
+        android:gravity="left|center_vertical"
+        android:onClick="onClickCCA"
+        android:paddingLeft="20dp"
+        android:text="카메라 캡쳐"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        style="?android:borderlessButtonStyle"/>
+
+</LinearLayout>

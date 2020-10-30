@@ -6,6 +6,7 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,6 +42,9 @@ public class SitUpMeasureActivity extends AppCompatActivity {
     private static final String _sitUpModelName = "situp_model1024.tflite";
     protected static int _countDown = 120;
     PreviewView previewView;
+    TextView textView1;
+    TextView textView2;
+    TextView text_result;
     ImageView sitUpBodyImageView;
     Button sitUpStartButton;
     Interpreter sitUpInterpreter;
@@ -56,6 +60,10 @@ public class SitUpMeasureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sit_up_measure);
         Count = 0;
         DownHit = false;
+        previewView = findViewById(R.id.previewView);
+        textView1 = findViewById(R.id.textView1);
+        textView2 = findViewById(R.id.textView2);
+        text_result = findViewById(R.id.text_result);
         previewView = findViewById(R.id.previewView);
         sitUpBodyImageView = findViewById(R.id.sit_up_body);
         sitUpStartButton = findViewById(R.id.sit_up_start_button);
@@ -93,7 +101,7 @@ public class SitUpMeasureActivity extends AppCompatActivity {
                 .build();
         preview.setSurfaceProvider(previewView.createSurfaceProvider());
         ImageAnalysis analysis = LiveVideoAnalyzer.getImageAnalysis(Executors.newSingleThreadExecutor(),
-                sitUpBodyImageView, sitUpInterpreter, ActivityMode.SitUp);
+                textView1, textView2, sitUpInterpreter, ActivityMode.SitUp);
         cameraProvider.bindToLifecycle(this, cameraSelector, analysis, preview);
     }
 
@@ -112,7 +120,7 @@ public class SitUpMeasureActivity extends AppCompatActivity {
 
     public void onClickStartButton(View view) {
         _countDown = 120;
-        sitUpStartButton.setVisibility(View.GONE);
+        sitUpStartButton.setVisibility(View.INVISIBLE);
         _isStarted = true;
         Context _ct = this;
         new CountDownTimer(120500, 1000){

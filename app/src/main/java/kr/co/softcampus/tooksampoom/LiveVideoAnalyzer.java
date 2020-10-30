@@ -10,6 +10,7 @@ import android.hardware.camera2.CameraMetadata;
 import android.media.Image;
 import android.util.Size;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageProxy;
@@ -32,6 +33,8 @@ import java.util.concurrent.Executor;
 import kr.co.softcampus.tooksampoom.Utils.ActivityMode;
 import kr.co.softcampus.tooksampoom.Utils.TSPdrawTools;
 
+import static kr.co.softcampus.tooksampoom.MainActivity.developer_mode;
+
 public class LiveVideoAnalyzer {
 
     static PoseDetector poseDetector = PoseDetection.getClient(
@@ -40,8 +43,17 @@ public class LiveVideoAnalyzer {
                     .setPerformanceMode(PoseDetectorOptions.PERFORMANCE_MODE_FAST)
                     .build()
     );
+    public static String timeFormatter(int time){
+        int mSec = time%60;
+        if(mSec>=10){
+            return "0"+time/60+":"+mSec;
+        }
+        else{
+            return "0"+time/60+":0"+mSec;
+        }
+    }
 
-    public static ImageAnalysis getImageAnalysis(Executor executor, ImageView imageView,
+    public static ImageAnalysis getImageAnalysis(Executor executor, TextView textView1, TextView textView2,
                                                  Interpreter interpreter, ActivityMode am) {
         ImageAnalysis imageAnalysis =
                 new ImageAnalysis.Builder()
@@ -91,8 +103,25 @@ public class LiveVideoAnalyzer {
                             SitUpMeasureActivity.updateCounter();
                             count = SitUpMeasureActivity.Count;
                         }
-                        TSPdrawTools.createCountOverlay(overlay, am.name(), count, timer, maxInd);
-                        imageView.setImageBitmap(overlay);
+                        else{
+                            timer = SitUpMeasureActivity._countDown;
+                            SitUpMeasureActivity.updateCounter();
+                            count = SitUpMeasureActivity.Count;
+                        }
+                        //TSPdrawTools.createCountOverlay(overlay, am.name(), count, timer, maxInd);
+                        //imageView.setImageBitmap(overlay);
+                        if(timer == 0){
+                            textView1.setText("Finished!");
+                        }
+                        else {
+                            textView1.setText(timeFormatter(timer));
+                        }
+                        if(developer_mode){
+                            textView2.setText("횟수: "+ count +": "+ maxInd);
+                        }
+                        else{
+                            textView2.setText("횟수: "+ count);
+                        }
                         image.close();
                     });
         });
