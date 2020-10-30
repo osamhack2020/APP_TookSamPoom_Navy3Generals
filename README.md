@@ -1,6 +1,6 @@
 # 특삼품 (국군 체력 통합관리 시스템)
 
-<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/TSPLOGO.png width="400">
+<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/1604101210360.jpg width="400">
 
 ## 제품 소개(Product Description)
 
@@ -56,7 +56,7 @@ AI Modeling중 사용된 동영상을 프레임단위로 나눠지게 하여 샘
 
 #### 예제(Example)
 
-![classifier](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/model_link.png)
+![classifier](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/classifier.PNG)
 
 위 사진은 이미지의 신체내 각종 골격의 좌표를 특정 행동으로 분류하는 작업입니다. 사진마다 일일이 Stand, Move, Down을 입력해 AI Model이 인식하여 측정할 수 있게 데이터 작업을 약 100+시간, 40,000+장의 사진을 분류하였습니다.
 
@@ -85,7 +85,7 @@ AI Modeling중 사용된 동영상을 프레임단위로 나눠지게 하여 샘
 1차적으로 수작업으로 모델의 효율성 향상 및 불필요한 연산과정을  제거하여 정확도가 큰 폭으로 변하지 않는 선에서 모델의 최종 변수의 갯수를 최소화 하였습니다.
 2차적으로 Tensorflow Converter를 사용하여 model.tf 를 TFLite로 변환하여 weight가 낮은 변수 제거 및 Android 환경 최적화를 진행하였습니다.
 
-![WeightL](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/model_simplification.png)  
+![WeightL](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/WeightL2.PNG)  
 
 기존 모델은 서버에서 이용하여 데이터를 측정하고 하였으나 모델의 정규화와 경량화를 거친후에는 앱 자체에서도 로컬머신으로 측정이 가능하게 하여 서버와 통신없이 자체적으로 측정할 수 있게 되었습니다.
 
