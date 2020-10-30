@@ -118,10 +118,10 @@ Server는 Node.js 기반으로 SQLite를 활용하여 데이터를 저장하도�
 
 
 ### Server 
-[Server](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/ServerLogo.png)
+![Server](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/ServerLogo.png)
 
 ### App
-[App](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/AppLogo.png)
+![App](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/AppLogo.png)
 
 
 ## 확장성
