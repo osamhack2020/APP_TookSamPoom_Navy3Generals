@@ -56,14 +56,16 @@ AI Modeling중 사용된 동영상을 프레임단위로 나눠지게 하여 샘
 
 #### 예제(Example)
 
-![classifier](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/classifier.JPG)
+![classifier](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/model_link.png)
 
 위 사진은 이미지의 신체내 각종 골격의 좌표를 특정 행동으로 분류하는 작업입니다. 사진마다 일일이 Stand, Move, Down을 입력해 AI Model이 인식하여 측정할 수 있게 데이터 작업을 약 100+시간, 40,000+장의 사진을 분류하였습니다.
 
-![pushupb](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/Pushupb.JPG)  
-![situpb](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/Situpb.JPG)  
+![pushupb](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/pushup_classification.png)  
+![situpb](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/situp_classification.png)  
 
 #### POC(Proof Of Concept)
+
+약 1000장의 이미지를 우선적으로 확보하여 POC 개념으로 초기모델을 생성 테스트하였습니다. 그 후 정확도를 올리기 위해 더 많은 이미지를 분류하고 적용하였습니다.
 ![POC](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/POC.png)
 
 
@@ -75,7 +77,7 @@ AI Modeling중 사용된 동영상을 프레임단위로 나눠지게 하여 샘
 신체부위의 각 위치는 이미지 내의 px의 위치를 좌표값으로 받습니다. 첫번째 프로토 타입은 이미지 내의 인체 좌표값의 최대값을 1, 최소값을 0으로 재분포하여 이미지의 기존 좌표축을 기준으로 계산할시 ~95%의 정확도를 보였습니다. 
 따라서 모델의 정확도를 향상시키기 위해 다양한 신체 위치를 기준으로 좌표축을 새롭게 산출하여 모델의 성능을 테스트 하였습니다.
 
-![nomalization](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/nomalization.JPG)
+![nomalization](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/axis_comparison.png)
 
 #### 모델 경량화
 
@@ -83,7 +85,7 @@ AI Modeling중 사용된 동영상을 프레임단위로 나눠지게 하여 샘
 1차적으로 수작업으로 모델의 효율성 향상 및 불필요한 연산과정을  제거하여 정확도가 큰 폭으로 변하지 않는 선에서 모델의 최종 변수의 갯수를 최소화 하였습니다.
 2차적으로 Tensorflow Converter를 사용하여 model.tf 를 TFLite로 변환하여 weight가 낮은 변수 제거 및 Android 환경 최적화를 진행하였습니다.
 
-![WeightL](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/WeightL.JPG)  
+![WeightL](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/model_simplification.png)  
 
 기존 모델은 서버에서 이용하여 데이터를 측정하고 하였으나 모델의 정규화와 경량화를 거친후에는 앱 자체에서도 로컬머신으로 측정이 가능하게 하여 서버와 통신없이 자체적으로 측정할 수 있게 되었습니다.
 
