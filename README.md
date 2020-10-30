@@ -116,11 +116,8 @@ Server는 Node.js 기반으로 SQLite를 활용하여 데이터를 저장하도�
 
 ## 기술 스택 (Technique Used)
 
-|Server | | |
-|:----------:|:----------:|:----------:|
-| front | html | |
-| back | node.js | |  
-| Other | sqlite | |  
+### Server 
+
 
 | Android | Android Studio 4.1 |  |
 |:----------:|:----------:|:----------:|
