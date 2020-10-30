@@ -63,6 +63,10 @@ AI Modeling중 사용된 동영상을 프레임단위로 나눠지게 하여 샘
 ![pushupb](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/Pushupb.JPG)  
 ![situpb](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/Situpb.JPG)  
 
+#### POC(Proof Of Concept)
+![POC](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/POC.png)
+
+
 이외에도 체력측정의 정확성과 효율성을 높이기 위해 저희 팀은 모델의 **정규화**와 **경량화** 를 하였습니다.  
 
 #### 모델 정규화
