@@ -116,14 +116,13 @@ Server는 Node.js 기반으로 SQLite를 활용하여 데이터를 저장하도�
 
 ## 기술 스택 (Technique Used)
 
+
 ### Server 
+[Server](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/ServerLogo.png)
 
+### App
+[App](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/AppLogo.png)
 
-| Android | Android Studio 4.1 |  |
-|:----------:|:----------:|:----------:|
-| API | CameraX 1.0.0-beta08<br>ViewPager2 1.0.0 |  |
-| Model | ML Kit Pose Detection 16.0.0 |  |  
-| Other | | |  
 
 ## 확장성
 
