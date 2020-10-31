@@ -57,15 +57,19 @@ App은 크게 다양한 운동 종목을 측정할 수 있는 측정 엑티비�
 * 앱의 시작화면입니다. 체력측정 시작시 체력측정 버튼을 클릭하시면 됩니다.<br><br>
 <img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/appstart.jpg width="400">  
 
-* 슬라이드를 이용하여 팔굽혀펴기, 윗몸일으키기, 3KM달리기 측정화면으로 넘어갈수있습니다.<br><br>
+* 슬라이드를 이용하여 팔굽혀펴기, 윗몸일으키기, 3KM달리기 측정화면으로 넘어갈수있습니다.
+<p float="left">
 <img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/apppushup.jpg width="290">
 <img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/appsitup.jpg width="290">
-<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/app3km.jpg width="290">  
+<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/app3km.jpg width="290">
+</p>
 
-* 다음은 체력측정차트입니다. 현재페이지에서 체력측정기록을 한눈에 확인할 수 있습니다.<br><br>
+* 다음은 체력측정차트입니다. 현재페이지에서 체력측정기록을 한눈에 확인할 수 있습니다.
+<p float="left">
 <img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/apppushupchart.jpg width="290">
 <img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/appsitupchart.jpg width="290">
-<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/app3kmchart.jpg width="290">  
+<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/app3kmchart.jpg width="290">
+</p>
 
 * 랭킹페이지입니다. 앱사용자들의 체력순위를 나타내주는 페이지입니다.<br><br>
 <img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/appranking.jpg width="400">  
