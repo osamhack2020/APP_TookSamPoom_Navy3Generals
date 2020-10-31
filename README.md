@@ -49,8 +49,8 @@ Server는 Node.js 기반으로 SQLite를 활용하여 데이터를 저장하도�
 
 ## 사용방법(How to use)
 
-앱의 시작화면입니다. 체력측정 시작시 체력측정 버튼을 클릭하시면 됩니다.
-<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/appstart.jpg width="600">  
+앱의 시작화면입니다. 체력측정 시작시 체력측정 버튼을 클릭하시면 됩니다.  
+<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/appstart.jpg width="400">  
 슬라이드를 이용하여 팔굽혀펴기, 윗몸일으키기, 3KM달리기 측정화면으로 넘어갈수있습니다.  
 <img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/appstart.jpg width="600">  
 다음은 체력측정차트입니다. 현재페이지에서 체력측정기록을 한눈에 확인할 수 있습니다.  
