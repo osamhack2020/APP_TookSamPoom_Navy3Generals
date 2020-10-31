@@ -3,6 +3,7 @@
 <img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/1604101210360.jpg width="400">
 
 ## [특삼품 발표영상 링크](https://youtu.be/qkfZa8Jdy54)
+> [특삼품 ppt파일위치](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/tree/master/Presentation)
 
 ## 제품 소개(Product Description)
 
