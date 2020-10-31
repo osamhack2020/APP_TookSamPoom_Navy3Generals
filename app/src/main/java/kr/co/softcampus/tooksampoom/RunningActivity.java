@@ -191,7 +191,7 @@ public class RunningActivity extends AppCompatActivity {
                         ,location_storage.get(idx).getLatitude()
                         ,location_storage.get(idx).getLongitude()
                         ,distance_piece);
-                distance+=distance_piece[0];
+                distance+=distance_piece[0]*1.4;
                 distance_text.setText(Double.toString(Math.round((distance/1000)*100)/100.0)+" km");
                 elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
                 long nowTime = SystemClock.elapsedRealtime();
@@ -200,7 +200,7 @@ public class RunningActivity extends AppCompatActivity {
                     pastTime=SystemClock.elapsedRealtime();
                 }
                 if(idx%10 == 0){
-                    float tookDistance = distance - pastDistance;
+                    float tookDistance = (distance - pastDistance)*(float)(1.4);
                     pastDistance = distance;
                     long tookTime = nowTime - pastTime;
                     pastTime = SystemClock.elapsedRealtime();
