@@ -11,7 +11,7 @@
 <img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/Tsproute.png width="1200">
 
 ___
-### 통합 체력관리 Webservice
+### TSP Web Solution
 
 통합 체력관리 페이지는 크게 3가지 구성요소로 이루어져 있습니다.
 
