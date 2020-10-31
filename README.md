@@ -9,8 +9,9 @@
 대한민국 군인이라면 매년 실시해야 하는 덕목중 하나가 바로 체력검정입니다. 체력은 국력이라는 말이 있듯이 군인에게 체력은 임무를 수행함에 있어 가장 중요한 덕목중에 하나입니다. 다만 현재 실시되는 아날로그 방식의 체력검정 시스템은 객관성의 부재, 아날로그 방식에서 발생하는 갖가지 휴먼에러, 많은 인력 동원의 필요성, 그리고 자율적인 체력검정 실시의 불가능 등 여러가지 단점을 가지고 있습니다. 저희는 이러한 단점을 극복하고 군에 효율적인 장병 체력관리 시스템을 제공하고자 하여 프로젝트를 시작하게 되었습니다. 
 
 ___
+### 통합 체력관리 Webservice
 
-통합 어드민 페이지는 크게 3가지 구성요소로 이루어져 있습니다.
+통합 체력관리 페이지는 크게 3가지 구성요소로 이루어져 있습니다.
 
 각 군의 최근 한달동안 이루어진 체력검정 결과의 평균값을 레이더 차트 형식으로 비교 분석하는 그래프
 ![adminOverall](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/Tsp_admin_overall.png)
@@ -26,15 +27,17 @@ ___
 <img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/webpimage.png width="1200">
 
 이러한 통합 시스템은 관리자가 좁게는 개개인의 사용자의 체력검정능력을 넓게는 각 부대 단위의 체력을 측정하고 관리할 수 있게됩니다.
-TSP를 통하여 과거와 현재의 체력 대비태세를 점검하고 평가할수 있으며 매년 변화되는 국군 체력 증진 관련 정책의 효과를 실시간으로 확인하고 효과적인 정책을 선택하는데 큰 도움을 줄수 있습니다..
-이처럼 체력검정을 봐야하는 사용자 입장, 체력검정을 측정해야하는 관리자 입장에서도 모두 유용하게 사용할 수 있는 시스템입니다.
+TSP를 통하여 과거와 현재의 체력 대비태세를 점검하고 평가할수 있으며 매년 변화되는 국군 체력 증진 관련 정책의 효과를 실시간으로 확인하고 효과적인 정책을 선택하는데 큰 도움을 줄수 있습니다.
 
-### App 개발
+#### [Youtube 웹시연영상](https://www.youtube.com/watch?v=Y0NcxoXA_Go)
+<img src="https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/WEBPage.gif" width="1200"/>
+
+### TSP Mobile Solution
 
 App은 디자인, 편의성, 다양한 기능 등 여러가지 기술들을 개발하여 사용자가 사용할때 보다 쉽게 App에 접근할 수 있도록 개발하였습니다.
 App은 크게 다양한 운동 종목을 측정할 수 있는 측정 엑티비티, 사용자가 측정한 기록을 시간 순서에 따라 보여주는 그래프 엑티비티, 그리고 사용자의 프로필 및 사용자의 최대 능력을 보여주는 프로필 엑티비티로 구성되어 있습니다. 
 
-### [Youtube 앱시연영상](https://www.youtube.com/watch?v=xPObigWPFjk)
+#### [Youtube 앱시연영상](https://www.youtube.com/watch?v=xPObigWPFjk)
 <img src="https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/App_running_animation.gif" width="600"/>
 
 #### [Youtube 팔굽혀펴기 시연영상](https://youtu.be/Q6kNGw0_eKk)
@@ -42,12 +45,7 @@ App은 크게 다양한 운동 종목을 측정할 수 있는 측정 엑티비�
 
 #### [Youtube 윗몸일으키기 시연영상](https://youtu.be/F8IG_mpT1xQ)
 [![AppVideo](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/sit_up_video.png)](https://youtu.be/F8IG_mpT1xQ)
-### Server 개발
 
-Server는 Node.js 기반으로 SQLite를 활용하여 데이터를 저장하도록 디자인 되었습니다. Server는 각종 데이터의 축적 및 분석을 실행하는 통합 정보 페이지를 제공합니다. 시스템 어드민은 통합 정보 페이지를 통하여 각 사용자의 데이터 및 통계 데이터를 실시간으로 확인하고 변경할 수 있습니다. 통합 정보 페이지에서는 현제 군의 평균 체력 상태뿐만 아니라 최근 1년간의 체력 측정 정보, 각 부대별 체력 측정 현황등을 확인할 수 있습니다.
-
-### [Youtube 웹시연영상](https://www.youtube.com/watch?v=Y0NcxoXA_Go)
-<img src="https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/WEBPage.gif" width="1200"/>
 ## 설치방법(Install)
 
 [apk파일 다운로드](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/tree/master/app/release)
