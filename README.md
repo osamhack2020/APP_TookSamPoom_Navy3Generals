@@ -47,6 +47,9 @@ App은 크게 다양한 운동 종목을 측정할 수 있는 측정 엑티비�
 #### [Youtube 윗몸일으키기 시연영상](https://youtu.be/F8IG_mpT1xQ)
 [![AppVideo](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/sit_up_video.png)](https://youtu.be/F8IG_mpT1xQ)
 
+#### [Youtube 3KM달리기 시연영상](https://www.youtube.com/watch?v=D5mjlxZzFYk&feature=youtu.be)
+[![AppVideo](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/Youtube3KMrunningVideo.png)](https://youtu.be/D5mjlxZzFYk)
+
 ## 설치방법(Install)
 
 [apk파일 다운로드](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/tree/master/app/release)
