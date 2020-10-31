@@ -63,6 +63,8 @@ public class RunningActivity extends AppCompatActivity {
     long elapsedMillis;
     ArrayList<Location> location_storage = new ArrayList<Location>();
     ArrayList<LatLng> positions = new ArrayList<LatLng>();
+    LatLngBounds area;
+    boolean _check = true;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,20 +166,20 @@ public class RunningActivity extends AppCompatActivity {
     }
 
     public void setMyLocation(Location location,LocationListener listener) {
+        if(_check){
+            //현재 위치로 줌인
+            LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
+            CameraUpdate update = CameraUpdateFactory.newLatLngZoom(position, 17f);
+            //현재위치 따라 카메라 이동
+            map.moveCamera(update);
 
-        //현재 위치로 줌인
-        LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
-        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(position, 17f);
-        //현재위치 따라 카메라 이동
-        map.moveCamera(update);
-
-        //현재위치 표시
-        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
-            if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_DENIED){
-                return;
+            //현재위치 표시
+            if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+                if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_DENIED){
+                    return;
+                }
             }
-        }
-        map.setMyLocationEnabled(true);
+            map.setMyLocationEnabled(true);
 
         //시작 버튼이 클릭됐을 때 실행되는 코드
         if(isButtonClicked == 1){
@@ -196,57 +198,63 @@ public class RunningActivity extends AppCompatActivity {
                 elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
                 long nowTime = SystemClock.elapsedRealtime();
 
-                if(idx==1){
-                    pastTime=SystemClock.elapsedRealtime();
+                    if(idx==1){
+                        pastTime=SystemClock.elapsedRealtime();
+                    }
+                    if(idx%10 == 0){
+                        float tookDistance = (distance - pastDistance)*(float)(1.4);
+                        pastDistance = distance;
+                        long tookTime = nowTime - pastTime;
+                        pastTime = SystemClock.elapsedRealtime();
+                        speed_text.setText(Double.toString(Math.round((tookTime/(tookDistance*60))*100)/100.0)+" 분/km");
+                    }
+                    //3000m 이상 달렸을 때 위치 갱신 멈추고, 맵 크게 바꾸고 걸린시간, 평균 속도 화면에 띄워주는 코드
+                    if(distance >= 3000.0){
+                        locationManager.removeUpdates(listener);
+                        chronometer.stop();
+                        area = area.including(positions.get(positions.size()-1));
+                        int width = getResources().getDisplayMetrics().widthPixels;
+                        int height = getResources().getDisplayMetrics().heightPixels;
+                        map.moveCamera(CameraUpdateFactory.newLatLngBounds(area,width,height,80));
+                        elapsedSec = (int)elapsedMillis/1000;
+                        speed_result.setText(Double.toString(Math.round((elapsedMillis/(distance*60))*100)/100.0)+" 분/km");
+                        time_result.setText(Integer.toString(elapsedSec/60)+"분 "+Integer.toString(elapsedSec%60)+"초");
+                        result.setText(runningCalculator(elapsedSec));
+                        display1.setVisibility(View.GONE);
+                        successBtn.setVisibility(View.VISIBLE);
+                        finish.setVisibility(View.VISIBLE);
+                        result.setVisibility(View.VISIBLE);
+                        display2.setVisibility(View.VISIBLE);
+                        display3.setVisibility(View.VISIBLE);
+                        _check = false;
+                    }
                 }
-                if(idx%10 == 0){
-                    float tookDistance = (distance - pastDistance)*(float)(1.4);
-                    pastDistance = distance;
-                    long tookTime = nowTime - pastTime;
-                    pastTime = SystemClock.elapsedRealtime();
-                    speed_text.setText(Double.toString(Math.round((tookTime/(tookDistance*60))*100)/100.0)+" 분/km");
+                if(idx==0){
+                    positions.add(new LatLng(location.getLatitude(),location.getLongitude()));
+                    area = new LatLngBounds(positions.get(0),new LatLng(positions.get(0).latitude+0.0001,positions.get(0).longitude+0.0001));
+                    Log.d("center", area.getCenter().toString()+idx);
                 }
-                //3000m 이상 달렸을 때 위치 갱신 멈추고, 맵 크게 바꾸고 걸린시간, 평균 속도 화면에 띄워주는 코드
-                if(distance >= 3000.0){
-                    locationManager.removeUpdates(listener);
-                    chronometer.stop();
-                    LatLngBounds area;
-                    if(positions.get(0).latitude>=positions.get(1).latitude){
-                        area = new LatLngBounds(positions.get(1), positions.get(0));
+                if(idx!=0&&(location.getLatitude()<positions.get(idx-1).latitude+0.01&&location.getLatitude()>positions.get(idx-1).latitude-0.01)){
+                    if(idx!=0&&(location.getLongitude()<positions.get(idx-1).longitude+0.01&&location.getLongitude()>positions.get(idx-1).longitude-0.01)){
+                        positions.add(new LatLng(location.getLatitude(),location.getLongitude()));
                     }
-                    else{
-                        area = new LatLngBounds(positions.get(0), positions.get(1));
-                    }
-                    for(int i=2; i<positions.size(); i+=3){
-                        area = area.including(positions.get(i));
-                    }
+                }
+
+                if(idx>=1){
                     area = area.including(positions.get(positions.size()-1));
-                    update = CameraUpdateFactory.newLatLngBounds(area,80);
-                    map.moveCamera(update);
-                    elapsedSec = (int)elapsedMillis/1000;
-                    speed_result.setText(Double.toString(Math.round((elapsedMillis/(distance*60))*100)/100.0)+" 분/km");
-                    time_result.setText(Integer.toString(elapsedSec/60)+"분 "+Integer.toString(elapsedSec%60)+"초");
-                    result.setText(runningCalculator(elapsedSec));
-                    display1.setVisibility(View.GONE);
-                    successBtn.setVisibility(View.VISIBLE);
-                    finish.setVisibility(View.VISIBLE);
-                    result.setVisibility(View.VISIBLE);
-                    display2.setVisibility(View.VISIBLE);
-                    display3.setVisibility(View.VISIBLE);
                 }
+
+                Polyline polyline = map.addPolyline((new PolylineOptions())
+                        .clickable(false)
+                        .addAll(positions));
+
+                polyline.setStartCap(new RoundCap());
+                polyline.setEndCap((new RoundCap()));
+                polyline.setColor(Color.argb(255,40,104,176));
+                polyline.setJointType(JointType.ROUND);
+                polyline.setWidth(30);
+                idx++;
             }
-
-            positions.add(new LatLng(location.getLatitude(),location.getLongitude()));
-            Polyline polyline = map.addPolyline((new PolylineOptions())
-                    .clickable(false)
-                    .addAll(positions));
-
-            polyline.setStartCap(new RoundCap());
-            polyline.setEndCap((new RoundCap()));
-            polyline.setColor(Color.argb(255,40,104,176));
-            polyline.setJointType(JointType.ROUND);
-            polyline.setWidth(30);
-            idx++;
         }
     }
 

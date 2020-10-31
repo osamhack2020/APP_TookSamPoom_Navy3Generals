@@ -53,7 +53,7 @@ public class LiveVideoAnalyzer {
         }
     }
 
-    public static ImageAnalysis getImageAnalysis(Executor executor, TextView timer_textView, TextView textView2,
+    public static ImageAnalysis getImageAnalysis(Executor executor, ImageView imageView, TextView timer_textView, TextView textView2,
                                                  Interpreter interpreter, ActivityMode am) {
         ImageAnalysis imageAnalysis =
                 new ImageAnalysis.Builder()
@@ -92,30 +92,31 @@ public class LiveVideoAnalyzer {
                                 SitUpMeasureActivity.LatestPostures.add(maxInd);
                             }
                         }
-                        int timer = 0;
+                        int timer1 = 0;
+                        int timer2 = 0;
                         int count = 0;
                         if (am == ActivityMode.PushUp) {
-                            timer = PushUpMeasureActivity._countDown;
+                            timer1 = PushUpMeasureActivity._countDown;
                             PushUpMeasureActivity.updateCounter();
                             count = PushUpMeasureActivity.Count;
+                            if(timer1 <= 0){
+                                timer_textView.setText("Finished!");
+                            }
+                            else {
+                                timer_textView.setText(timeFormatter(timer1));
+                            }
                         } else if (am == ActivityMode.SitUp) {
-                            timer = SitUpMeasureActivity._countDown;
+                            timer2 = SitUpMeasureActivity._countDown;
                             SitUpMeasureActivity.updateCounter();
                             count = SitUpMeasureActivity.Count;
+                            if(timer2 <=0){
+                                timer_textView.setText("Finished!");
+                            }
+                            else {
+                                timer_textView.setText(timeFormatter(timer2));
+                            }
                         }
-                        else{
-                            timer = SitUpMeasureActivity._countDown;
-                            SitUpMeasureActivity.updateCounter();
-                            count = SitUpMeasureActivity.Count;
-                        }
-                        //TSPdrawTools.createCountOverlay(overlay, am.name(), count, timer, maxInd);
-                        //imageView.setImageBitmap(overlay);
-                        if(timer <= 0){
-                            timer_textView.setText("Finished!");
-                        }
-                        else {
-                            timer_textView.setText(timeFormatter(timer));
-                        }
+                        imageView.setImageBitmap(overlay);
                         if(developer_mode){
                             textView2.setText("횟수: "+ count +": "+ maxInd);
                         }
