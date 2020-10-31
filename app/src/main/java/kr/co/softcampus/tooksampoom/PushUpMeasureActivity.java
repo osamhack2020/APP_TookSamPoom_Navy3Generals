@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -43,7 +42,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
     private static final String _pushUpModelName = "push_up_axisOnWristToAnkle.tflite";
     protected static int _countDown = 120;
     PreviewView previewView;
-    TextView textView1;
+    TextView push_up_timer_textView;
     TextView textView2;
     TextView text_result;
     Button pushUpStartButton;
@@ -64,7 +63,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
         previewView = findViewById(R.id.previewView);
         pushUpBodyImageView = findViewById(R.id.sit_up_body);
         pushUpStartButton = findViewById(R.id.sit_up_start_button);
-        textView1 = findViewById(R.id.textView1);
+        push_up_timer_textView = findViewById(R.id.push_up_timer);
         textView2 = findViewById(R.id.textView2);
         text_result = findViewById(R.id.text_result);
         text_result.setVisibility(View.GONE);
@@ -104,7 +103,7 @@ public class PushUpMeasureActivity extends AppCompatActivity {
                 .build();
         preview.setSurfaceProvider(previewView.createSurfaceProvider());
         ImageAnalysis analysis = LiveVideoAnalyzer.getImageAnalysis(Executors.newSingleThreadExecutor(),
-                textView1, textView2, pushUpInterpreter, ActivityMode.PushUp);
+                push_up_timer_textView, textView2, pushUpInterpreter, ActivityMode.PushUp);
         cameraProvider.bindToLifecycle(this, cameraSelector, analysis, preview);
     }
 

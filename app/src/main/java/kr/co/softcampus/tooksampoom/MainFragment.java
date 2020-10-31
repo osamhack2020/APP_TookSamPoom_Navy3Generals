@@ -43,7 +43,7 @@ public class MainFragment extends Fragment{
 
 
 
-        score.setText("총점: "+ Double.toString((Math.round((formatPushUp(57)+formatSitUp(80)+formatRunning(720))*10)/10.0))+"점");
+        score.setText("평점: "+ Double.toString((Math.round((formatPushUp(57)+formatSitUp(80)+formatRunning(720))*10/3)/10.0))+"점");
         ArrayList<RadarEntry> dataValue = new ArrayList<>();
         dataValue.add(new RadarEntry(formatPushUp(57)));
         dataValue.add(new RadarEntry(formatSitUp(80)));

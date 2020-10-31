@@ -53,7 +53,7 @@ public class LiveVideoAnalyzer {
         }
     }
 
-    public static ImageAnalysis getImageAnalysis(Executor executor, TextView textView1, TextView textView2,
+    public static ImageAnalysis getImageAnalysis(Executor executor, TextView timer_textView, TextView textView2,
                                                  Interpreter interpreter, ActivityMode am) {
         ImageAnalysis imageAnalysis =
                 new ImageAnalysis.Builder()
@@ -110,11 +110,11 @@ public class LiveVideoAnalyzer {
                         }
                         //TSPdrawTools.createCountOverlay(overlay, am.name(), count, timer, maxInd);
                         //imageView.setImageBitmap(overlay);
-                        if(timer == 0){
-                            textView1.setText("Finished!");
+                        if(timer <= 0){
+                            timer_textView.setText("Finished!");
                         }
                         else {
-                            textView1.setText(timeFormatter(timer));
+                            timer_textView.setText(timeFormatter(timer));
                         }
                         if(developer_mode){
                             textView2.setText("횟수: "+ count +": "+ maxInd);

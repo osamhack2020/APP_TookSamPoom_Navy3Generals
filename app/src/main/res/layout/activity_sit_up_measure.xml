@@ -38,7 +38,7 @@
         android:textColor="#000000"
         android:textSize="60dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/textView1"
+        app:layout_constraintBottom_toTopOf="@+id/push_up_timer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -58,7 +58,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/push_up_timer"
         android:layout_width="208dp"
         android:layout_height="88dp"
         android:textAlignment="center"

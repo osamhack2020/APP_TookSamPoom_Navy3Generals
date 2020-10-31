@@ -61,7 +61,7 @@ public class SitUpMeasureActivity extends AppCompatActivity {
         Count = 0;
         DownHit = false;
         previewView = findViewById(R.id.previewView);
-        textView1 = findViewById(R.id.textView1);
+        textView1 = findViewById(R.id.push_up_timer);
         textView2 = findViewById(R.id.textView2);
         text_result = findViewById(R.id.text_result);
         previewView = findViewById(R.id.previewView);

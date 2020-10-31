@@ -22,10 +22,10 @@ public class RankFragment extends Fragment {
     ListView listView;
     //서버에서 데이터 받아오기
     String[] data1={
-        "김기태", "김민철", "정민석", "홍길동", "이상화", "이천수", "안정환", "아이유", "태연","아이린"
+        "김기태", "김민철", "유재석", "홍길동", "이상화", "이천수", "안정환", "정민석", "태연","아이린"
     };
     String[] data2={
-        "5.6", "5.3", "5.2", "5.1", "4.7", "4.4", "4.3", "4.2","3.1","2.6"
+        "5.6", "5.3", "5.2", "5.1", "4.7", "4.4", "4.3", "3.2","3.1","2.6"
     };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,7 +37,7 @@ public class RankFragment extends Fragment {
         for(int i=0; i<data1.length; i++){
             HashMap<String, Object> map = new HashMap<String, Object>();
             map.put("name", (i+1)+"위 "+ data1[i]);
-            map.put("score", "총점: "+data2[i]);
+            map.put("score", "평점: "+data2[i]);
             data_list.add(map);
         }
 
