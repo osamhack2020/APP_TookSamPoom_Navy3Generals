@@ -5,18 +5,22 @@
 ## 제품 소개(Product Description)
 
 **특삼품**은 **특급을 세개 받은 프리미엄 전사**라는 뜻으로 짓게 되었으며 국군 체력 통합관리 시스템 입니다. 
-특삼품은 크게 두 파트로 구성되어 있어 **TensorFlow** 기반의 체력검정 자동측정앱과 전군 통합 체력관리 웹시스템으로 구성되어 있습니다.
+특삼품은 크게 두 파트로 구성되어 있어 **TensorFlow** 기반의 체력검정 자동측정앱과 전군 통합 체력관리 웹시스템으로 구성되어 있습니다.  
 대한민국 군인이라면 일년에 한번씩 체력검정을 하게되어 있으며 우수한 성적을 거두어 특급전사가 될시 포상도 주어집니다!  
 하지만 채점자에 따라 체점기준이 판이하며 체력검정이 어려워 지기도 쉬워 지기도 하는것이 현실입니다.  
 저희는 체력검정 과정을 좀더 **객관적**으로 진행하고 **간소화**시키며 또한 수검자들이 미리 자신의 체력을  테스트 해 볼수 있도록 앱을 개발하게 되었습니다!  
+
+
 기본적으로 앱을 사용하는 사용자 입장에서는 **특삼품**이 개개인의 체력검정 측정에도 도움이 되고 사용자가 체력검정뿐만 아니라 개인적으로 체력증진에도 힘을 얻고 싶다고 생각할때에도 이 앱을 통해
 체력증진을 할 수 있도록 앱에 사용자가 그날 운동했던 운동량을 기록할 수 있게 되어있고 기록한 운동량을 보기쉽게 차트, 그래프 등으로 표현하여 나타내고 있습니다.  
-또한 요즘 20~30대 층에서 유행하는 게임들의 공통점인 경쟁구도를 통한 자신의 계급을 나타내고자 현재 자신이 앱 사용자들중에서 어떤 수준에 머물고 있는지를 재미있게 표현하여 조금 더 체력검정에 열정을 쏟을 수 있게 만들었습니다.  
+
+
 그리고 사용자 뿐만 아니라 체력검정을 관리하는 관리자 입장에서도 유용한 앱입니다.   
 측정을 할때마다 여러 사람이 붙어서 일일이 측정하고 그 기록을 수기로 작성하여 인트라넷에 입력하게 되면 귀찮음도 있을 뿐 더러 시간이 매우 많이 소모되고 그렇게 되면 효율성이 떨어지게 됩니다.  
-위의 피드백을 반영하여 시간을 극도로 단축시키며 정확하고 객관적으로 기록 할 수 있게 하기 위해 front end는 **html**, back end는 **node.js**, 데이터 베이스는 **sqlite**, 마지막으로 그래프는 **D3**를 이용하여 웹 서버 데이터베이스를 구축함으로써 사용자들의 기록을 관리자가 한눈에 볼 수 있게 만들었습니다.
-통합 어드민 페이지는 크게 3가지 구성요소로 이루어져 있습니다.
+위의 피드백을 반영하여 시간을 극도로 단축시키며 정확하고 객관적으로 기록 할 수 있게 하기 위해 Front end는 **html**, Back end는 **node.js**, 데이터 베이스는 **sqlite**, 마지막으로 그래프는 **D3**를 이용하여 웹 서버 데이터베이스를 구축함으로써 사용자들의 기록을 관리자가 한눈에 볼 수 있게 만들었습니다.  
 
+
+통합 어드민 페이지는 크게 3가지 구성요소로 이루어져 있습니다.
 
 각 군의 최근 한달동안 이루어진 체력검정 결과의 평균값을 레이더 차트 형식으로 비교 분석하는 그래프
 ![adminOverall](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/Tsp_admin_overall.png)
@@ -34,12 +38,27 @@
 TSP를 통하여 과거와 현재의 체력 대비태세를 점검하고 평가할수 있으며 매년 변화되는 국군 체력 증진 관련 정책의 효과를 실시간으로 확인하고 효과적인 정책을 선택하는데 큰 도움을 줄수 있습니다..
 이처럼 체력검정을 봐야하는 사용자 입장, 체력검정을 측정해야하는 관리자 입장에서도 모두 유용하게 사용할 수 있는 시스템입니다.
 
+### [Youtube 웹시연영상](https://www.youtube.com/watch?v=Y0NcxoXA_Go)
+[![WebVideo](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/YoutubeWebVideo.PNG)](https://www.youtube.com/watch?v=Y0NcxoXA_Go)
+
 ## 설치방법(Install)
 
 [apk파일 다운로드](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/tree/master/app/release)
 위 하이퍼링크에서 apk파일을 다운로드 받을 수 있습니다.
 
 ## 사용방법(How to use)
+
+앱의 시작화면입니다. 체력측정 시작시 체력측정 버튼을 클릭하시면 됩니다.
+<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/appstart.jpg width="600">  
+슬라이드를 이용하여 팔굽혀펴기, 윗몸일으키기, 3KM달리기 측정화면으로 넘어갈수있습니다.  
+<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/appstart.jpg width="600">  
+다음은 체력측정차트입니다. 현재페이지에서 체력측정기록을 한눈에 확인할 수 있습니다.  
+<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/appstart.jpg width="600">  
+랭킹페이지입니다. 앱사용자들의 체력순위를 나타내주는 페이지입니다.  
+<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/appranking.jpg width="600">  
+마지막으로 설정페이지입니다. 내정보, 등급표, 버전정보 등을 나타내주는 페이지입니다.  
+<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/appsetting.jpg width="600">  
+
 
 ## 개발과정(Development Process)
 저희 팀의 **특삼품**의 작동과정을 정리해보았습니다.
@@ -94,6 +113,8 @@ AI Modeling중 사용된 동영상을 프레임단위로 나눠지게 하여 샘
 App은 디자인, 편의성, 다양한 기능 등 여러가지 기술들을 개발하여 사용자가 사용할때 보다 쉽게 App에 접근할 수 있도록 개발하였습니다.
 App은 크게 다양한 운동 종목을 측정할 수 있는 측정 엑티비티, 사용자가 측정한 기록을 시간 순서에 따라 보여주는 그래프 엑티비티, 그리고 사용자의 프로필 및 사용자의 최대 능력을 보여주는 프로필 엑티비티로 구성되어 있습니다. 
 
+### [Youtube 앱시연영상](https://www.youtube.com/watch?v=xPObigWPFjk)
+[![AppVideo](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/YoutubeAppVideo.PNG)](https://www.youtube.com/watch?v=xPObigWPFjk)
 
 ### Server 개발
 
