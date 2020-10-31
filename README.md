@@ -2,6 +2,8 @@
 
 <img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/1604101210360.jpg width="400">
 
+[특삼품 발표영상 링크](https://youtu.be/qkfZa8Jdy54)
+
 ## 제품 소개(Product Description)
 
 **특삼품**은 **특급을 세개 받은 프리미엄 전사**라는 뜻으로 짓게 되었으며 국군 체력 통합관리 시스템 입니다. 
