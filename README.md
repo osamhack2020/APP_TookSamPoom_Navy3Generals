@@ -8,6 +8,8 @@
 특삼품은 크게 두 파트로 구성되어 있어 **TensorFlow** 기반의 체력검정 자동측정앱과 전군 통합 체력관리 웹시스템으로 구성되어 있습니다.  
 대한민국 군인이라면 매년 실시해야 하는 덕목중 하나가 바로 체력검정입니다. 체력은 국력이라는 말이 있듯이 군인에게 체력은 임무를 수행함에 있어 가장 중요한 덕목중에 하나입니다. 다만 현재 실시되는 아날로그 방식의 체력검정 시스템은 객관성의 부재, 아날로그 방식에서 발생하는 갖가지 휴먼에러, 많은 인력 동원의 필요성, 그리고 자율적인 체력검정 실시의 불가능 등 여러가지 단점을 가지고 있습니다. 저희는 이러한 단점을 극복하고 군에 효율적인 장병 체력관리 시스템을 제공하고자 하여 프로젝트를 시작하게 되었습니다. 
 
+<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/Tsproute.png width="1200">
+
 ___
 ### 통합 체력관리 Webservice
 
@@ -17,14 +19,14 @@ ___
 ![adminOverall](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/Tsp_admin_overall.png)
 
 각 군의 매달 실시되는 체력검정 결과에 평균값을 내어 최근 1년동안의 평균 체력 변화 추이를 보여주는 라인 그래프(5점:특급, 4점:1급, 3점:2급, 1점이하:미달)
-![adminOverall](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/Tsp_admin_overall_history.png)
+![adminOverall](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/Tsp_admin_per_base.png)
+![adminOverall2](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/Tsp_admin_overall_history.png)
 
 그리고 구체적인 부대별 체력 대비테세 및 상,하위 부대를 확인할 수 있는 부대별 최근 한달동안의 체력검정 결과 테이블을 제공하고 있습니다.
-![adminOverall](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/Tsp_admin_per_base.png)
+<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/webpimage.png width="1200">
 
 위의 3가지 구성요소를 통합 어드민 페이지에서 실시간으로 제공하고 있습니다.
 ![adminPage](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/Tsp_adminPage.png)
-<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/webpimage.png width="1200">
 
 이러한 통합 시스템은 관리자가 좁게는 개개인의 사용자의 체력검정능력을 넓게는 각 부대 단위의 체력을 측정하고 관리할 수 있게됩니다.
 TSP를 통하여 과거와 현재의 체력 대비태세를 점검하고 평가할수 있으며 매년 변화되는 국군 체력 증진 관련 정책의 효과를 실시간으로 확인하고 효과적인 정책을 선택하는데 큰 도움을 줄수 있습니다.
