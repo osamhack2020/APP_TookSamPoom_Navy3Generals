@@ -22,8 +22,7 @@ ___
 ![adminOverall2](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/Tsp_admin_overall_history.png)
 
 그리고 구체적인 부대별 체력 대비테세 및 상,하위 부대를 확인할 수 있는 부대별 최근 한달동안의 체력검정 결과 테이블을 제공하고 있습니다.
-![adminOverall](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/Tsp_admin_per_base.png)  
-<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/webpimage.png width="1200">
+![adminOverall](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/webpimage.png)  
 
 위의 3가지 구성요소를 통합 어드민 페이지에서 실시간으로 제공하고 있습니다.
 ![adminPage](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/Tsp_adminPage.png)
@@ -64,7 +63,7 @@ App은 크게 다양한 운동 종목을 측정할 수 있는 측정 엑티비�
 <img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/app3km.jpg width="300">  
 
 다음은 체력측정차트입니다. 현재페이지에서 체력측정기록을 한눈에 확인할 수 있습니다.  
-<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/apppushupchart.jpg width="300">
+<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/apppushupchart.jpg width="300">
 <img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/appsitupchart.jpg width="300">
 <img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/app3kmchart.jpg width="300">  
 
