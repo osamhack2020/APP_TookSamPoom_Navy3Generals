@@ -42,7 +42,7 @@ Server는 Node.js 기반으로 SQLite를 활용하여 데이터를 저장하도�
 
 ### [Youtube 웹시연영상](https://www.youtube.com/watch?v=Y0NcxoXA_Go)
 [![WebVideo](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/YoutubeWebVideo.PNG)](https://www.youtube.com/watch?v=Y0NcxoXA_Go)
-<img src="https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/WEBPage.gif"/>
+<img src="https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/WEBPage.gif" width="400"/>
 ## 설치방법(Install)
 
 [apk파일 다운로드](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/tree/master/app/release)
