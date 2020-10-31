@@ -4,9 +4,9 @@
 
 ## 제품 소개(Product Description)
 
-**특삼품**은 **특급을 세개 받은 프리미엄 전사**라는 뜻으로 짓게 되었으며 국군 체력 통합관리 시스템 입니다.
-특삼품은 크게 두 파트로 구성되어 있어 **TensorFlow** 기반의 체력검정 자동측정앱과 전군 통합 체력관리 웹시스템으로 구성되어 있습니다.
-대한민국 군인이라면 매년 실시해야 하는 덕목중 하나가 바로 체력검정입니다. 체력은 국력이라는 말이 있듯이 군인에게 체력은 임무를 수행함에 있어 가장 중요한 덕목중에 하나입니다. 다만 현재 실시되는 아날로그 방식의 체력검정 시스템은 객관성의 부재, 아날로그 방식에서 발생하는 갖가지 휴먼에러, 많은 인력 동원의 필요성, 그리고 자율적인 체력검정 실시의 불가능 등 여러가지 단점을 가지고 있습니다. 저희는 이러한 단점을 극복하고 군에 효율적인 장병 체력관리 시스템을 제공하고자 하여 프로젝트를 시작하게 되었습니다.
+**특삼품**은 **특급을 세개 받은 프리미엄 전사**라는 뜻으로 짓게 되었으며 국군 체력 통합관리 시스템 입니다. 
+특삼품은 크게 두 파트로 구성되어 있어 **TensorFlow** 기반의 체력검정 자동측정앱과 전군 통합 체력관리 웹시스템으로 구성되어 있습니다.  
+대한민국 군인이라면 매년 실시해야 하는 덕목중 하나가 바로 체력검정입니다. 체력은 국력이라는 말이 있듯이 군인에게 체력은 임무를 수행함에 있어 가장 중요한 덕목중에 하나입니다. 다만 현재 실시되는 아날로그 방식의 체력검정 시스템은 객관성의 부재, 아날로그 방식에서 발생하는 갖가지 휴먼에러, 많은 인력 동원의 필요성, 그리고 자율적인 체력검정 실시의 불가능 등 여러가지 단점을 가지고 있습니다. 저희는 이러한 단점을 극복하고 군에 효율적인 장병 체력관리 시스템을 제공하고자 하여 프로젝트를 시작하게 되었습니다. 
 
 ___
 
@@ -31,13 +31,16 @@ TSP를 통하여 과거와 현재의 체력 대비태세를 점검하고 평가�
 ### App 개발
 
 App은 디자인, 편의성, 다양한 기능 등 여러가지 기술들을 개발하여 사용자가 사용할때 보다 쉽게 App에 접근할 수 있도록 개발하였습니다.
-App은 크게 다양한 운동 종목을 측정할 수 있는 측정 엑티비티, 사용자가 측정한 기록을 시간 순서에 따라 보여주는 그래프 엑티비티, 그리고 사용자의 프로필 및 사용자의 최대 능력을 보여주는 프로필 엑티비티로 구성되어 있습니다.
+App은 크게 다양한 운동 종목을 측정할 수 있는 측정 엑티비티, 사용자가 측정한 기록을 시간 순서에 따라 보여주는 그래프 엑티비티, 그리고 사용자의 프로필 및 사용자의 최대 능력을 보여주는 프로필 엑티비티로 구성되어 있습니다. 
 
 ### [Youtube 앱시연영상](https://www.youtube.com/watch?v=xPObigWPFjk)
-[![AppVideo](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/YoutubeAppVideo.PNG)](https://www.youtube.com/watch?v=xPObigWPFjk)
+<img src="https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/App_running_animation.gif" width="600"/>
 
 #### [Youtube 팔굽혀펴기 시연영상](https://youtu.be/Q6kNGw0_eKk)
+[![AppVideo](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/push_up_video.png)](https://youtu.be/Q6kNGw0_eKk)
 
+#### [Youtube 윗몸일으키기 시연영상](https://youtu.be/F8IG_mpT1xQ)
+[![AppVideo](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/sit_up_video.png)](https://youtu.be/F8IG_mpT1xQ)
 ### Server 개발
 
 Server는 Node.js 기반으로 SQLite를 활용하여 데이터를 저장하도록 디자인 되었습니다. Server는 각종 데이터의 축적 및 분석을 실행하는 통합 정보 페이지를 제공합니다. 시스템 어드민은 통합 정보 페이지를 통하여 각 사용자의 데이터 및 통계 데이터를 실시간으로 확인하고 변경할 수 있습니다. 통합 정보 페이지에서는 현제 군의 평균 체력 상태뿐만 아니라 최근 1년간의 체력 측정 정보, 각 부대별 체력 측정 현황등을 확인할 수 있습니다.
@@ -51,16 +54,24 @@ Server는 Node.js 기반으로 SQLite를 활용하여 데이터를 저장하도�
 
 ## 사용방법(How to use)
 
-앱의 시작화면입니다. 체력측정 시작시 체력측정 버튼을 클릭하시면 됩니다.
-<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/appstart.jpg width="400">
-슬라이드를 이용하여 팔굽혀펴기, 윗몸일으키기, 3KM달리기 측정화면으로 넘어갈수있습니다.
-<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/appstart.jpg width="600">
-다음은 체력측정차트입니다. 현재페이지에서 체력측정기록을 한눈에 확인할 수 있습니다.
-<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/appstart.jpg width="600">
-랭킹페이지입니다. 앱사용자들의 체력순위를 나타내주는 페이지입니다.
-<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/appranking.jpg width="600">
-마지막으로 설정페이지입니다. 내정보, 등급표, 버전정보 등을 나타내주는 페이지입니다.
-<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/appsetting.jpg width="600">
+앱의 시작화면입니다. 체력측정 시작시 체력측정 버튼을 클릭하시면 됩니다.  
+<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/appstart.jpg width="400">  
+
+슬라이드를 이용하여 팔굽혀펴기, 윗몸일으키기, 3KM달리기 측정화면으로 넘어갈수있습니다.  
+<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/apppushup.jpg width="300">
+<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/appsitup.jpg width="300">
+<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/app3km.jpg width="300">  
+
+다음은 체력측정차트입니다. 현재페이지에서 체력측정기록을 한눈에 확인할 수 있습니다.  
+<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/apppushupchart.jpg width="300">
+<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/appsitupchart.jpg width="300">
+<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/app3kmchart.jpg width="300">  
+
+랭킹페이지입니다. 앱사용자들의 체력순위를 나타내주는 페이지입니다.  
+<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/appranking.jpg width="400">  
+
+마지막으로 설정페이지입니다. 내정보, 등급표, 버전정보 등을 나타내주는 페이지입니다.  
+<img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/appsetting.jpg width="400">  
 
 
 ## 개발과정(Development Process)
@@ -68,13 +79,13 @@ Server는 Node.js 기반으로 SQLite를 활용하여 데이터를 저장하도�
 
 ### Model 개발
 체력검정 측정하는데에 있어 제일 기본이 되는 **이미지 분석 Model** 입니다.
-스마트폰에 있는 카메라 기능을 이용하여 수검자들의 신체를 AI MODEL이 인식한 후 수검자들의 훈련중 자세를 측정하고 측정한 자세를 기반으로 운동 횟수를 객관적으로 측정하는 시스템입니다.
-저희 이미지 분석 기반 모델은 크게 두 부분으로 구성되어 있습니다.
+스마트폰에 있는 카메라 기능을 이용하여 수검자들의 신체를 AI MODEL이 인식한 후 수검자들의 훈련중 자세를 측정하고 측정한 자세를 기반으로 운동 횟수를 객관적으로 측정하는 시스템입니다.  
+저희 이미지 분석 기반 모델은 크게 두 부분으로 구성되어 있습니다. 
 1. [Google](https://www.google.com/)에서 제공하는 오픈 소스형 ML API인 [ML Kit Pose Detection](https://developers.google.com/ml-kit/vision/pose-detection)
-ML Kit Pose Detection은 사람의 신체구조를 좌표로 리턴해주는 API입니다.
+ML Kit Pose Detection은 사람의 신체구조를 좌표로 리턴해주는 API입니다. 
 2. 저희가 독자적으로 개발한 TSP image classifier 입니다.
-저희 **특삼품**은 팔굽혀펴기와 윗몸일으키기를 측정하기 위해 다양한 샘플을 다양한 각도에서 촬영한 데이터를 가지고 AI Modeling을 하였습니다.
-AI Modeling중 사용된 동영상을 프레임단위로 나눠지게 하여 샘플이 팔굽혀펴기와 윗몸일으키기 도중 어떠한 상태를 취하고 있는지를 분석하여 팔굽혀펴기와 윗몸일으키기마다 약 4만장의 이미지를 분석하여 AI Modeling을 하였고 **시작자세(Stand)**, **움직임자세(Move)**, **끝자세(Down)** 를 트레이닝해 특정 자세패턴을 통과시 갯수를 카운트 하는 모델입니다.
+저희 **특삼품**은 팔굽혀펴기와 윗몸일으키기를 측정하기 위해 다양한 샘플을 다양한 각도에서 촬영한 데이터를 가지고 AI Modeling을 하였습니다.  
+AI Modeling중 사용된 동영상을 프레임단위로 나눠지게 하여 샘플이 팔굽혀펴기와 윗몸일으키기 도중 어떠한 상태를 취하고 있는지를 분석하여 팔굽혀펴기와 윗몸일으키기마다 약 4만장의 이미지를 분석하여 AI Modeling을 하였고 **시작자세(Stand)**, **움직임자세(Move)**, **끝자세(Down)** 를 트레이닝해 특정 자세패턴을 통과시 갯수를 카운트 하는 모델입니다.  
 
 #### 예제(Example)
 
@@ -82,21 +93,21 @@ AI Modeling중 사용된 동영상을 프레임단위로 나눠지게 하여 샘
 
 위 사진은 이미지의 신체내 각종 골격의 좌표를 특정 행동으로 분류하는 작업입니다. 사진마다 일일이 Stand, Move, Down을 입력해 AI Model이 인식하여 측정할 수 있게 데이터 작업을 약 100+시간, 40,000+장의 사진을 분류하였습니다.
 
-![pushupb](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/pushup_classification.png)
-![situpb](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/situp_classification.png)
+![pushupb](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/pushup_classification.png)  
+![situpb](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/situp_classification.png)  
 
 #### POC(Proof Of Concept)
 
-약 1000장의 이미지를 우선적으로 확보하여 POC 개념으로 초기모델을 생성 테스트하였습니다. 그 후 정확도를 올리기 위해 더 많은 이미지를 분류하고 적용하였습니다.
+약 1000장의 이미지를 우선적으로 확보하여 POC 개념으로 초기모델을 생성 테스트하였습니다. 그 후 정확도를 올리기 위해 더 많은 이미지를 분류하고 적용하였습니다.  
 ![POC](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/POC.png)
 
 
-이외에도 체력측정의 정확성과 효율성을 높이기 위해 저희 팀은 모델의 **정규화**와 **경량화** 를 하였습니다.
+이외에도 체력측정의 정확성과 효율성을 높이기 위해 저희 팀은 모델의 **정규화**와 **경량화** 를 하였습니다.  
 
 #### 모델 정규화
 
 기본 모델에서 조금 더 정교한 측정을 위해 다양한 모델 정규화를 테스트하였습니다.
-신체부위의 각 위치는 이미지 내의 px의 위치를 좌표값으로 받습니다. 첫번째 프로토 타입은 이미지 내의 인체 좌표값의 최대값을 1, 최소값을 0으로 재분포하여 이미지의 기존 좌표축을 기준으로 계산할시 ~95%의 정확도를 보였습니다.
+신체부위의 각 위치는 이미지 내의 px의 위치를 좌표값으로 받습니다. 첫번째 프로토 타입은 이미지 내의 인체 좌표값의 최대값을 1, 최소값을 0으로 재분포하여 이미지의 기존 좌표축을 기준으로 계산할시 ~95%의 정확도를 보였습니다. 
 따라서 모델의 정확도를 향상시키기 위해 다양한 신체 위치를 기준으로 좌표축을 새롭게 산출하여 모델의 성능을 테스트 하였습니다.
 
 ![nomalization](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/axis_comparison.png)
@@ -107,7 +118,7 @@ AI Modeling중 사용된 동영상을 프레임단위로 나눠지게 하여 샘
 1차적으로 수작업으로 모델의 효율성 향상 및 불필요한 연산과정을  제거하여 정확도가 큰 폭으로 변하지 않는 선에서 모델의 최종 변수의 갯수를 최소화 하였습니다.
 2차적으로 Tensorflow Converter를 사용하여 model.tf 를 TFLite로 변환하여 weight가 낮은 변수 제거 및 Android 환경 최적화를 진행하였습니다.
 
-![WeightL](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/WeightL2.PNG)
+![WeightL](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/WeightL2.PNG)  
 
 기존 모델은 서버에서 이용하여 데이터를 측정하고 하였으나 모델의 정규화와 경량화를 거친후에는 앱 자체에서도 로컬머신으로 측정이 가능하게 하여 서버와 통신없이 자체적으로 측정할 수 있게 되었습니다.
 
@@ -127,7 +138,7 @@ AI Modeling중 사용된 동영상을 프레임단위로 나눠지게 하여 샘
 ## 기술 스택 (Technique Used)
 
 
-### Server
+### Server 
 ![Server](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/ServerLogo.png)
 
 ### App
