@@ -37,7 +37,7 @@ App은 크게 다양한 운동 종목을 측정할 수 있는 측정 엑티비�
 [![AppVideo](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/YoutubeAppVideo.PNG)](https://www.youtube.com/watch?v=xPObigWPFjk)
 
 #### [Youtube 팔굽혀펴기 시연영상](https://youtu.be/Q6kNGw0_eKk)
-[![AppVideo](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/push_up_video.PNG)](https://youtu.be/Q6kNGw0_eKk)
+[![AppVideo](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/push_up_video.png)](https://youtu.be/Q6kNGw0_eKk)
 
 ### Server 개발
 
