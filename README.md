@@ -19,10 +19,10 @@ ___
 ![adminOverall](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/Tsp_admin_overall.png)
 
 각 군의 매달 실시되는 체력검정 결과에 평균값을 내어 최근 1년동안의 평균 체력 변화 추이를 보여주는 라인 그래프(5점:특급, 4점:1급, 3점:2급, 1점이하:미달)
-![adminOverall](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/Tsp_admin_per_base.png)
 ![adminOverall2](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/Tsp_admin_overall_history.png)
 
 그리고 구체적인 부대별 체력 대비테세 및 상,하위 부대를 확인할 수 있는 부대별 최근 한달동안의 체력검정 결과 테이블을 제공하고 있습니다.
+![adminOverall](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/Tsp_admin_per_base.png)  
 <img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/webpimage.png width="1200">
 
 위의 3가지 구성요소를 통합 어드민 페이지에서 실시간으로 제공하고 있습니다.
