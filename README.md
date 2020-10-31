@@ -41,8 +41,7 @@ App은 크게 다양한 운동 종목을 측정할 수 있는 측정 엑티비�
 Server는 Node.js 기반으로 SQLite를 활용하여 데이터를 저장하도록 디자인 되었습니다. Server는 각종 데이터의 축적 및 분석을 실행하는 통합 정보 페이지를 제공합니다. 시스템 어드민은 통합 정보 페이지를 통하여 각 사용자의 데이터 및 통계 데이터를 실시간으로 확인하고 변경할 수 있습니다. 통합 정보 페이지에서는 현제 군의 평균 체력 상태뿐만 아니라 최근 1년간의 체력 측정 정보, 각 부대별 체력 측정 현황등을 확인할 수 있습니다.
 
 ### [Youtube 웹시연영상](https://www.youtube.com/watch?v=Y0NcxoXA_Go)
-[![WebVideo](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/YoutubeWebVideo.PNG)](https://www.youtube.com/watch?v=Y0NcxoXA_Go)
-<img src="https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/WEBPage.gif" width="1000"/>
+<img src="https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/WEBPage.gif" width="1200"/>
 ## 설치방법(Install)
 
 [apk파일 다운로드](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/tree/master/app/release)
