@@ -34,7 +34,7 @@ App은 디자인, 편의성, 다양한 기능 등 여러가지 기술들을 개�
 App은 크게 다양한 운동 종목을 측정할 수 있는 측정 엑티비티, 사용자가 측정한 기록을 시간 순서에 따라 보여주는 그래프 엑티비티, 그리고 사용자의 프로필 및 사용자의 최대 능력을 보여주는 프로필 엑티비티로 구성되어 있습니다. 
 
 ### [Youtube 앱시연영상](https://www.youtube.com/watch?v=xPObigWPFjk)
-<img src="https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/App_running_animation.gif" width="1200"/>
+<img src="https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/App_running_animation.gif" width="600"/>
 
 #### [Youtube 팔굽혀펴기 시연영상](https://youtu.be/Q6kNGw0_eKk)
 [![AppVideo](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/push_up_video.png)](https://youtu.be/Q6kNGw0_eKk)
