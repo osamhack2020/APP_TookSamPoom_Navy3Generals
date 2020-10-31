@@ -65,7 +65,7 @@ AI Modeling중 사용된 동영상을 프레임단위로 나눠지게 하여 샘
 
 #### POC(Proof Of Concept)
 
-약 1000장의 이미지를 우선적으로 확보하여 POC 개념으로 초기모델을 생성 테스트하였습니다. 그 후 정확도를 올리기 위해 더 많은 이미지를 분류하고 적용하였습니다.
+약 1000장의 이미지를 우선적으로 확보하여 POC 개념으로 초기모델을 생성 테스트하였습니다. 그 후 정확도를 올리기 위해 더 많은 이미지를 분류하고 적용하였습니다.  
 ![POC](https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/Markdown/sampleImage/POC.png)
 
 
