@@ -54,7 +54,7 @@ App은 크게 다양한 운동 종목을 측정할 수 있는 측정 엑티비�
 
 ## 사용방법(How to use)
 
-* 앱의 시작화면입니다. 체력측정 시작시 체력측정 버튼을 클릭하시면 됩니다.<br><br>
+* 앱의 시작화면입니다. 체력측정 시작시 체력측정 버튼을 클릭하시면 됩니다.
 <img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/appstart.jpg width="400">  
 
 * 슬라이드를 이용하여 팔굽혀펴기, 윗몸일으키기, 3KM달리기 측정화면으로 넘어갈수있습니다.
@@ -71,10 +71,10 @@ App은 크게 다양한 운동 종목을 측정할 수 있는 측정 엑티비�
 <img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/app3kmchart.jpg width="290">
 </p>
 
-* 랭킹페이지입니다. 앱사용자들의 체력순위를 나타내주는 페이지입니다.<br><br>
+* 랭킹페이지입니다. 앱사용자들의 체력순위를 나타내주는 페이지입니다.
 <img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/appranking.jpg width="400">  
 
-* 마지막으로 설정페이지입니다. 내정보, 등급표, 버전정보 등을 나타내주는 페이지입니다.<br><br>
+* 마지막으로 설정페이지입니다. 내정보, 등급표, 버전정보 등을 나타내주는 페이지입니다.
 <img src= https://github.com/osamhack2020/APP_TookSamPoom_Navy3Generals/blob/master/sampleImage/appsetting.jpg width="400">  
 
 
